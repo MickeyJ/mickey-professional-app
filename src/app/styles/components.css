@@ -1,0 +1,47 @@
+/* Component-specific styles */
+@layer components {
+
+
+  /* Primary button */
+  .btn-primary {
+    @apply px-6 py-3 rounded-button font-bold cursor-pointer;
+    background-color: var(--color-neutral-50);
+    border: 1px solid transparent;
+    color: var(--color-neutral-950);
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    color: var(--color-neutral-50);
+    background-color: transparent;
+    border: 1px solid var(--color-neutral-400);
+  }
+
+  /* Light primary button */
+  .btn-secondary {
+    @apply px-6 py-3 rounded-button font-bold cursor-pointer;
+    background-color: transparent;
+    border: 1px solid var(--color-neutral-800);
+    color: var(--color-neutral-50);
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border: 1px solid var(--color-neutral-400);
+  }
+
+  /* Updated feature card for dark theme */
+  .feature-card {
+    @apply rounded-card p-8 shadow-card;
+    background-color: var(--color-base-300);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    transition: all 0.3s;
+  }
+
+  .feature-card:hover {
+    @apply shadow-card-hover;
+    background-color: var(--color-base-100);
+    border-color: rgb(255 255 255 / 0.2);
+    transform: translateY(-2px);
+  }
+}

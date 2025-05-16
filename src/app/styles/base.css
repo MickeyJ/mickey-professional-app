@@ -1,0 +1,14 @@
+@layer base {
+
+  html,
+  :root {
+    font-family: var(--font-primary), system-ui, sans-serif;
+    background-color: var(--color-base-300);
+    color: var(--color-base-content);
+  }
+
+  body {
+    background-color: var(--color-base-300);
+    color: var(--color-base-content);
+  }
+}

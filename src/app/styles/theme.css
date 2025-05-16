@@ -1,0 +1,132 @@
+/* Tailwind v4 CSS-first configuration */
+@theme {
+  /* Base theme colors */
+  /* Base theme colors - pure grayscale */
+  --color-base-100: oklch(10% 0 0);
+  /* Darkest background */
+  --color-base-200: oklch(15% 0 0);
+  /* Card background */
+  --color-base-300: oklch(20% 0 0);
+  /* Main background */
+  --color-base-content: oklch(90% 0 0);
+  /* Main text color */
+  --color-highlight: oklch(100% 0 0);
+
+
+
+  /* Neutral grayscale palette */
+  --color-neutral-50: oklch(100% 0 0);
+  --color-neutral-100: oklch(90% 0 0);
+  --color-neutral-200: oklch(80% 0 0);
+  --color-neutral-300: oklch(70% 0 0);
+  --color-neutral-400: oklch(60% 0 0);
+  --color-neutral-500: oklch(50% 0 0);
+  --color-neutral-600: oklch(40% 0 0);
+  --color-neutral-700: oklch(30% 0 0);
+  --color-neutral-800: oklch(20% 0 0);
+  --color-neutral-900: oklch(10% 0 0);
+  --color-neutral-950: oklch(0% 0 0);
+
+  --color-text-bright: var(--color-neutral-50);
+  --color-text-dim: var(--color-neutral-200);
+  --color-text-dark: var(--color-neutral-500);
+
+  /* Primary and Secondary */
+  --color-primary: oklch(15% 0 0);
+  --color-primary-content: oklch(95% 0 0);
+  --color-secondary: oklch(95% 0 0);
+  --color-secondary-content: oklch(15% 0 0);
+
+  /* Status colors - keeping as is */
+  --color-info: oklch(88.263% 0.093 212.846);
+  --color-info-content: oklch(17.652% 0.018 212.846);
+  --color-success: oklch(87.099% 0.219 148.024);
+  --color-success-content: oklch(17.419% 0.043 148.024);
+  --color-warning: oklch(95.533% 0.134 112.757);
+  --color-warning-content: oklch(19.106% 0.026 112.757);
+  --color-error: oklch(68.22% 0.206 24.43);
+  --color-error-content: oklch(13.644% 0.041 24.43);
+
+  /* Feature 1 - Teal */
+  --color-feature-1-base: oklch(65% 0.14 195);
+  /* #50A3A4 - Teal */
+  --color-feature-1-50: oklch(95% 0.04 195);
+  --color-feature-1-100: oklch(90% 0.06 195);
+  --color-feature-1-200: oklch(80% 0.08 195);
+  --color-feature-1-300: oklch(75% 0.11 195);
+  --color-feature-1-400: oklch(70% 0.13 195);
+  --color-feature-1-500: var(--color-feature-1-base);
+  --color-feature-1-600: oklch(55% 0.15 195);
+  --color-feature-1-700: oklch(45% 0.12 195);
+  --color-feature-1-800: oklch(35% 0.09 195);
+  --color-feature-1-900: oklch(25% 0.07 195);
+
+  /* Feature 2 - Amber/Orange */
+  --color-feature-2-base: oklch(75% 0.18 80);
+  /* #FCAF38 - Amber */
+  --color-feature-2-50: oklch(95% 0.05 80);
+  --color-feature-2-100: oklch(90% 0.08 80);
+  --color-feature-2-200: oklch(85% 0.12 80);
+  --color-feature-2-300: oklch(80% 0.15 80);
+  --color-feature-2-400: oklch(77% 0.17 80);
+  --color-feature-2-500: var(--color-feature-2-base);
+  --color-feature-2-600: oklch(65% 0.19 80);
+  --color-feature-2-700: oklch(55% 0.17 80);
+  --color-feature-2-800: oklch(45% 0.13 80);
+  --color-feature-2-900: oklch(35% 0.09 80);
+
+  /* Feature 3 - Red/Orange */
+  --color-feature-3-base: oklch(65% 0.22 30);
+  /* #F95335 - Red/Orange */
+  --color-feature-3-50: oklch(95% 0.06 30);
+  --color-feature-3-100: oklch(90% 0.09 30);
+  --color-feature-3-200: oklch(85% 0.12 30);
+  --color-feature-3-300: oklch(75% 0.16 30);
+  --color-feature-3-400: oklch(70% 0.19 30);
+  --color-feature-3-500: var(--color-feature-3-base);
+  --color-feature-3-600: oklch(55% 0.24 30);
+  --color-feature-3-700: oklch(45% 0.20 30);
+  --color-feature-3-800: oklch(35% 0.16 30);
+  --color-feature-3-900: oklch(25% 0.12 30);
+
+  /* Custom spacing */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-26: 6.5rem;
+  --spacing-30: 7.5rem;
+
+  /* Typography */
+  --font-primary: 'Mulish';
+  --font-secondary: 'Jetbrains Mono';
+  --font-tertiary: 'Doto';
+  --font-sans: var(--font-primary), system-ui, sans-serif;
+
+  /* Custom font sizes */
+  --font-size-display-lg: 4.5rem;
+  --font-size-display-md: 3.75rem;
+  --font-size-display-sm: 3rem;
+  --font-size-heading-lg: 2.25rem;
+  --font-size-heading-md: 1.875rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body-md: 1rem;
+
+  /* Custom line heights */
+  --line-height-display: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-body: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Border radius */
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
+
+  /* Shadows for dark theme */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+  --shadow-card-hover: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -2px rgb(0 0 0 / 0.3);
+
+  /* Animations */
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --timing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
