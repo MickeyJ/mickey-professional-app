@@ -1,10 +1,10 @@
 /* Component-specific styles */
 @layer components {
 
-
   /* Primary button */
   .btn-primary {
-    @apply px-6 py-3 rounded-button font-bold cursor-pointer;
+    @apply px-2 rounded-button font-bold cursor-pointer;
+    height: 2rem;
     background-color: var(--color-neutral-50);
     border: 1px solid transparent;
     color: var(--color-neutral-950);
@@ -19,7 +19,8 @@
 
   /* Light primary button */
   .btn-secondary {
-    @apply px-6 py-3 rounded-button font-bold cursor-pointer;
+    @apply px-2 rounded-button font-bold cursor-pointer;
+    height: 2rem;
     background-color: transparent;
     border: 1px solid var(--color-neutral-800);
     color: var(--color-neutral-50);

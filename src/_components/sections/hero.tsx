@@ -1,6 +1,6 @@
 export default function HeroSection() {
   return (
-    <section className="py-10">
+    <section className="py-20">
       <div className="max-w-6xl mx-auto">
         <div className="max-w-3xl">
           <h1 className="text-display-lg text-light mb-6 text-balance ">
