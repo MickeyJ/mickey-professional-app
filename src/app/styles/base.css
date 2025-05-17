@@ -5,10 +5,19 @@
     font-family: var(--font-primary), system-ui, sans-serif;
     background-color: var(--color-base-300);
     color: var(--color-base-content);
+    overflow-x: hidden !important;
+    margin-right: calc(-1 * (100vw - 100%)) !important;
   }
 
   body {
     background-color: var(--color-base-300);
     color: var(--color-base-content);
+
   }
+
+  nav {
+    overflow-x: hidden !important;
+    margin-right: calc(-1 * (100vw - 100%)) !important;
+  }
+
 }

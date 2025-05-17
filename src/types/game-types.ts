@@ -1,3 +1,19 @@
+export enum Difficulty {
+  easy = 'easy',
+  medium = 'medium',
+  hard = 'hard',
+}
+
+export interface DifficultyLevel {
+  pairs: number;
+  timeout: number;
+  name: Difficulty;
+}
+
+export interface DifficultyLevels {
+  [key: string]: DifficultyLevel;
+}
+
 export interface CardReferences {
   [key: string]: Character;
 }

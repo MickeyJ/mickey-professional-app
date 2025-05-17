@@ -1,4 +1,5 @@
 import config from '@/config';
+import type { Character } from '@/types';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 const client = new ApolloClient({
@@ -29,3 +30,14 @@ export const getCharacterData = async (page: number = 1, name: string) =>
       }
     `,
   });
+
+export const loadingCharacterData = (cardsPerPage: number): Character[] => {
+  return Array.from({ length: cardsPerPage }, (_, i) => ({
+    id: i * 10000,
+    name: 'Loading...',
+    image: '/person-image-placeholder.png',
+    location: {
+      name: 'Loading...',
+    },
+  }));
+};

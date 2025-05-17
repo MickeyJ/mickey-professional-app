@@ -89,7 +89,7 @@
   }
 
   .animate-shimmer {
-    animation: shimmer 3s infinite linear;
+    animation: shimmer 4s infinite linear;
     background: linear-gradient(135deg,
         var(--color-base-100) 5%,
         var(--color-base-300) 50%,

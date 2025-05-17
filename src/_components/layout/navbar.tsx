@@ -27,8 +27,8 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect mr-1">
+      <div className="px-6 py-4 flex justify-between items-center">
         <div>
           <Link
             href="/"

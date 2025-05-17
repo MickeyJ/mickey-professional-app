@@ -2,56 +2,48 @@ import type { CardReferences, Character } from '@/types';
 import GameCard from './game-card';
 
 interface RenderCardsProps {
+  loading: boolean;
   characterData: Character[];
   selectedCards: CardReferences;
   flippedCards: CardReferences;
-  handleSelectCard: (
-    character: Character,
-    index: number
-  ) => (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleSelectOrRemoveCard: (character: Character) => void;
 }
 
 export default function RenderCards({
+  loading,
   characterData,
   selectedCards,
   flippedCards,
-  handleSelectCard,
+  handleSelectOrRemoveCard,
 }: RenderCardsProps) {
-  const characterDataFiltered = [...characterData].filter((character, i) => {
-    const selectedCard = Object.keys(selectedCards).find(
-      (key) => selectedCards[key].id === character.id
-    );
-    return !selectedCard;
-  });
+  // const characterDataFiltered = [...characterData].filter((character, i) => {
+  //   const selectedCard = Object.keys(selectedCards).find(
+  //     (key) => selectedCards[key].id === character.id
+  //   );
+  //   return !selectedCard;
+  // });
 
-  return [...characterData, ...Object.keys(selectedCards)].map(
-    (_, i: number) => {
-      let character: Character | undefined;
-      if (selectedCards[i]) {
-        character = selectedCards[i];
-      } else {
-        character = characterDataFiltered.shift();
-      }
-      if (!character) {
-        return undefined;
-      }
-
-      return (
-        <div
-          key={character.id + character.name}
-          onClick={handleSelectCard(character, i)}
-        >
-          <GameCard
-            id={character.id}
-            index={i}
-            isSelected={!!selectedCards[i]}
-            isFlipped={false}
-            name={character.name}
-            image={character.image}
-            location={character.location}
-          />
-        </div>
-      );
-    }
+  return (
+    <div className="flex flex-wrap gap-4 items-center justify-center my-6">
+      {characterData.map((character: Character, i: number) => {
+        return (
+          <div
+            key={character.id + character.name}
+            onClick={() => handleSelectOrRemoveCard(character)}
+          >
+            <GameCard
+              id={character.id}
+              index={i}
+              isSelected={!!selectedCards[character.id]}
+              isFlipped={false}
+              name={character.name}
+              image={character.image}
+              location={character.location}
+              className={loading ? 'animate-shimmer' : ''}
+            />
+          </div>
+        );
+      })}
+    </div>
   );
 }
