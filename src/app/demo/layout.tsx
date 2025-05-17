@@ -1,15 +1,14 @@
 'use client';
-import { useState } from 'react';
-import Link from 'next/link';
+
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export default function DemoPageLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   const demoItems = [
@@ -31,8 +30,6 @@ export default function DemoPageLayout({
   ];
 
   const isActive = (href: string) => pathname === href;
-
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <div>

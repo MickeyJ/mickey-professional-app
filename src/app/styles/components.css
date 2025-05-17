@@ -45,4 +45,56 @@
     border-color: rgb(255 255 255 / 0.2);
     transform: translateY(-2px);
   }
+
+  .game-card {
+    @apply w-[175] h-[175] flex flex-col gap-2 items-center justify-center rounded-lg p-1 cursor-pointer;
+    background-color: var(--color-base-300);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--color-base-200);
+      border-color: rgb(255 255 255 / 0.2);
+      transform: translateY(-2px);
+    }
+
+    &.selected {
+      background-color: var(--color-base-100);
+      border-color: var(--color-success);
+
+
+      &:hover {
+        background-color: var(--color-base-200);
+        border-color: var(--color-error);
+        transform: translateY(-2px);
+      }
+
+      &:focus {
+        background-color: var(--color-base-100);
+        border-color: var(--color-success);
+      }
+    }
+
+
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -2000px 0;
+    }
+
+    100% {
+      background-position: 2000px 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s infinite linear;
+    background: linear-gradient(135deg,
+        var(--color-base-100) 5%,
+        var(--color-base-300) 50%,
+        var(--color-base-200) 25%,
+        var(--color-base-100) 5%);
+    background-size: 200% 200%;
+  }
 }

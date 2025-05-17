@@ -1,3 +1,3 @@
 export default function DemoThemePage() {
-  return <div>DemoTheme</div>;
+  return <div>Demo Theme Customizer</div>;
 }
