@@ -151,20 +151,6 @@ resource "google_project_iam_member" "cloud_run_services" {
     google_project_service.services["iam.googleapis.com"]
   ]
 }
-
-# SSL Certificate for the domain
-resource "google_certificate_manager_certificate" "default" {
-  count = var.domain_name != "" ? 1 : 0
-  name  = "${var.app_name}-cert"
-  scope = "DEFAULT"
-  managed {
-    domains = [var.domain_name]
-  }
-  depends_on = [
-    google_project_service.services["certificatemanager.googleapis.com"]
-  ]
-}
-
 # Optional: Domain Mapping
 resource "google_cloud_run_domain_mapping" "domain_mapping" {
   count    = var.domain_name != "" ? 1 : 0
@@ -173,10 +159,6 @@ resource "google_cloud_run_domain_mapping" "domain_mapping" {
 
   metadata {
     namespace = var.project_id
-    annotations = {
-      # Associate the SSL certificate directly
-      "cloud.googleapis.com/certificate-id" = google_certificate_manager_certificate.default[0].id
-    }
   }
 
   spec {
@@ -196,6 +178,7 @@ data "google_dns_managed_zone" "dns_zone" {
 
 # A records for the root of your subdomain zone
 resource "google_dns_record_set" "app_domain" {
+  count        = var.domain_name != "" ? 1 : 0
   name         = "${var.domain_name}." # The period at the end is required
   managed_zone = data.google_dns_managed_zone.dns_zone.name
   type         = "A"
