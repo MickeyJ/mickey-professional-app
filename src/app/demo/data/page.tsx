@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { min } from "d3";
 
 import LineChart from "@/_components/charts/line-chart";
 import { getAllCountryData } from "@/api";
-import { formatCountryData, sortCountryData } from "@/lib/utils";
-import type { Country, CountryRaw } from "@/types";
+import { formatCountryData } from "@/lib/utils";
+import type { Country } from "@/types";
 
 const defaultMinPopulation = 100000000;
 

@@ -55,28 +55,21 @@ export default function GamePage() {
   const numberOfCardsToSelect = GAME_SETTINGS.DIFFICULTY_LEVELS[difficulty].pairs / 2;
 
   // Game state
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [flippedCards, setFlippedCards] = useState<CardReferences>({});
 
   useEffect(() => {
-    if (debouncedCurrentPage && debounceNameSearchInput) {
-      !loading && setLoading(true);
-      fetchCharacters(debouncedCurrentPage, debounceNameSearchInput);
-      console.log("page change debounce:", new Date().toISOString());
-    }
+    fetchCharacters(debouncedCurrentPage, debounceNameSearchInput);
+    console.log("page change debounce:", new Date().toISOString());
   }, [debouncedCurrentPage, debounceNameSearchInput]);
 
   useEffect(() => {
-    !loading && setLoading(true);
+    if (!loading) setLoading(true);
   }, [currentPage, nameSearchInput]);
 
   useEffect(() => {
-    loading && setLoading(false);
+    if (loading) setLoading(false);
   }, [characterData]);
-
-  // useEffect(() => {
-  //   fetchCharacters(debouncedCurrentPage, nameSearchInput);
-  //   console.log('Fetching characters for page:', debouncedCurrentPage);
-  // }, [debouncedCurrentPage]);
 
   useEffect(() => {
     setSelectedCards({});
@@ -84,10 +77,13 @@ export default function GamePage() {
 
   const fetchCharacters = async (page: number, search: string) => {
     try {
-      // setLoading(true);
+      setLoading(true);
       const { data } = await getCharacterData(page, search);
       setCharacterData(data.characters.results);
       setCharacterSearchCount(data.characters.info.count);
+      console.log("fetchCharacters:", new Date().toISOString(), data.characters.results);
+
+      setLoading(false);
     } catch (error: unknown) {
       console.error("Error fetching character data:", error);
       setErrorMessage("Error fetching character data: " + (error as Error).message);
@@ -98,6 +94,7 @@ export default function GamePage() {
   const handleSelectOrRemoveCard = (character: Character) => {
     const { id } = character;
     if (selectedCards[id]) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [id]: _, ...rest } = selectedCards;
       setSelectedCards({ ...rest });
     } else if (Object.keys(selectedCards).length < numberOfCardsToSelect) {
@@ -111,7 +108,7 @@ export default function GamePage() {
   };
 
   const handlePageChange = (newPage: number) => {
-    if (newPage < 1) {
+    if (newPage <= 1) {
       setCurrentPage(1);
     } else if (newPage > lastPage) {
       setCurrentPage(lastPage);
@@ -122,8 +119,8 @@ export default function GamePage() {
 
   return (
     <div className="w-screen h-screen overflow-y-hidden">
-      <div className="w-full flex flex-col items-start justify-start mt-2 gap-3">
-        <div className="flex flex-col items-start">
+      <div className="w-full flex flex-col items-center justify-start mt-2 gap-3">
+        <div className="w-full flex flex-col align-start items-start">
           <h1 className="text-2xl font-bold text-center">Rick and Morty Card Match</h1>
           <p className="text-sm text-dim text-center">
             Choose your difficulty. Search and select your characters. Press
@@ -148,11 +145,16 @@ export default function GamePage() {
         {errorMessage ? (
           <div className="text-red-500 text-center mt-6">{errorMessage}</div>
         ) : (
-          <div className="mx-auto flex flex-col items-center justify-center">
-            <CharacterPagination currentPage={currentPage} lastPage={lastPage} handlePageChange={handlePageChange} />
+          <div className="min-w-[700] flex flex-col items-center justify-center mr-13">
+            <CharacterPagination
+              currentPage={currentPage}
+              lastPage={lastPage}
+              handlePageChange={handlePageChange}
+            />
             <RenderCards
-              loading={loading || !characterData.length}
-              characterData={loading || !characterData.length ? loadingData : characterData}
+              loading={loading}
+              loadingData={loadingData}
+              characterData={characterData}
               selectedCards={selectedCards}
               flippedCards={flippedCards}
               handleSelectOrRemoveCard={handleSelectOrRemoveCard}

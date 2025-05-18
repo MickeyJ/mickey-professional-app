@@ -36,9 +36,12 @@ export default function GameSettings({
   ));
 
   return (
-    <div className="h-[125] flex flex-row gap-7 items-start justify-center">
+    <div className="w-full h-[125] flex flex-row gap-7 items-start justify-start">
       <div className="min-w-[110] flex flex-col items-start">
-        <label htmlFor="difficultySelection" className="text-sm text-dark">
+        <label
+          htmlFor="difficultySelection"
+          className="text-sm text-dark"
+        >
           Choose Difficulty
         </label>
         <select
@@ -48,14 +51,21 @@ export default function GameSettings({
           onChange={(e) => setDifficulty(e.target.value as Difficulty)}
         >
           {difficultyLevels.map(({ name, pairs }) => (
-            <option key={name} value={name} className="bg-base-100 text-dark">
+            <option
+              key={name}
+              value={name}
+              className="bg-base-100 text-dark"
+            >
               {name}-({pairs} Cards)
             </option>
           ))}
         </select>
       </div>
       <div className="flex flex-col items-start">
-        <label htmlFor="nameSearchInput" className="text-sm text-dark">
+        <label
+          htmlFor="nameSearchInput"
+          className="text-sm text-dark"
+        >
           Search Characters
         </label>
         <input

@@ -163,11 +163,11 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr("class", "tooltip")
       .style("position", "absolute")
       .style("visibility", "hidden")
-      .style("background-color", "rgba(0, 0, 0, 0.8)")
-      .style("color", "white")
-      .style("padding", "8px")
+      .style("background-color", "rgba(230, 230, 230, 0.8)")
+      .style("color", "black")
+      .style("padding", "10px")
       .style("border-radius", "4px")
-      .style("font-size", "12px")
+      .style("font-size", "14px")
       .style("pointer-events", "none");
 
     // Enhance the dots with tooltips
@@ -176,6 +176,7 @@ const LineChart: React.FC<LineChartProps> = ({
       .enter()
       .append("circle")
       .attr("class", "dot")
+      .style("cursor", "pointer")
       .attr("cx", (d, i) => x(i))
       .attr("cy", (d) => y(d.value))
       .attr("r", 5)
@@ -187,7 +188,7 @@ const LineChart: React.FC<LineChartProps> = ({
 
         tooltip
           .style("visibility", "visible")
-          .html(`<strong>${d.name}</strong>: ${d.value}`)
+          .html(`<strong>${d.name}</strong>: ${d3.format(",")(d.value)}`)
           .style("left", event.pageX + 10 + "px")
           .style("top", event.pageY - 28 + "px");
       })
@@ -196,7 +197,7 @@ const LineChart: React.FC<LineChartProps> = ({
 
         tooltip.style("visibility", "hidden");
       });
-  }, [data, dimensions, title]);
+  }, [data, dimensions, title, scaleExponent]);
 
   return (
     <div className="w-full overflow-hidden">
