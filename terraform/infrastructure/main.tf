@@ -152,6 +152,19 @@ resource "google_project_iam_member" "cloud_run_services" {
   ]
 }
 
+# SSL Certificate for the domain
+resource "google_certificate_manager_certificate" "default" {
+  count = var.domain_name != "" ? 1 : 0
+  name  = "${var.app_name}-cert"
+  scope = "DEFAULT"
+  managed {
+    domains = [var.domain_name]
+  }
+  depends_on = [
+    google_project_service.services["certificatemanager.googleapis.com"]
+  ]
+}
+
 # Optional: Domain Mapping
 resource "google_cloud_run_domain_mapping" "domain_mapping" {
   count    = var.domain_name != "" ? 1 : 0
@@ -160,6 +173,10 @@ resource "google_cloud_run_domain_mapping" "domain_mapping" {
 
   metadata {
     namespace = var.project_id
+    annotations = {
+      # Associate the SSL certificate directly
+      "cloud.googleapis.com/certificate-id" = google_certificate_manager_certificate.default[0].id
+    }
   }
 
   spec {
@@ -195,53 +212,5 @@ resource "google_dns_record_set" "app_domain" {
   depends_on = [
     google_cloud_run_v2_service.service,
     google_cloud_run_domain_mapping.domain_mapping
-  ]
-}
-
-# SSL Certificate for the domain
-resource "google_certificate_manager_certificate" "default" {
-  count = var.domain_name != "" ? 1 : 0
-  name  = "${var.app_name}-cert"
-  scope = "DEFAULT"
-  managed {
-    domains = [var.domain_name]
-  }
-  depends_on = [
-    google_project_service.services["certificatemanager.googleapis.com"]
-  ]
-}
-
-# Certificate Map
-resource "google_certificate_manager_certificate_map" "default" {
-  count = var.domain_name != "" ? 1 : 0
-  name  = "${var.app_name}-cert-map"
-}
-
-# Certificate Map Entry
-resource "google_certificate_manager_certificate_map_entry" "default" {
-  count        = var.domain_name != "" ? 1 : 0
-  name         = "${var.app_name}-cert-map-entry"
-  map          = google_certificate_manager_certificate_map.default[0].name
-  certificates = [google_certificate_manager_certificate.default[0].id]
-  hostname     = var.domain_name
-  depends_on = [
-    google_certificate_manager_certificate.default,
-    google_certificate_manager_certificate_map.default
-  ]
-}
-
-# Connect the certificate map to the Cloud Run service 
-resource "google_certificate_manager_certificate_map_binding" "default" {
-  provider = google-beta
-  count    = var.domain_name != "" ? 1 : 0
-  name     = "${var.app_name}-map-binding"
-  map      = google_certificate_manager_certificate_map.default[0].name
-  target {
-    service = google_cloud_run_v2_service.service.id
-  }
-  depends_on = [
-    google_certificate_manager_certificate_map.default,
-    google_certificate_manager_certificate_map_entry.default,
-    google_cloud_run_v2_service.service
   ]
 }
