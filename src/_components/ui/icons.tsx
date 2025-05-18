@@ -1,12 +1,6 @@
 // Icon components
 export const SlidersIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
+  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -17,13 +11,7 @@ export const SlidersIcon = () => (
 );
 
 export const GameIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
+  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -34,13 +22,7 @@ export const GameIcon = () => (
 );
 
 export const ChartIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
+  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

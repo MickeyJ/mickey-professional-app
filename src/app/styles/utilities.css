@@ -1,6 +1,5 @@
 /* Custom utilities using @layer */
 @layer utilities {
-
   .text-bright {
     color: var(--color-text-bright);
   }
@@ -95,7 +94,7 @@
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -4px;
         left: 0;
@@ -110,7 +109,6 @@
       color: var(--color-feature-1-100);
     }
   }
-
 
   /* 
     FEATURE 2 "GAME" 
@@ -130,7 +128,7 @@
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -4px;
         left: 0;
@@ -145,8 +143,6 @@
       color: var(--color-feature-2-100);
     }
   }
-
-
 
   /* 
     FEATURE 3 "DATA" 
@@ -166,7 +162,7 @@
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -4px;
         left: 0;
@@ -189,7 +185,9 @@
     @apply font-medium;
     color: var(--color-text-dim);
     opacity: 0.8;
-    transition: opacity 0.2s, color 0.2s;
+    transition:
+      opacity 0.2s,
+      color 0.2s;
 
     &.active {
       color: var(--color-text-dim);
@@ -197,7 +195,7 @@
       position: relative;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -4px;
         left: 0;
@@ -212,7 +210,6 @@
       opacity: 1;
       color: var(--color-text-bright);
     }
-
   }
 
   .bg-primary {
@@ -226,7 +223,6 @@
   .bg-tertiary {
     background-color: var(--color-base-300);
   }
-
 
   .text-success {
     color: var(--color-success);

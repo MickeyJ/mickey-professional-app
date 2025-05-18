@@ -12,8 +12,6 @@
   /* Main text color */
   --color-highlight: oklch(100% 0 0);
 
-
-
   /* Neutral grayscale palette */
   --color-neutral-50: oklch(100% 0 0);
   --color-neutral-100: oklch(90% 0 0);
@@ -85,7 +83,7 @@
   --color-feature-3-400: oklch(70% 0.19 30);
   --color-feature-3-500: var(--color-feature-3-base);
   --color-feature-3-600: oklch(55% 0.24 30);
-  --color-feature-3-700: oklch(45% 0.20 30);
+  --color-feature-3-700: oklch(45% 0.2 30);
   --color-feature-3-800: oklch(35% 0.16 30);
   --color-feature-3-900: oklch(25% 0.12 30);
 
@@ -96,9 +94,9 @@
   --spacing-30: 7.5rem;
 
   /* Typography */
-  --font-primary: 'Mulish';
-  --font-secondary: 'Jetbrains Mono';
-  --font-tertiary: 'Doto';
+  --font-primary: "Mulish";
+  --font-secondary: "Jetbrains Mono";
+  --font-tertiary: "Doto";
   --font-sans: var(--font-primary), system-ui, sans-serif;
 
   /* Custom font sizes */

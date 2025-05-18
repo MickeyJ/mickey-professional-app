@@ -1,6 +1,5 @@
 /* Component-specific styles */
 @layer components {
-
   /* Primary button */
   .btn-primary {
     @apply px-2 rounded-button font-bold cursor-pointer;
@@ -62,7 +61,6 @@
       background-color: var(--color-base-100);
       border-color: var(--color-success);
 
-
       &:hover {
         background-color: var(--color-base-200);
         border-color: var(--color-error);
@@ -74,8 +72,6 @@
         border-color: var(--color-success);
       }
     }
-
-
   }
 
   @keyframes card-appear {
@@ -121,12 +117,16 @@
   .card-loading {
     transform: scale(0.99);
     opacity: 0.9;
-    animation: shimmer 5s infinite linear, card-disappear 0.2s ease-out backwards;
-    background: linear-gradient(135deg,
-        var(--color-base-100) 5%,
-        var(--color-base-300) 50%,
-        var(--color-base-200) 25%,
-        var(--color-base-100) 5%);
+    animation:
+      shimmer 5s infinite linear,
+      card-disappear 0.2s ease-out backwards;
+    background: linear-gradient(
+      135deg,
+      var(--color-base-100) 5%,
+      var(--color-base-300) 50%,
+      var(--color-base-200) 25%,
+      var(--color-base-100) 5%
+    );
     background-size: 200% 200%;
   }
 }

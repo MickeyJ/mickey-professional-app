@@ -8,7 +8,8 @@ export default function HeroSection() {
             <span className="font-semibold text-bright">PRECISION</span>
           </h1>
           <p className="text-body-lg text-dark mb-8">
-            I'm a full-stack developer who crafts clean, functional, and interactive web applications using modern technologies like Next.js, TypeScript, and Tailwind CSS.
+            I'm a full-stack developer who crafts clean, functional, and interactive web applications using modern
+            technologies like Next.js, TypeScript, and Tailwind CSS.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button className="btn-primary">View My Work</button>

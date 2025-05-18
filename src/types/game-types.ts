@@ -1,7 +1,7 @@
 export enum Difficulty {
-  easy = 'easy',
-  medium = 'medium',
-  hard = 'hard',
+  easy = "easy",
+  medium = "medium",
+  hard = "hard",
 }
 
 export interface DifficultyLevel {

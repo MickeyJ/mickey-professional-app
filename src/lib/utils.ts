@@ -1,12 +1,12 @@
-import type { Country, CountryRaw } from '@/types';
-import * as d3 from 'd3';
+import * as d3 from "d3";
+
+import type { Country, CountryRaw } from "@/types";
 
 export const cn = (...classes: (string | undefined | null | false)[]) => {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 };
 
-export const d3FormatBillions = (fs: string) => (s: number) =>
-  d3.format(fs)(s).replace(/G/, 'B');
+export const d3FormatBillions = (fs: string) => (s: number) => d3.format(fs)(s).replace(/G/, "B");
 
 export const sortCountryData =
   <K extends keyof Country>(sortByKey: K) =>

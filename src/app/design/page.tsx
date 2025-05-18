@@ -1,4 +1,4 @@
-import Button from '@/_components/ui/button';
+import Button from "@/_components/ui/button";
 
 export default function DesignPage() {
   return (
@@ -9,10 +9,9 @@ export default function DesignPage() {
       <h4>Header 1</h4>
       <h5>Header 1</h5>
       <p>
-        Paragraph Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Ratione quia temporibus quibusdam iste optio deserunt sed nulla
-        voluptates necessitatibus est eaque quo ad, pariatur minus. Dolor
-        voluptate natus quasi suscipit.
+        Paragraph Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quia temporibus quibusdam iste optio
+        deserunt sed nulla voluptates necessitatibus est eaque quo ad, pariatur minus. Dolor voluptate natus quasi
+        suscipit.
       </p>
       <Button>Button</Button>
     </div>

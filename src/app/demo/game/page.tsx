@@ -1,26 +1,32 @@
-'use client';
-import type { CardReferences, Character, DifficultyLevel, DifficultyLevels } from '@/types';
+"use client";
 
-import { Difficulty } from '@/types/game-types';
-import { getCharacterData, loadingCharacterData } from '@/api';
-import { useEffect, useState } from 'react';
-import { useDebounce } from '@/hooks';
+import { useEffect, useState } from "react";
 
-import RenderCards from './components/render-cards';
-import GameSettings from './components/game-settings';
-import CharacterPagination from './components/character-pagination';
+import { getCharacterData, loadingCharacterData } from "@/api";
+import { useDebounce } from "@/hooks";
+import type { CardReferences, Character } from "@/types";
+import { Difficulty } from "@/types/game-types";
+import CharacterPagination from "./components/character-pagination";
+import GameSettings from "./components/game-settings";
+import RenderCards from "./components/render-cards";
 
 const GAME_SETTINGS = {
   DIFFICULTY_LEVELS: {
     [Difficulty.easy]: {
- pairs: 6, timeout: 1000, name: Difficulty.easy 
-},
+      pairs: 6,
+      timeout: 1000,
+      name: Difficulty.easy,
+    },
     [Difficulty.medium]: {
- pairs: 8, timeout: 800, name: Difficulty.medium 
-},
+      pairs: 8,
+      timeout: 800,
+      name: Difficulty.medium,
+    },
     [Difficulty.hard]: {
- pairs: 12, timeout: 600, name: Difficulty.hard 
-},
+      pairs: 12,
+      timeout: 600,
+      name: Difficulty.hard,
+    },
   },
 };
 
@@ -30,9 +36,8 @@ const loadingData = loadingCharacterData(cardsPerPage / 2);
 export default function GamePage() {
   // Data fetching state
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [characterData, setCharacterData] = useState<Character[]>([]);
-
 
   // Game Setup state
   const [characterSearchCount, setCharacterSearchCount] = useState<number>(0);
@@ -41,14 +46,13 @@ export default function GamePage() {
   const [currentPage, debouncedCurrentPage, setCurrentPage] = useDebounce<number>(1, 300);
 
   // Character search state
-  const [nameSearchInput, debounceNameSearchInput, setNameSearchInput] = useDebounce<string>('Rick', 300);
+  const [nameSearchInput, debounceNameSearchInput, setNameSearchInput] = useDebounce<string>("Rick", 300);
 
   const [selectedCards, setSelectedCards] = useState<CardReferences>({});
   const [difficulty, setDifficulty] = useState<Difficulty.easy | Difficulty.medium | Difficulty.hard>(Difficulty.easy);
-  const [gameStatus, setGameStatus] = useState<'loading' | 'ready' | 'playing' | 'completed'>('loading');
+  // const [gameStatus, setGameStatus] = useState<"loading" | "ready" | "playing" | "completed">("loading");
   const lastPage = Math.ceil(characterSearchCount / cardsPerPage);
   const numberOfCardsToSelect = GAME_SETTINGS.DIFFICULTY_LEVELS[difficulty].pairs / 2;
-
 
   // Game state
   const [flippedCards, setFlippedCards] = useState<CardReferences>({});
@@ -57,7 +61,7 @@ export default function GamePage() {
     if (debouncedCurrentPage && debounceNameSearchInput) {
       !loading && setLoading(true);
       fetchCharacters(debouncedCurrentPage, debounceNameSearchInput);
-      console.log('page change debounce:', new Date().toISOString());
+      console.log("page change debounce:", new Date().toISOString());
     }
   }, [debouncedCurrentPage, debounceNameSearchInput]);
 
@@ -85,8 +89,8 @@ export default function GamePage() {
       setCharacterData(data.characters.results);
       setCharacterSearchCount(data.characters.info.count);
     } catch (error: unknown) {
-      console.error('Error fetching character data:', error);
-      setErrorMessage('Error fetching character data: ' + (error as Error).message);
+      console.error("Error fetching character data:", error);
+      setErrorMessage("Error fetching character data: " + (error as Error).message);
       setLoading(false);
     }
   };
@@ -94,9 +98,7 @@ export default function GamePage() {
   const handleSelectOrRemoveCard = (character: Character) => {
     const { id } = character;
     if (selectedCards[id]) {
-      const {
- [id]: _, ...rest 
-} = selectedCards;
+      const { [id]: _, ...rest } = selectedCards;
       setSelectedCards({ ...rest });
     } else if (Object.keys(selectedCards).length < numberOfCardsToSelect) {
       setSelectedCards({
@@ -104,7 +106,7 @@ export default function GamePage() {
         [id]: character,
       });
     } else {
-      console.log('Max cards selected');
+      console.log("Max cards selected");
     }
   };
 
@@ -125,7 +127,9 @@ export default function GamePage() {
           <h1 className="text-2xl font-bold text-center">Rick and Morty Card Match</h1>
           <p className="text-sm text-dim text-center">
             Choose your difficulty. Search and select your characters. Press
-            <button className="cursor-pointer border-1 rounded px-1 ml-2 font-bold text-success hover:text-white transition-color duration-200">PLAY</button>
+            <button className="cursor-pointer border-1 rounded px-1 ml-2 font-bold text-success hover:text-white transition-color duration-200">
+              PLAY
+            </button>
           </p>
         </div>
 
@@ -145,11 +149,7 @@ export default function GamePage() {
           <div className="text-red-500 text-center mt-6">{errorMessage}</div>
         ) : (
           <div className="mx-auto flex flex-col items-center justify-center">
-            <CharacterPagination
-              currentPage={currentPage}
-              lastPage={lastPage}
-              handlePageChange={handlePageChange}
-            />
+            <CharacterPagination currentPage={currentPage} lastPage={lastPage} handlePageChange={handlePageChange} />
             <RenderCards
               loading={loading || !characterData.length}
               characterData={loading || !characterData.length ? loadingData : characterData}

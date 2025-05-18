@@ -1,20 +1,16 @@
 export default function Button({
   children,
-  className = '',
+  className = "",
   onClick,
-  type = 'button',
+  type = "button",
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
+  type?: "button" | "submit" | "reset";
 }) {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={className}
-    >
+    <button type={type} onClick={onClick} className={className}>
       {children}
     </button>
   );

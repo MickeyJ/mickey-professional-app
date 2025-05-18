@@ -1,5 +1,5 @@
-import type { CardReferences, Character } from '@/types';
-import GameCard from './game-card';
+import type { CardReferences, Character } from "@/types";
+import GameCard from "./game-card";
 
 interface RenderCardsProps {
   loading: boolean;
@@ -9,17 +9,18 @@ interface RenderCardsProps {
   handleSelectOrRemoveCard: (character: Character) => void;
 }
 
-
-
-export default function RenderCards({ loading, characterData, selectedCards, flippedCards, handleSelectOrRemoveCard }: RenderCardsProps) {
+export default function RenderCards({
+  loading,
+  characterData,
+  selectedCards,
+  flippedCards,
+  handleSelectOrRemoveCard,
+}: RenderCardsProps) {
   return (
     <div className="flex flex-wrap gap-4 items-center justify-center my-6">
       {characterData.map((character: Character, i: number) => {
         return (
-          <div
-            key={character.id + character.name}
-            onClick={() => handleSelectOrRemoveCard(character)}
-          >
+          <div key={character.id + character.name} onClick={() => handleSelectOrRemoveCard(character)}>
             <GameCard
               id={character.id}
               index={i}
@@ -28,7 +29,7 @@ export default function RenderCards({ loading, characterData, selectedCards, fli
               name={character.name}
               image={character.image}
               location={character.location}
-              className={loading ? 'card-loading' : 'card-appear'}
+              className={loading ? "card-loading" : "card-appear"}
             />
           </div>
         );

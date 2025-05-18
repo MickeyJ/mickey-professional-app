@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useRef, useEffect } from 'react';
-import * as d3 from 'd3';
+import { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
 export default function SimpleBarChart() {
   const svgRef = useRef(null);
@@ -11,15 +11,15 @@ export default function SimpleBarChart() {
 
     // Simple dataset
     const data = [
-      { label: 'A', value: 30 },
-      { label: 'B', value: 50 },
-      { label: 'C', value: 25 },
-      { label: 'D', value: 70 },
-      { label: 'E', value: 45 },
+      { label: "A", value: 30 },
+      { label: "B", value: 50 },
+      { label: "C", value: 25 },
+      { label: "D", value: 70 },
+      { label: "E", value: 45 },
     ];
 
     // Clear any previous content
-    d3.select(svgRef.current).selectAll('*').remove();
+    d3.select(svgRef.current).selectAll("*").remove();
 
     // Create SVG
     const svg = d3.select(svgRef.current);
@@ -43,38 +43,29 @@ export default function SimpleBarChart() {
       .range([innerHeight, 0]);
 
     // Create chart group
-    const g = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     // Add bars
-    g.selectAll('.bar')
+    g.selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d) => x(d.label) || 0)
-      .attr('y', (d) => y(d.value))
-      .attr('width', x.bandwidth())
-      .attr('height', (d) => innerHeight - y(d.value))
-      .attr('fill', 'var(--color-purple-600)');
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d) => x(d.label) || 0)
+      .attr("y", (d) => y(d.value))
+      .attr("width", x.bandwidth())
+      .attr("height", (d) => innerHeight - y(d.value))
+      .attr("fill", "var(--color-purple-600)");
 
     // Add axes
-    g.append('g')
-      .attr('transform', `translate(0,${innerHeight})`)
-      .call(d3.axisBottom(x));
+    g.append("g").attr("transform", `translate(0,${innerHeight})`).call(d3.axisBottom(x));
 
-    g.append('g').call(d3.axisLeft(y));
+    g.append("g").call(d3.axisLeft(y));
   }, []);
 
   return (
     <div className="w-full flex justify-center">
-      <svg
-        ref={svgRef}
-        width="400"
-        height="300"
-        viewBox="0 0 400 300"
-      />
+      <svg ref={svgRef} width="400" height="300" viewBox="0 0 400 300" />
     </div>
   );
 }

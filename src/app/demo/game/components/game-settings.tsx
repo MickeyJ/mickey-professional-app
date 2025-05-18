@@ -1,5 +1,5 @@
-import type { CardReferences, Character, DifficultyLevel } from '@/types';
-import { Difficulty } from '@/types/game-types';
+import type { CardReferences, Character, DifficultyLevel } from "@/types";
+import { Difficulty } from "@/types/game-types";
 
 interface GameSettingsProps {
   numberOfCardsToSelect: number;
@@ -12,8 +12,6 @@ interface GameSettingsProps {
   setSelectedCards: (cards: CardReferences) => void;
   handleSelectOrRemoveCard: (character: Character) => void;
 }
-
-
 
 export default function GameSettings({
   numberOfCardsToSelect,
@@ -28,7 +26,7 @@ export default function GameSettings({
 }: GameSettingsProps) {
   const selectedCardElements = Object.values(selectedCards).map((character: Character) => (
     <button
-      key={ character.id + character.name }
+      key={character.id + character.name}
       className="flex flex-row items-center text-xs text-info rounded-sm bg-base-200 p-1 border border-gray-300 hover:border-error transform-border duration-200 cursor-pointer"
       onClick={() => handleSelectOrRemoveCard(character)}
     >
@@ -37,14 +35,10 @@ export default function GameSettings({
     </button>
   ));
 
-  
   return (
     <div className="h-[125] flex flex-row gap-7 items-start justify-center">
       <div className="min-w-[110] flex flex-col items-start">
-        <label
-          htmlFor="difficultySelection"
-          className="text-sm text-dark"
-        >
+        <label htmlFor="difficultySelection" className="text-sm text-dark">
           Choose Difficulty
         </label>
         <select
@@ -54,21 +48,14 @@ export default function GameSettings({
           onChange={(e) => setDifficulty(e.target.value as Difficulty)}
         >
           {difficultyLevels.map(({ name, pairs }) => (
-            <option
-              key={name}
-              value={name}
-              className="bg-base-100 text-dark"
-            >
+            <option key={name} value={name} className="bg-base-100 text-dark">
               {name}-({pairs} Cards)
             </option>
           ))}
         </select>
       </div>
       <div className="flex flex-col items-start">
-        <label
-          htmlFor="nameSearchInput"
-          className="text-sm text-dark"
-        >
+        <label htmlFor="nameSearchInput" className="text-sm text-dark">
           Search Characters
         </label>
         <input
