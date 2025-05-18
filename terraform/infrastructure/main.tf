@@ -139,7 +139,10 @@ resource "google_project_iam_member" "cloud_run_services" {
   for_each = toset([
     "roles/logging.logWriter",      # Write logs
     "roles/cloudtrace.agent",       # Write traces
-    "roles/monitoring.metricWriter" # Write metrics
+    "roles/monitoring.metricWriter", # Write metrics
+    "roles/run.admin",               # 💥 Required for Cloud Run changes
+    "roles/domains.admin",           # 💥 Required to create domain mappings
+    "roles/iam.serviceAccountUser"   # (Optional but useful)
   ])
 
   project = var.project_id
