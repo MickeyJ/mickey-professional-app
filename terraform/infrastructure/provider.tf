@@ -14,10 +14,7 @@ terraform {
   }
 
   # Uncomment this block if you want to use a remote backend for state storage
-  # backend "gcs" {
-  #   bucket = "your-terraform-state-bucket"
-  #   prefix = "terraform/state"
-  # }
+  backend "gcs" {}
 }
 
 #GCP Provider

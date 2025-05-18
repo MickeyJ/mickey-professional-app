@@ -38,7 +38,7 @@ variable "domain_name" {
 variable "dns_zone_name" {
   description = "The name of your existing Cloud DNS zone"
   type        = string
-  default     = "mickey-web-app" # Your actual zone name in GCP
+  default     = "mickey-web-app" 
 }
 
 variable "environment_variables" {
