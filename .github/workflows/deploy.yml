@@ -54,6 +54,12 @@ jobs:
         with:
           terraform_version: 1.7.0
 
+      # Format Terraform files
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive
+        working-directory: ./terraform
+
       # Check if terraform state bucket exists
       - name: Check Terraform State Bucket
         id: check_bucket

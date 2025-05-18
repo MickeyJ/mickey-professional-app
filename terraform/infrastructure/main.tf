@@ -5,7 +5,9 @@ resource "google_project_service" "services" {
   for_each = toset([
     "run.googleapis.com",
     "artifactregistry.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "domains.googleapis.com",
+    "certificatemanager.googleapis.com"
   ])
   service            = each.value
   disable_on_destroy = false
@@ -68,12 +70,7 @@ resource "google_cloud_run_v2_service" "service" {
         name  = "NODE_ENV"
         value = "production"
       }
-       
-      env {
-        name  = "PORT"
-        value = "3000"
-      }
-      
+
       env {
         name  = "HOSTNAME"
         value = "0.0.0.0"
@@ -105,7 +102,7 @@ resource "google_cloud_run_v2_service" "service" {
     service_account = google_service_account.cloud_run_service_account.email
   }
 
-   # Traffic configuration - 100% to latest revision
+  # Traffic configuration - 100% to latest revision
   traffic {
     type    = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
     percent = 100
@@ -155,6 +152,19 @@ resource "google_project_iam_member" "cloud_run_services" {
   ]
 }
 
+# SSL Certificate for the domain
+resource "google_certificate_manager_certificate" "default" {
+  count = var.domain_name != "" ? 1 : 0
+  name  = "${var.app_name}-cert"
+  scope = "DEFAULT"
+  managed {
+    domains = [var.domain_name]
+  }
+  depends_on = [
+    google_project_service.services["certificatemanager.googleapis.com"]
+  ]
+}
+
 # Optional: Domain Mapping
 resource "google_cloud_run_domain_mapping" "domain_mapping" {
   count    = var.domain_name != "" ? 1 : 0
@@ -163,6 +173,10 @@ resource "google_cloud_run_domain_mapping" "domain_mapping" {
 
   metadata {
     namespace = var.project_id
+    annotations = {
+      # Associate the SSL certificate directly
+      "cloud.googleapis.com/certificate-id" = google_certificate_manager_certificate.default[0].id
+    }
   }
 
   spec {
@@ -193,5 +207,10 @@ resource "google_dns_record_set" "app_domain" {
     "216.239.34.21",
     "216.239.36.21",
     "216.239.38.21"
+  ]
+
+  depends_on = [
+    google_cloud_run_v2_service.service,
+    google_cloud_run_domain_mapping.domain_mapping
   ]
 }
