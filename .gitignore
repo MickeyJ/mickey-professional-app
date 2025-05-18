@@ -14,6 +14,9 @@ crash.*.log
 *.tfvars
 *.tfvars.json
 
+# terraform backend config file
+backend.hcl
+
 # However, you may want to include example tfvars files
 # !example.tfvars
 
