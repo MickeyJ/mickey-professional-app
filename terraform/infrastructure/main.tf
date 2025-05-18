@@ -232,9 +232,10 @@ resource "google_certificate_manager_certificate_map_entry" "default" {
 
 # Connect the certificate map to the Cloud Run service 
 resource "google_certificate_manager_certificate_map_binding" "default" {
-  count = var.domain_name != "" ? 1 : 0
-  name  = "${var.app_name}-map-binding"
-  map   = google_certificate_manager_certificate_map.default[0].name
+  provider = google-beta
+  count    = var.domain_name != "" ? 1 : 0
+  name     = "${var.app_name}-map-binding"
+  map      = google_certificate_manager_certificate_map.default[0].name
   target {
     service = google_cloud_run_v2_service.service.id
   }
