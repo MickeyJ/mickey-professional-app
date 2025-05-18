@@ -13,6 +13,8 @@ interface GameSettingsProps {
   handleSelectOrRemoveCard: (character: Character) => void;
 }
 
+
+
 export default function GameSettings({
   numberOfCardsToSelect,
   selectedCards,
@@ -24,21 +26,18 @@ export default function GameSettings({
   setSelectedCards,
   handleSelectOrRemoveCard,
 }: GameSettingsProps) {
-  console.log(selectedCards);
+  const selectedCardElements = Object.values(selectedCards).map((character: Character) => (
+    <button
+      key={ character.id + character.name }
+      className="flex flex-row items-center text-xs text-info rounded-sm bg-base-200 p-1 border border-gray-300 hover:border-error transform-border duration-200 cursor-pointer"
+      onClick={() => handleSelectOrRemoveCard(character)}
+    >
+      {character.name}
+      <span className="text-xs text-error font-bold mx-1">X</span>
+    </button>
+  ));
 
-  const selectedCardElements = Object.values(selectedCards).map(
-    (character: Character) => (
-      <button
-        key={character.id + character.name}
-        className="flex flex-row items-center text-xs text-info rounded-sm bg-base-200 p-1 border border-gray-300 hover:border-error transform-border duration-200 cursor-pointer"
-        onClick={() => handleSelectOrRemoveCard(character)}
-      >
-        {character.name}
-        <span className="text-xs text-error font-bold mx-1">X</span>
-      </button>
-    )
-  );
-
+  
   return (
     <div className="h-[125] flex flex-row gap-7 items-start justify-center">
       <div className="min-w-[110] flex flex-col items-start">
@@ -84,13 +83,8 @@ export default function GameSettings({
       <div className="flex flex-col items-start">
         <div>
           <label className="text-sm text-dim">
-            <span className="text-info font-bold">
-              {selectedCardElements.length}{' '}
-            </span>
-            <span>of</span>{' '}
-            <span className="text-info font-bold">
-              {numberOfCardsToSelect}{' '}
-            </span>
+            <span className="text-info font-bold">{selectedCardElements.length} </span>
+            <span>of</span> <span className="text-info font-bold">{numberOfCardsToSelect} </span>
             <span>Characters Selected:</span>
           </label>
           <span
@@ -100,9 +94,7 @@ export default function GameSettings({
             reset
           </span>
         </div>
-        <div className="flex flex-row flex-wrap gap-2 mt-2">
-          {selectedCardElements}
-        </div>
+        <div className="flex flex-row flex-wrap gap-2 mt-2">{selectedCardElements}</div>
       </div>
     </div>
   );

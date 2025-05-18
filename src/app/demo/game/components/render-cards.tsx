@@ -9,20 +9,9 @@ interface RenderCardsProps {
   handleSelectOrRemoveCard: (character: Character) => void;
 }
 
-export default function RenderCards({
-  loading,
-  characterData,
-  selectedCards,
-  flippedCards,
-  handleSelectOrRemoveCard,
-}: RenderCardsProps) {
-  // const characterDataFiltered = [...characterData].filter((character, i) => {
-  //   const selectedCard = Object.keys(selectedCards).find(
-  //     (key) => selectedCards[key].id === character.id
-  //   );
-  //   return !selectedCard;
-  // });
 
+
+export default function RenderCards({ loading, characterData, selectedCards, flippedCards, handleSelectOrRemoveCard }: RenderCardsProps) {
   return (
     <div className="flex flex-wrap gap-4 items-center justify-center my-6">
       {characterData.map((character: Character, i: number) => {
@@ -39,7 +28,7 @@ export default function RenderCards({
               name={character.name}
               image={character.image}
               location={character.location}
-              className={loading ? 'animate-shimmer' : ''}
+              className={loading ? 'card-loading' : 'card-appear'}
             />
           </div>
         );

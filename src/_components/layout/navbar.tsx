@@ -16,8 +16,6 @@ export default function Navbar() {
   ];
 
   const isActive = (href: string) => {
-    console.log(pathname, href);
-
     if (href === '/demo') {
       return pathname.startsWith('/demo');
     }
@@ -60,10 +58,7 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <svg
-            className={cn(
-              'w-6 h-6 transition-transform duration-300',
-              isOpen && 'rotate-45'
-            )}
+            className={cn('w-6 h-6 transition-transform duration-300', isOpen && 'rotate-45')}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -90,9 +85,7 @@ export default function Navbar() {
         <div
           className={cn(
             'absolute top-full left-0 right-0 md:hidden bg-white/95 backdrop-blur-lg border-t border-neutral-200 transition-all duration-300 ease-out',
-            isOpen
-              ? 'opacity-100 visible translate-y-0'
-              : 'opacity-0 invisible -translate-y-2'
+            isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
           )}
         >
           <ul className="py-4 px-6 space-y-1">
@@ -101,10 +94,7 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={cn(
-                    'block py-3 px-4 rounded-button nav-link',
-                    isActive(item.href) && 'nav-link-active'
-                  )}
+                  className={cn('block py-3 px-4 rounded-button nav-link', isActive(item.href) && 'nav-link-active')}
                 >
                   {item.name}
                 </Link>

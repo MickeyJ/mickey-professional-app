@@ -78,6 +78,24 @@
 
   }
 
+  @keyframes card-appear {
+    0% {
+      transform: scale(0.99);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .card-appear {
+    transform: scale(1);
+    opacity: 1;
+    animation: card-appear 0.1s ease-out forwards;
+  }
+
   @keyframes shimmer {
     0% {
       background-position: -2000px 0;
@@ -88,8 +106,22 @@
     }
   }
 
-  .animate-shimmer {
-    animation: shimmer 4s infinite linear;
+  @keyframes card-disappear {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(0.99);
+      opacity: 0.9;
+    }
+  }
+
+  .card-loading {
+    transform: scale(0.99);
+    opacity: 0.9;
+    animation: shimmer 5s infinite linear, card-disappear 0.2s ease-out backwards;
     background: linear-gradient(135deg,
         var(--color-base-100) 5%,
         var(--color-base-300) 50%,

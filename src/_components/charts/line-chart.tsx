@@ -32,8 +32,7 @@ const LineChart: React.FC<LineChartProps> = ({
   useEffect(() => {
     const handleResize = () => {
       if (svgRef.current) {
-        const containerWidth =
-          svgRef.current.parentElement?.clientWidth || width;
+        const containerWidth = svgRef.current.parentElement?.clientWidth || width;
         setDimensions({
           width: containerWidth,
           height,
@@ -62,10 +61,7 @@ const LineChart: React.FC<LineChartProps> = ({
     d3.select(svgRef.current).selectAll('*').remove();
 
     // Create SVG element
-    const svg = d3
-      .select(svgRef.current)
-      .attr('width', dimensions.width)
-      .attr('height', dimensions.height);
+    const svg = d3.select(svgRef.current).attr('width', dimensions.width).attr('height', dimensions.height);
 
     // Calculate margins
     const margin = { top: 40, right: 30, bottom: 60, left: 60 };
@@ -73,16 +69,10 @@ const LineChart: React.FC<LineChartProps> = ({
     const innerHeight = dimensions.height - margin.top - margin.bottom;
 
     // Create group element for the chart
-    const g = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    const g = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     // Create scales
-    const x = d3
-      .scaleLinear()
-      .domain([0, parsedData.length])
-      .nice()
-      .range([0, innerWidth]);
+    const x = d3.scaleLinear().domain([0, parsedData.length]).nice().range([0, innerWidth]);
 
     console.log(d3.min(parsedData, (d) => d.value));
     const scaleValue = 0.1 + (scaleExponent / 100000000) * 0.5;
@@ -107,7 +97,12 @@ const LineChart: React.FC<LineChartProps> = ({
 
     g.append('g')
       .attr('class', 'text-success')
-      .call(d3.axisLeft(y).ticks(6).tickFormat(d3FormatBillions('.2s')))
+      .call(
+        d3
+          .axisLeft(y)
+          .ticks(6)
+          .tickFormat((s) => d3FormatBillions('.2s')(s as number))
+      )
       .attr('font-size', '10px');
 
     g.append('g')
@@ -122,44 +117,26 @@ const LineChart: React.FC<LineChartProps> = ({
       .select('path')
       .attr('stroke-width', 0);
 
-    const gradient = svg
-      .append('defs')
-      .append('linearGradient')
-      .attr('id', 'area-gradient')
-      .attr('x1', '0%')
-      .attr('y1', '0%')
-      .attr('x2', '0%')
-      .attr('y2', '100%');
+    const gradient = svg.append('defs').append('linearGradient').attr('id', 'area-gradient').attr('x1', '0%').attr('y1', '0%').attr('x2', '0%').attr('y2', '100%');
 
-    gradient
-      .append('stop')
-      .attr('offset', '0%')
-      .attr('stop-color', 'var(--color-blue-500)')
-      .attr('stop-opacity', 0.7);
+    gradient.append('stop').attr('offset', '0%').attr('stop-color', 'var(--color-blue-500)').attr('stop-opacity', 0.7);
 
-    gradient
-      .append('stop')
-      .attr('offset', '100%')
-      .attr('stop-color', 'var(--color-blue-500)')
-      .attr('stop-opacity', 0);
+    gradient.append('stop').attr('offset', '100%').attr('stop-color', 'var(--color-blue-500)').attr('stop-opacity', 0);
 
     // Add area
     const area = d3
       .area<DataPoint>()
-      .x((d, i) => x(i))
+      .x((_, i) => x(i))
       .y0(innerHeight)
       .y1((d) => y(d.value));
 
-    g.append('path')
-      .datum(parsedData)
-      .attr('fill', 'url(#area-gradient)')
-      .attr('d', area);
+    g.append('path').datum(parsedData).attr('fill', 'url(#area-gradient)').attr('d', area);
 
     // Create line generator
     const line = d3
       .line<DataPoint>()
-      .x((d, i) => x(i))
-      .y((d, i) => y(d.value));
+      .x((_, i) => x(i))
+      .y((d) => y(d.value));
 
     // Add line
     g.append('path')
