@@ -72,11 +72,6 @@ resource "google_cloud_run_v2_service" "service" {
       }
 
       env {
-        name  = "PORT"
-        value = "3000"
-      }
-
-      env {
         name  = "HOSTNAME"
         value = "0.0.0.0"
       }
@@ -196,6 +191,11 @@ resource "google_dns_record_set" "app_domain" {
     "216.239.36.21",
     "216.239.38.21"
   ]
+
+  depends_on = [
+    google_cloud_run_v2_service.service,
+    google_cloud_run_domain_mapping.domain_mapping
+  ]
 }
 
 # SSL Certificate for the domain
@@ -224,4 +224,23 @@ resource "google_certificate_manager_certificate_map_entry" "default" {
   map          = google_certificate_manager_certificate_map.default[0].name
   certificates = [google_certificate_manager_certificate.default[0].id]
   hostname     = var.domain_name
+  depends_on = [
+    google_certificate_manager_certificate.default,
+    google_certificate_manager_certificate_map.default
+  ]
+}
+
+# Connect the certificate map to the Cloud Run service 
+resource "google_certificate_manager_certificate_map_binding" "default" {
+  count = var.domain_name != "" ? 1 : 0
+  name  = "${var.app_name}-map-binding"
+  map   = google_certificate_manager_certificate_map.default[0].name
+  target {
+    service = google_cloud_run_v2_service.service.id
+  }
+  depends_on = [
+    google_certificate_manager_certificate_map.default,
+    google_certificate_manager_certificate_map_entry.default,
+    google_cloud_run_v2_service.service
+  ]
 }
