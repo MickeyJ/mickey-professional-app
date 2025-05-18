@@ -5,7 +5,9 @@ resource "google_project_service" "services" {
   for_each = toset([
     "run.googleapis.com",
     "artifactregistry.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "domains.googleapis.com",
+    "certificatemanager.googleapis.com"
   ])
   service            = each.value
   disable_on_destroy = false
@@ -68,12 +70,12 @@ resource "google_cloud_run_v2_service" "service" {
         name  = "NODE_ENV"
         value = "production"
       }
-       
+
       env {
         name  = "PORT"
         value = "3000"
       }
-      
+
       env {
         name  = "HOSTNAME"
         value = "0.0.0.0"
@@ -105,7 +107,7 @@ resource "google_cloud_run_v2_service" "service" {
     service_account = google_service_account.cloud_run_service_account.email
   }
 
-   # Traffic configuration - 100% to latest revision
+  # Traffic configuration - 100% to latest revision
   traffic {
     type    = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
     percent = 100
@@ -194,4 +196,32 @@ resource "google_dns_record_set" "app_domain" {
     "216.239.36.21",
     "216.239.38.21"
   ]
+}
+
+# SSL Certificate for the domain
+resource "google_certificate_manager_certificate" "default" {
+  count = var.domain_name != "" ? 1 : 0
+  name  = "${var.app_name}-cert"
+  scope = "DEFAULT"
+  managed {
+    domains = [var.domain_name]
+  }
+  depends_on = [
+    google_project_service.services["certificatemanager.googleapis.com"]
+  ]
+}
+
+# Certificate Map
+resource "google_certificate_manager_certificate_map" "default" {
+  count = var.domain_name != "" ? 1 : 0
+  name  = "${var.app_name}-cert-map"
+}
+
+# Certificate Map Entry
+resource "google_certificate_manager_certificate_map_entry" "default" {
+  count        = var.domain_name != "" ? 1 : 0
+  name         = "${var.app_name}-cert-map-entry"
+  map          = google_certificate_manager_certificate_map.default[0].name
+  certificates = [google_certificate_manager_certificate.default[0].id]
+  hostname     = var.domain_name
 }
