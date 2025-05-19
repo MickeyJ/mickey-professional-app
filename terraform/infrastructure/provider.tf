@@ -14,7 +14,7 @@ terraform {
   }
 
   # Uncomment this block if you want to use a remote backend for state storage
-   backend "gcs" {}
+  backend "gcs" {}
 }
 
 #GCP Provider
