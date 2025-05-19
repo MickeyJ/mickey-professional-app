@@ -13,7 +13,7 @@ resource "google_project_service" "services" {
   disable_on_destroy = false
 }
 
-# Artifact Registry Repository
+# Create Docker repository in Artifact Registry
 resource "google_artifact_registry_repository" "repository" {
   provider      = google
   location      = var.region
@@ -51,7 +51,7 @@ resource "google_artifact_registry_repository_iam_member" "artifact_registry_rea
 }
 
 
-# Cloud Run Service
+# Create Cloud Run Service
 resource "google_cloud_run_v2_service" "service" {
   provider = google-beta
   name     = var.app_name
@@ -122,6 +122,7 @@ resource "google_cloud_run_v2_service" "service" {
   ]
 }
 
+# Make the service publicly accessible
 resource "google_cloud_run_service_iam_member" "public_access" {
   location = google_cloud_run_v2_service.service.location
   service  = google_cloud_run_v2_service.service.name
@@ -151,26 +152,5 @@ resource "google_project_iam_member" "cloud_run_services" {
   depends_on = [
     google_service_account.cloud_run_service_account,
     google_project_service.services["iam.googleapis.com"]
-  ]
-}
-
-# Can be deleted after next deploy. Set to 0 to skip
-resource "google_cloud_run_domain_mapping" "domain_mapping" {
-  count    = 0
-  location = var.region
-  name     = var.domain_name
-
-  metadata {
-    namespace = var.project_id
-  }
-
-  spec {
-    route_name = google_cloud_run_v2_service.service.name
-  }
-
-  depends_on = [
-    google_cloud_run_v2_service.service,
-    google_project_service.services["run.googleapis.com"],
-    google_project_service.services["domains.googleapis.com"]
   ]
 }

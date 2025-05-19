@@ -28,18 +28,8 @@ const doto = Doto({
   display: "swap",
 });
 
-// const robotoSans = Roboto({
-//   variable: '--font-roboto-sans',
-//   subsets: ['latin'],
-// });
-
-// const robotoMono = Roboto_Mono({
-//   variable: '--font-roboto-mono',
-//   subsets: ['latin'],
-// });
-
 export const metadata: Metadata = {
-  title: "Mickey M | Developer",
+  title: "Mickey Malotte",
   description: "Full-stack developer crafting clean, functional web applications",
   keywords: ["developer", "nextjs", "typescript", "tailwind"],
   authors: [{ name: "Mickey Malotte" }],
@@ -47,8 +37,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mickeymalotte.com",
-    title: "Your Name | Developer",
+    url: "https://app.mickeymalotte.com",
+    title: "Mickey Malotte",
     description: "Full-stack developer crafting clean, functional web applications",
   },
   twitter: {
@@ -63,7 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${muli.variable} ${jetbrains_mono.variable} ${doto.variable}`}>
+    <html
+      lang="en"
+      className={`${muli.variable} ${jetbrains_mono.variable} ${doto.variable}`}
+    >
       <body className="bg-base-100 font-sans antialiased  min-h-screen flex flex-col">
         <div style={{ paddingLeft: "calc(100vw - 100%)" }}></div>
         <Navbar />
