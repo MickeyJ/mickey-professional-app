@@ -141,7 +141,6 @@ resource "google_project_iam_member" "cloud_run_services" {
     "roles/cloudtrace.agent",        # Write traces
     "roles/monitoring.metricWriter", # Write metrics
     "roles/run.admin",               # 💥 Required for Cloud Run changes
-    "roles/domains.admin",           # 💥 Required to create domain mappings
     "roles/iam.serviceAccountUser",  # (Optional but useful)
   ])
 
@@ -154,9 +153,10 @@ resource "google_project_iam_member" "cloud_run_services" {
     google_project_service.services["iam.googleapis.com"]
   ]
 }
-# Optional: Domain Mapping
+
+# Can be deleted after next deploy. Set to 0 to skip
 resource "google_cloud_run_domain_mapping" "domain_mapping" {
-  count    = var.domain_name != "" ? 1 : 0
+  count    = 0
   location = var.region
   name     = var.domain_name
 
@@ -172,31 +172,5 @@ resource "google_cloud_run_domain_mapping" "domain_mapping" {
     google_cloud_run_v2_service.service,
     google_project_service.services["run.googleapis.com"],
     google_project_service.services["domains.googleapis.com"]
-  ]
-}
-
-data "google_dns_managed_zone" "dns_zone" {
-  name = var.dns_zone_name
-}
-
-# A records for the root of your subdomain zone
-resource "google_dns_record_set" "app_domain" {
-  count        = var.domain_name != "" ? 1 : 0
-  name         = "${var.domain_name}." # The period at the end is required
-  managed_zone = data.google_dns_managed_zone.dns_zone.name
-  type         = "A"
-  ttl          = 300
-
-  # Google's global load balancing IP addresses
-  rrdatas = [
-    "216.239.32.21",
-    "216.239.34.21",
-    "216.239.36.21",
-    "216.239.38.21"
-  ]
-
-  depends_on = [
-    google_cloud_run_v2_service.service,
-    google_cloud_run_domain_mapping.domain_mapping
   ]
 }
