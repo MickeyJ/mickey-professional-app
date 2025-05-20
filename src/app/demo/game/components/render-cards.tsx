@@ -6,7 +6,7 @@ interface RenderCardsProps {
   loadingData: Character[];
   characterData: Character[];
   selectedCards: CardReferences;
-  flippedCards: CardReferences;
+  // flippedCards: CardReferences;
   handleSelectOrRemoveCard: (character: Character) => void;
 }
 
@@ -23,7 +23,7 @@ export default function RenderCards({
     data = loadingData;
   }
   return (
-    <div className="w-full flex flex-wrap gap-4 items-center justify-center my-6">
+    <div className="max-w-[700px] flex flex-wrap gap-4 items-center justify-center my-6">
       {data.length ? (
         data.map((character: Character, i: number) => {
           return (

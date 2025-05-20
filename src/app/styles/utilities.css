@@ -255,4 +255,86 @@
   .bg-info {
     background-color: var(--color-info);
   }
+
+
+
+
+
+
+
+  .flip-card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .transform-gpu {
+    transform: translateZ(0);
+  }
+
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .perspective {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .feature-card-green {
+    @apply bg-white rounded-card p-8 shadow-card border border-green-200;
+    @apply hover:shadow-card-hover transition-shadow duration-300;
+    @apply border-l-4 border-l-green-500;
+  }
+
+  /* Animated background for game completion */
+  .celebration-bg {
+    background: linear-gradient(45deg, var(--color-green-50), var(--color-blue-50), var(--color-purple-50));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Card scaling effects */
+  .scale-on-hover {
+    transition: transform 0.2s ease;
+  }
+
+  .scale-on-hover:hover {
+    transform: scale(1.02);
+  }
 }

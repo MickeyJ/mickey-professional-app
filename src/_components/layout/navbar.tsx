@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -30,16 +31,26 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect mr-1">
       <div className="px-6 py-4 flex justify-between items-center">
         <div>
-          <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-semibold text-base-content ">
+          <Image
+            src="/mickey-logo-1.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          {/* <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-semibold text-base-content ">
             Mickey M.
-          </Link>
+          </Link> */}
         </div>
 
         {/* Desktop navigation */}
         <ul className="hidden md:flex gap-8">
           {navItems.map((item) => (
             <li key={item.name}>
-              <Link href={item.href} className={cn("nav-link", isActive(item.href) && " active")}>
+              <Link
+                href={item.href}
+                className={cn("nav-link", isActive(item.href) && " active")}
+              >
                 {item.name}
               </Link>
             </li>
@@ -47,7 +58,11 @@ export default function Navbar() {
         </ul>
 
         {/* Mobile menu button */}
-        <button className="md:hidden p-2 relative z-10" onClick={toggleMenu} aria-label="Toggle menu">
+        <button
+          className="md:hidden p-2 relative z-10"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
           <svg
             className={cn("w-6 h-6 transition-transform duration-300", isOpen && "rotate-45")}
             fill="none"
@@ -55,9 +70,19 @@ export default function Navbar() {
             viewBox="0 0 24 24"
           >
             {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             )}
           </svg>
         </button>
@@ -75,7 +100,10 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={cn("block py-3 px-4 rounded-button nav-link", isActive(item.href) && "nav-link-active")}
+                  className={cn(
+                    "block py-3 px-4 rounded-button nav-link",
+                    isActive(item.href) && "nav-link-active"
+                  )}
                 >
                   {item.name}
                 </Link>

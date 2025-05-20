@@ -1,32 +1,51 @@
 import Image from "next/image";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-import type { GameCardProps } from "@/types";
+export interface GameCardProps {
+  id: number;
+  index: number;
+  isSelected: boolean;
+  isFlipped: boolean;
+  name: string;
+  image: string;
+  cardSize?: number;
+  location?: {
+    name: string;
+  };
+  className?: string;
+}
 
 export default function GameCard({
   index,
-  isSelected,
-  isFlipped,
   name,
   image,
-  location,
+  // location,
+  isSelected,
+  isFlipped,
   className = "",
+  cardSize = 100,
 }: GameCardProps) {
-  const cardClassName = `game-card ${className} ${isFlipped ? "flipped" : ""} ${isSelected ? "selected" : ""}`;
+  const cardClassName = `game-card ${className} ${isFlipped ? "flipped" : ""} ${isSelected ? `selected w-[${cardSize - cardSize / 10}px] h-[${cardSize - cardSize / 10}px]` : ""}`;
 
   return (
-    <div
-      className={cardClassName}
-      tabIndex={index}
-    >
-      <h2 className="max-w-42 text-md text-bright font-semibold truncate">{name}</h2>
-      <Image
-        src={image}
-        alt={name}
-        width={500}
-        height={500}
-        className="w-24 h-24 rounded-full"
-      />
-      <p className="max-w-42 text-sm text-dark truncate">{location.name}</p>
+    <div className={`w-[120] h-[120] flex flex-col items-center justify-center`}>
+      <div
+        className={cardClassName}
+        tabIndex={index}
+      >
+        <div className="text-center justify-center px-1">
+          <h4 className="text-[10px] text-bright font-semibold truncate">{name}</h4>
+          {/* <InformationCircleIcon className="absolute top-1 right-1 w-3 h-3 text-bright" /> */}
+        </div>
+        <Image
+          src={image}
+          alt={name}
+          // fill={true}
+          width={500}
+          height={500}
+          className="w-full"
+        />
+      </div>
     </div>
   );
 }
