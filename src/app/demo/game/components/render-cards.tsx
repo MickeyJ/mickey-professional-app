@@ -1,11 +1,11 @@
-import type { CardReferences, Character } from "@/types";
+import type { Character, SelectedCards } from "@/types";
 import GameCard from "./game-card";
 
 interface RenderCardsProps {
   loading: boolean;
   loadingData: Character[];
   characterData: Character[];
-  selectedCards: CardReferences;
+  selectedCards: SelectedCards;
   // flippedCards: CardReferences;
   handleSelectOrRemoveCard: (character: Character) => void;
 }
