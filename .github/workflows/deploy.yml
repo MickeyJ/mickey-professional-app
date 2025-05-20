@@ -1,7 +1,7 @@
 name: Build and Deploy to Cloud Run
 
 on:
-  push: &deployment_trigger
+  push:
     branches: [main]
     paths:
       - "src/**"
@@ -14,7 +14,20 @@ on:
       - ".dockerignore"
       - "public/**"
       - ".github/workflows/deploy.yml"
-  pull_request: *deployment_trigger
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".npmrc"
+      - "next.config.js"
+      - "tsconfig.json"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "public/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
