@@ -53,24 +53,19 @@ export default function GamePlay({
 
   useEffect(() => {
     if (timedChallengeOn) {
-      let interval: NodeJS.Timeout;
+      // TODO: this is a little hackky
+      let interval: NodeJS.Timeout = setInterval(() => null, 1000);
       if (gameWon === null) {
         interval = setInterval(() => {
           setSeconds((prev) => prev + 1);
           console.log("seconds", seconds);
         }, 1000);
-      }
-      if (gameWon === true || gameWon === false) {
-        console.log("clearInterval");
-        if (interval) {
-          clearInterval(interval);
-        }
+      } else {
+        clearInterval(interval);
       }
 
       return () => {
-        if (interval) {
-          clearInterval(interval);
-        }
+        clearInterval(interval);
       };
     }
   }, [gameWon]);
