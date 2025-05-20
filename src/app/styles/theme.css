@@ -87,6 +87,8 @@
   --color-feature-3-800: oklch(35% 0.16 30);
   --color-feature-3-900: oklch(25% 0.12 30);
 
+  --nav-height: 4rem;
+
   /* Custom spacing */
   --spacing-18: 4.5rem;
   --spacing-22: 5.5rem;

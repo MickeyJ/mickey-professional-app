@@ -55,19 +55,22 @@ export default function DataPage() {
   );
 
   return (
-    <div className="mx-auto py-12 px-2">
+    <div className="mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-center">Country Population Data</h1>
 
       {loadingData && <p className="text-info">Loading...</p>}
       {fetchError && <p className="text-error">{fetchError}</p>}
 
-      <label htmlFor="default-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+      <label
+        htmlFor="default-range"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
         Minimum Population - {minPopulation}
       </label>
       <input
         id="default-range"
         type="range"
-        min="0"
+        min="1000000"
         max={defaultMinPopulation}
         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
         value={minPopulation}
@@ -81,7 +84,10 @@ export default function DataPage() {
       />
 
       <div className="rounded-lg p-6 shadow-md">
-        <LineChart data={chartData} scaleExponent={minPopulation} />
+        <LineChart
+          data={chartData}
+          scaleExponent={minPopulation}
+        />
       </div>
     </div>
   );
