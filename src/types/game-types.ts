@@ -8,12 +8,12 @@ export enum GameScreen {
   instructions = "instructions",
   settings = "settings",
   game_play = "game_play",
-  game_over = "game_over",
 }
 
 export interface DifficultySettings {
   pairs: number;
   timeLimit: number;
+  unmatchTime: number;
   name: Difficulty.easy | Difficulty.medium | Difficulty.hard;
   cardGameWidth: string;
 }

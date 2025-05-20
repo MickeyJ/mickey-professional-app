@@ -76,6 +76,11 @@
     text-wrap: balance;
   }
 
+  .line-chart-axis-line {
+    color: var(--color-feature-3-500)
+  }
+
+
   /* 
     FEATURE 1 "THEME CUSTOMIZER" 
   */

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { clear } from "console";
 import { useEffect, useState } from "react";
+import { Span } from "next/dist/trace";
 
 import type { Character, DifficultySettings, FlippedCards, SelectedCards } from "@/types";
 import GameCard from "../components/game-card";
@@ -7,8 +9,9 @@ import GameCard from "../components/game-card";
 interface GamePlayProps {
   selectedCards: SelectedCards;
   flippedCards: FlippedCards;
-  difficultySettings: DifficultySettings;
   setFlippedCards: (flippedCards: FlippedCards) => void;
+  timedChallengeOn: boolean;
+  difficultySettings: DifficultySettings;
   onGameScreenNext: () => void;
   onGameScreenBack: () => void;
 }
@@ -16,19 +19,21 @@ interface GamePlayProps {
 export default function GamePlay({
   selectedCards,
   flippedCards,
-  difficultySettings,
   setFlippedCards,
+  timedChallengeOn,
+  difficultySettings,
   onGameScreenNext,
   onGameScreenBack,
 }: GamePlayProps) {
   const [currentFlippedCardIndices, setCurrentFlippedCardIndices] = useState<number[]>([]);
   const [playingCards, setPlayingCards] = useState<Character[]>([]);
+
   const [seconds, setSeconds] = useState<number>(0);
   const [gameWon, setGameWon] = useState<boolean | null>(null);
   const [matches, setMatches] = useState<number>(0);
 
   const matchesNeeded = difficultySettings.pairs / 2;
-  const isGameWon = matches === matchesNeeded;
+  const gameOver = gameWon === true || gameWon === false;
 
   function generatePlayingCards(): Character[] {
     const cards: Character[] = Object.values(selectedCards);
@@ -47,23 +52,27 @@ export default function GamePlay({
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (gameWon === null) {
-      interval = setInterval(() => {
-        setSeconds((prev) => prev + 1);
-        console.log("seconds", seconds);
-      }, 1000);
+    if (timedChallengeOn) {
+      let interval: NodeJS.Timeout;
+      if (gameWon === null) {
+        interval = setInterval(() => {
+          setSeconds((prev) => prev + 1);
+          console.log("seconds", seconds);
+        }, 1000);
+      }
+      if (gameWon === true || gameWon === false) {
+        console.log("clearInterval");
+        if (interval) {
+          clearInterval(interval);
+        }
+      }
+
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      };
     }
-
-    if (gameWon === true || gameWon === false) {
-      console.log("clearInterval");
-
-      interval && clearInterval(interval);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
   }, [gameWon]);
 
   useEffect(() => {
@@ -126,9 +135,9 @@ export default function GamePlay({
         } = flippedCards;
 
         setTimeout(() => {
-          // Reset after 1 second, keep matched cards flipped
+          // Reset after time per difficulty, keep matched cards flipped
           resetFlipped(matchedCards);
-        }, 1000);
+        }, difficultySettings.unmatchTime);
       }
       return;
     }
@@ -138,22 +147,36 @@ export default function GamePlay({
 
   const renderGameOutcome = () => {
     if (gameWon === null) {
+      const timeLeft = difficultySettings.timeLimit - seconds;
+
+      const getTimeLeftColorText = () => {
+        let textColor = "text-success";
+        if (timeLeft <= difficultySettings.timeLimit * 0.25) {
+          textColor = "text-error";
+        } else if (timeLeft <= difficultySettings.timeLimit * 0.5) {
+          textColor = "text-warning";
+        }
+        return <span className={`w-[25] inline-block text-center ${textColor}`}>{timeLeft}</span>;
+      };
+
       return (
-        <h2 className="text-info">
-          You have {matches} of {matchesNeeded} matches and {difficultySettings.timeLimit - seconds}{" "}
-          to go!
-        </h2>
+        <p className="text-dim">
+          You have <span className="text-warning">{matches}</span> of <span>{matchesNeeded}</span>{" "}
+          matches {!!timedChallengeOn && <span>and {getTimeLeftColorText()} seconds left!</span>}
+        </p>
       );
     } else if (gameWon === true) {
-      return <h2 className="text-success">You Win!</h2>;
+      return <p className="text-success">You Win!</p>;
     } else {
-      return <h2 className="text-error">Game Over!</h2>;
+      return <p className="text-error">Game Over!</p>;
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full p-4 bg-base-100">
-      {renderGameOutcome()}
+    <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-base-100">
+      <div className="flex flex-col items-center justify-center text-2xl font-bold">
+        {renderGameOutcome()}
+      </div>
 
       <div
         className={`${difficultySettings.cardGameWidth} flex flex-wrap gap-4 items-center justify-center my-6`}
@@ -162,10 +185,12 @@ export default function GamePlay({
           const index = i + 1;
           const isFlipped = !!flippedCards[index];
 
+          const cardSize = "w-[150px] h-[150px]";
+
           return (
             <div
               key={id + name + index}
-              className="flex flex-col items-center justify-center"
+              className={`${cardSize} flex flex-col items-center justify-center`}
             >
               <div onClick={() => !isFlipped && handleFlipCard(index, id)}>
                 {isFlipped ? (
@@ -177,10 +202,11 @@ export default function GamePlay({
                     name={name}
                     image={image}
                     // location={location}
-                    className={"card-appear"}
+                    className={`card-appear ${cardSize}`}
+                    cardSize={cardSize}
                   />
                 ) : (
-                  <div className="w-[120] h-[120] flex flex-col items-center justify-center border-1 rounded-lg cursor-pointer" />
+                  <div className={`${cardSize} flex flex-col border-1 rounded-lg cursor-pointer`} />
                 )}
               </div>
             </div>
@@ -188,21 +214,21 @@ export default function GamePlay({
         })}
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-2">
-        {isGameWon ? (
+      <div className={`w-[300] flex flex-row gap-4 items-center justify-around my-2`}>
+        {gameOver ? (
           <>
             <button
               onClick={() => resetGame()}
               className="btn-secondary"
             >
-              Try Again
+              Play Again
             </button>
 
             <button
               onClick={() => onGameScreenNext()}
               className="btn-primary"
             >
-              Start Over
+              Change Settings
             </button>
           </>
         ) : (
@@ -211,15 +237,15 @@ export default function GamePlay({
               onClick={() => onGameScreenBack()}
               className="btn-secondary"
             >
-              Back to Settings
+              Change Settings
             </button>
             <button
               onClick={() => {
                 resetGame();
               }}
-              className="btn-secondary text-info"
+              className="btn-primary"
             >
-              RESET
+              Cheat
             </button>
           </>
         )}

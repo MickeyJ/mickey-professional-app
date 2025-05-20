@@ -12,8 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: "Demo", href: "/demo" },
-    { name: "Services", href: "/services" },
+    { name: "Demos", href: "/demo" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Contact", href: "/contact" },
   ];
@@ -28,19 +27,21 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect mr-1">
+    <nav className="h-[var(--nav-height)] fixed top-0 left-0 right-0 flex flex-col justify-center z-50 glass-effect mr-1">
       <div className="px-6 py-4 flex justify-between items-center">
         <div>
-          <Image
-            src="/mickey-logo-1.png"
-            alt="Logo"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-          {/* <Link href="/" onClick={() => setIsOpen(false)} className="text-xl font-semibold text-base-content ">
-            Mickey M.
-          </Link> */}
+          <Link
+            href="/"
+            className=" text-base-content "
+          >
+            <Image
+              src="/mickey-logo-1.png"
+              alt="Logo"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+          </Link>
         </div>
 
         {/* Desktop navigation */}
@@ -59,12 +60,12 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 relative z-10"
+          className="md:hidden p-2 relative z-10 cursor-pointer"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
           <svg
-            className={cn("w-6 h-6 transition-transform duration-300", isOpen && "rotate-45")}
+            className={cn("w-6 h-6 transition-transform duration-300", isOpen && "rotate-90")}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -90,7 +91,7 @@ export default function Navbar() {
         {/* Mobile navigation */}
         <div
           className={cn(
-            "absolute top-full left-0 right-0 md:hidden bg-white/95 backdrop-blur-lg border-t border-neutral-200 transition-all duration-300 ease-out",
+            "z-50 absolute top-full left-0 right-0 md:hidden bg-base-200 backdrop-blur-lg border-t border-neutral-200 transition-all duration-300 ease-out",
             isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
           )}
         >

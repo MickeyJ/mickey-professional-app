@@ -5,7 +5,6 @@ import { useState } from "react";
 import type { FlippedCards, SelectedCards } from "@/types";
 import { Difficulty, GameScreen } from "@/types/game-types";
 import GameInstructions from "./screens/game-instructions";
-import GameOver from "./screens/game-over";
 import GamePlay from "./screens/game-play";
 import GameSettings from "./screens/game-settings";
 
@@ -13,21 +12,24 @@ const GAME_SETTINGS = {
   DIFFICULTY_OPTIONS: {
     [Difficulty.easy]: {
       pairs: 6,
-      timeLimit: 20,
+      timeLimit: 10,
+      unmatchTime: 200,
       name: Difficulty.easy,
-      cardGameWidth: "max-w-[400px]",
+      cardGameWidth: "max-w-[600px]",
     },
     [Difficulty.medium]: {
       pairs: 8,
-      timeLimit: 20,
+      timeLimit: 15,
+      unmatchTime: 300,
       name: Difficulty.medium,
-      cardGameWidth: "max-w-[600px]",
+      cardGameWidth: "max-w-[700px]",
     },
     [Difficulty.hard]: {
       pairs: 12,
-      timeLimit: 30,
+      timeLimit: 20,
+      unmatchTime: 500,
       name: Difficulty.hard,
-      cardGameWidth: "max-w-[600px]",
+      cardGameWidth: "max-w-[700px]",
     },
   },
 };
@@ -35,19 +37,17 @@ const GAME_SETTINGS = {
 export default function GamePage() {
   // Data fetching state
 
+  const [selectedCards, setSelectedCards] = useState<SelectedCards>({});
   const [gameScreen, setGameScreen] = useState<
-    GameScreen.instructions | GameScreen.settings | GameScreen.game_play | GameScreen.game_over
+    GameScreen.instructions | GameScreen.settings | GameScreen.game_play
   >(GameScreen.instructions);
 
   const [difficulty, setDifficulty] = useState<
     Difficulty.easy | Difficulty.medium | Difficulty.hard
   >(Difficulty.easy);
-
-  const numberOfCardsToSelect = GAME_SETTINGS.DIFFICULTY_OPTIONS[difficulty].pairs / 2;
+  const [timedChallengeOn, setTimeChallengeOn] = useState<boolean>(true);
 
   // Game state
-
-  const [selectedCards, setSelectedCards] = useState<SelectedCards>({});
   const [flippedCards, setFlippedCards] = useState<FlippedCards>({});
 
   const GameScreens = {
@@ -72,9 +72,10 @@ export default function GamePage() {
             setDifficulty={setDifficulty}
             selectedCards={selectedCards}
             setSelectedCards={setSelectedCards}
+            timedChallengeOn={timedChallengeOn}
+            setTimeChallengeOn={setTimeChallengeOn}
             difficultyOptions={Object.values(GAME_SETTINGS.DIFFICULTY_OPTIONS)}
             difficultySettings={GAME_SETTINGS.DIFFICULTY_OPTIONS[difficulty]}
-            numberOfCardsToSelect={numberOfCardsToSelect}
             onGameScreenBack={() => {
               setGameScreen(GameScreen.instructions);
             }}
@@ -93,28 +94,14 @@ export default function GamePage() {
             selectedCards={selectedCards}
             flippedCards={flippedCards}
             setFlippedCards={setFlippedCards}
+            timedChallengeOn={timedChallengeOn}
             difficultySettings={GAME_SETTINGS.DIFFICULTY_OPTIONS[difficulty]}
             onGameScreenBack={() => {
               // Reset game state
               setGameScreen(GameScreen.settings);
             }}
             onGameScreenNext={() => {
-              // Reset game state
-              setGameScreen(GameScreen.game_over);
-            }}
-          />
-        );
-      },
-    },
-    [GameScreen.game_over]: {
-      title: "Game Over",
-      render() {
-        return (
-          <GameOver
-            onGameScreenBack={() => {
-              setGameScreen(GameScreen.game_play);
-            }}
-            onGameScreenNext={() => {
+              // Where to go?
               setGameScreen(GameScreen.settings);
             }}
           />
@@ -123,5 +110,5 @@ export default function GamePage() {
     },
   };
 
-  return <div className="w-screen pr-12">{GameScreens[gameScreen].render()}</div>;
+  return <div className="w-screen h-full pr-12">{GameScreens[gameScreen].render()}</div>;
 }

@@ -55,12 +55,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${muli.variable} ${jetbrains_mono.variable} ${doto.variable}`}
+      className={`${muli.variable} ${jetbrains_mono.variable} ${doto.variable} `}
     >
       <body className="bg-base-100 font-sans antialiased  min-h-screen flex flex-col">
         <div style={{ paddingLeft: "calc(100vw - 100%)" }}></div>
         <Navbar />
-        <main className="pt-[60px] px-6 flex-1 leading-relaxed">{children}</main>
+        <main className="pt-[var(--nav-height)] px-6 flex-1 leading-relaxed">{children}</main>
         <Footer />
       </body>
     </html>

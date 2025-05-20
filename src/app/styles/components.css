@@ -54,8 +54,9 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
+      /* @apply w-[125] h-[125]; */
       background-color: var(--color-base-200);
-      border-color: rgb(255 255 255 / 0.2);
+      border-color: rgb(255 255 255 / 0.5);
       transform: translateY(-2px);
     }
 

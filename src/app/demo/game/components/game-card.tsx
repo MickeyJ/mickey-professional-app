@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
+
+// import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 export interface GameCardProps {
   id: number;
@@ -8,7 +9,7 @@ export interface GameCardProps {
   isFlipped: boolean;
   name: string;
   image: string;
-  cardSize?: number;
+  cardSize?: string;
   location?: {
     name: string;
   };
@@ -23,12 +24,12 @@ export default function GameCard({
   isSelected,
   isFlipped,
   className = "",
-  cardSize = 100,
+  cardSize = "w-[120px] h-[120px]",
 }: GameCardProps) {
-  const cardClassName = `game-card ${className} ${isFlipped ? "flipped" : ""} ${isSelected ? `selected w-[${cardSize - cardSize / 10}px] h-[${cardSize - cardSize / 10}px]` : ""}`;
+  const cardClassName = `game-card ${className} ${isFlipped ? "flipped" : ""} ${isSelected ? `selected` : ""}`;
 
   return (
-    <div className={`w-[120] h-[120] flex flex-col items-center justify-center`}>
+    <div className={`${cardSize} flex flex-col items-center justify-center`}>
       <div
         className={cardClassName}
         tabIndex={index}
