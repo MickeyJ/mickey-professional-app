@@ -1,14 +1,15 @@
-name: Build and Deploy to Cloud Run
+name: Infrastructure Deployment
 
 on:
   push:
     branches: [main]
     paths:
-      - "src/**"
+      - "terraform/**"
   pull_request:
     branches: [main]
     paths:
-      - "src/**"
+      - "terraform/**"
+  # Allow manual trigger
   workflow_dispatch:
 
 env:
@@ -20,41 +21,6 @@ env:
   TF_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
 
 jobs:
-  check-infrastructure:
-    name: Check Infrastructure Status
-    runs-on: ubuntu-latest
-    steps:
-      - name: Wait for infrastructure workflow
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.ref }}
-          check-name: "Infrastructure Deployment" # This is the job name from infrastructure.yml
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-          allowed-conclusions: success
-
-  lint-and-test:
-    name: Lint and Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Typecheck
-        run: npm run typecheck
-
-      - name: Run ESLint
-        run: npm run lint
-
   setup-build-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
@@ -108,19 +74,43 @@ jobs:
             echo "bucket_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      # Build the Docker image
-      - name: Build
+      # Bootstrap Terraform (Create State Bucket if it doesn't exist)
+      - name: Bootstrap Terraform
+        if: steps.check_bucket.outputs.bucket_exists == 'false'
+        working-directory: ./terraform/bootstrap
         run: |
-          docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP_NAME }}:${{ github.sha }} .
+          terraform init
+          terraform apply -auto-approve \
+            -var="project_id=${{ env.PROJECT_ID }}" \
+            -var="region=${{ env.REGION }}" \
+            -var="tf_service_account_email=${{ env.TF_SA_EMAIL }}"
 
-      # Push the Docker image to Artifact Registry
-      - name: Push
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      # Initialize Terraform
+      - name: Terraform Init
+        working-directory: ./terraform/infrastructure
         run: |
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP_NAME }}:${{ github.sha }}
+          terraform init \
+            -backend-config="bucket=${{ env.TF_STATE_BUCKET }}" \
+            -backend-config="prefix=terraform/state"
 
-      # Update the Cloud Run service with the new image
-      - name: Update Cloud Run service
+      # Validate Terraform configuration
+      - name: Terraform Validate
+        working-directory: ./terraform/infrastructure
+        run: |
+          terraform validate
+
+      # Plan Terraform changes
+      - name: Terraform Plan
+        working-directory: ./terraform/infrastructure
+        run: |
+          terraform plan \
+            -var="project_id=${{ env.PROJECT_ID }}" \
+            -var="region=${{ env.REGION }}" \
+            -var="app_name=${{ env.APP_NAME }}" \
+            -var="repository_name=${{ env.REPOSITORY }}"
+
+      # Apply Terraform to create infrastructure (only on main branch)
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         working-directory: ./terraform/infrastructure
         run: |
@@ -128,13 +118,4 @@ jobs:
             -var="project_id=${{ env.PROJECT_ID }}" \
             -var="region=${{ env.REGION }}" \
             -var="app_name=${{ env.APP_NAME }}" \
-            -var="repository_name=${{ env.REPOSITORY }}" \
-            -var="container_image=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP_NAME }}:${{ github.sha }}"
-
-      # Output the Cloud Run URL
-      - name: Output Cloud Run URL
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        working-directory: ./terraform/infrastructure
-        run: |
-          echo "Cloud Run URL: $(terraform output -raw cloud_run_url)"
-          echo "Custom Domain: $(terraform output -raw custom_domain_url || echo 'Not configured')"
+            -var="repository_name=${{ env.REPOSITORY }}"
