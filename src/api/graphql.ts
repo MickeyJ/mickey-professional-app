@@ -36,7 +36,7 @@ export const loadingCharacterData = (cardsPerPage: number): Character[] => {
   return Array.from({ length: cardsPerPage }, (_, i) => ({
     id: i * 10000,
     name: "Loading...",
-    image: "/person-image-placeholder.png",
+    image: "/rick-morty-placeholder.webp",
     location: {
       name: "Loading...",
     },

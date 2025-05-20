@@ -4,31 +4,30 @@ export enum Difficulty {
   hard = "hard",
 }
 
-export interface DifficultyLevel {
+export enum GameScreen {
+  instructions = "instructions",
+  settings = "settings",
+  game_play = "game_play",
+}
+
+export interface DifficultySettings {
   pairs: number;
-  timeout: number;
-  name: Difficulty;
+  timeLimit: number;
+  unmatchTime: number;
+  name: Difficulty.easy | Difficulty.medium | Difficulty.hard;
+  cardGameWidth: string;
 }
 
 export interface DifficultyLevels {
-  [key: string]: DifficultyLevel;
+  [key: string]: DifficultySettings;
 }
 
-export interface CardReferences {
+export interface SelectedCards {
   [key: string]: Character;
 }
 
-export interface GameCardProps {
-  id: number;
-  index: number;
-  isSelected: boolean;
-  isFlipped: boolean;
-  name: string;
-  image: string;
-  location: {
-    name: string;
-  };
-  className?: string;
+export interface FlippedCards {
+  [key: number]: number;
 }
 
 export interface Character {

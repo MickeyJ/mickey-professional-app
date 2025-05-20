@@ -63,7 +63,10 @@ const LineChart: React.FC<LineChartProps> = ({
     d3.select(svgRef.current).selectAll("*").remove();
 
     // Create SVG element
-    const svg = d3.select(svgRef.current).attr("width", dimensions.width).attr("height", dimensions.height);
+    const svg = d3
+      .select(svgRef.current)
+      .attr("width", dimensions.width)
+      .attr("height", dimensions.height);
 
     // Calculate margins
     const margin = { top: 40, right: 30, bottom: 60, left: 60 };
@@ -76,8 +79,8 @@ const LineChart: React.FC<LineChartProps> = ({
     // Create scales
     const x = d3.scaleLinear().domain([0, parsedData.length]).nice().range([0, innerWidth]);
 
-    console.log(d3.min(parsedData, (d) => d.value));
-    const scaleValue = 0.1 + (scaleExponent / 100000000) * 0.5;
+    // Calculate scale value based on the exponent
+    const scaleValue = 0.3 + (10000000 / scaleExponent) * 0.05;
 
     const y = d3
       .scalePow() // Power scale with customizable exponent
@@ -86,9 +89,10 @@ const LineChart: React.FC<LineChartProps> = ({
       .nice()
       .range([innerHeight, 0]);
 
+    // Create X axis line
     g.append("g")
       .attr("transform", `translate(0, ${innerHeight})`)
-      .attr("class", "text-bright")
+      .attr("class", "line-chart-axis-line")
       .call(d3.axisBottom(x))
       .append("text")
       .attr("fill", "var(--color-neutral-800)")
@@ -97,8 +101,9 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr("y", 35)
       .text("Population");
 
+    // Create Y axis line
     g.append("g")
-      .attr("class", "text-success")
+      .attr("class", "line-chart-axis-line")
       .call(
         d3
           .axisLeft(y)
@@ -107,6 +112,7 @@ const LineChart: React.FC<LineChartProps> = ({
       )
       .attr("font-size", "10px");
 
+    // Add horizontal grid lines
     g.append("g")
       .attr("class", "grid")
       .call(
@@ -115,7 +121,7 @@ const LineChart: React.FC<LineChartProps> = ({
           .tickSize(-innerWidth)
           .tickFormat(() => "")
       )
-      .attr("stroke-opacity", 0.1)
+      .attr("stroke-opacity", 0.2)
       .select("path")
       .attr("stroke-width", 0);
 
@@ -128,9 +134,17 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr("x2", "0%")
       .attr("y2", "100%");
 
-    gradient.append("stop").attr("offset", "0%").attr("stop-color", "var(--color-blue-500)").attr("stop-opacity", 0.7);
+    gradient
+      .append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", "var(--color-feature-3-300)")
+      .attr("stop-opacity", 0.7);
 
-    gradient.append("stop").attr("offset", "100%").attr("stop-color", "var(--color-blue-500)").attr("stop-opacity", 0);
+    gradient
+      .append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", "var(--color-feature-3-900)")
+      .attr("stop-opacity", 0);
 
     // Add area
     const area = d3
@@ -151,7 +165,7 @@ const LineChart: React.FC<LineChartProps> = ({
     g.append("path")
       .datum(parsedData)
       .attr("fill", "none")
-      .attr("stroke", "var(--color-blue-600)")
+      .attr("stroke", "var(--color-feature-3-100)")
       .attr("stroke-width", 2.5) // Thicker line
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
@@ -163,7 +177,7 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr("class", "tooltip")
       .style("position", "absolute")
       .style("visibility", "hidden")
-      .style("background-color", "rgba(230, 230, 230, 0.8)")
+      .style("background-color", "rgba(230, 230, 230, 0.9)")
       .style("color", "black")
       .style("padding", "10px")
       .style("border-radius", "4px")
@@ -180,7 +194,7 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr("cx", (d, i) => x(i))
       .attr("cy", (d) => y(d.value))
       .attr("r", 5)
-      .attr("stroke", "var(--color-blue-600)")
+      .attr("stroke", "var(--color-feature-3-700)")
       .attr("stroke-width", 2)
       .attr("fill", "white")
       .on("mouseover", function (event, d) {
