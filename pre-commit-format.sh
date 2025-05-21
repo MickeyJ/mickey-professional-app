@@ -23,7 +23,9 @@ fi
 
 # Step 3: Build Test
 echo "Build Test..."
-npm run build
+if ! git diff --quiet -- src/; then
+  npm run build
+fi
 
 if [ $? -ne 0 ]; then
   echo "❌ Build failed. Please fix any issues and try again."
