@@ -1,6 +1,16 @@
 name: Setup Cloud Environment
-description: Common setup for GCP, Docker, Terraform
-inputs: {}
+description: Common setup for GCP, Docker, and Terraform
+
+inputs:
+  project_id:
+    required: true
+    description: "GCP Project ID"
+  region:
+    required: true
+    description: "GCP region"
+  gcp_sa_key:
+    required: true
+    description: "GCP service account key"
 
 runs:
   using: "composite"
@@ -8,28 +18,22 @@ runs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - id: auth
-      name: Authenticate to Google Cloud
+    - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ env.GCP_SA_KEY }}
+        credentials_json: ${{ inputs.gcp_sa_key }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
       with:
-        project_id: ${{ env.PROJECT_ID }}
+        project_id: ${{ inputs.project_id }}
 
     - name: Configure Docker
-      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+      run: |
+        gcloud auth configure-docker ${{ inputs.region }}-docker.pkg.dev
       shell: bash
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.7.0
-
-    - name: Terraform Format Check
-      id: fmt
-      run: terraform fmt -check -recursive
-      working-directory: ./terraform
-      shell: bash

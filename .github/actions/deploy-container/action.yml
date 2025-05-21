@@ -1,0 +1,66 @@
+name: Build & Deploy Container
+description: Build Docker image and update Cloud Run
+
+inputs:
+  docker_image_base:
+    required: true
+    description: "Base name of the Docker image (e.g., gcr.io/my-project/my-app)"
+  image_tag:
+    required: true
+    description: "Tag for the Docker image (e.g., latest, v1.0.0)"
+  tf_state_bucket:
+    required: true
+    description: "Name of the GCS bucket for Terraform state"
+  project_id:
+    required: true
+    description: "GCP Project ID"
+  region:
+    required: true
+    description: "GCP region"
+  app_name:
+    required: true
+    description: "Name of the Cloud Run service"
+  repository:
+    required: true
+    description: "Name of the Docker repository (e.g., my-app-repo)"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Terraform Init
+      working-directory: ./terraform/infrastructure
+      run: |
+        terraform init \
+          -backend-config="bucket=${{ inputs.tf_state_bucket }}" \
+          -backend-config="prefix=terraform/state"
+      shell: bash
+
+    - name: Terraform Validate
+      working-directory: ./terraform/infrastructure
+      run: terraform validate
+      shell: bash
+
+    - name: Build Docker image
+      run: docker build -t ${{ inputs.docker_image_base }}:${{ inputs.image_tag }} .
+      shell: bash
+
+    - name: Tag as latest
+      run: docker tag ${{ inputs.docker_image_base }}:${{ inputs.image_tag }} ${{ inputs.docker_image_base }}:latest
+      shell: bash
+
+    - name: Push Docker images
+      run: |
+        docker push ${{ inputs.docker_image_base }}:${{ inputs.image_tag }}
+        docker push ${{ inputs.docker_image_base }}:latest
+      shell: bash
+
+    - name: Terraform Apply
+      working-directory: ./terraform/infrastructure
+      run: |
+        terraform apply -auto-approve \
+          -var="project_id=${{ inputs.project_id }}" \
+          -var="region=${{ inputs.region }}" \
+          -var="app_name=${{ inputs.app_name }}" \
+          -var="repository_name=${{ inputs.repository }}" \
+          -var="container_image=${{ inputs.docker_image_base }}:${{ inputs.image_tag }}"
+      shell: bash

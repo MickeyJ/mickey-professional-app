@@ -22,7 +22,7 @@ if ! git diff --quiet -- terraform/; then
 fi
 
 # Step 3: Build Test
-if ! git diff --quiet -- src/; then
+if ! git diff --quiet -- src/ || ! git diff --cached --quiet -- src/; then
   echo "Testing 'npm run build' due to src code changes"
   npm run build
 fi
