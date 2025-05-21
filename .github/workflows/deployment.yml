@@ -39,7 +39,7 @@ jobs:
               - 'Dockerfile'
               - '.dockerignore'
               - 'public/**'
-              - '.github/workflows/deploy.yml'
+              - '.github/workflows/deployment.yml'
         continue-on-error: false
 
   build-preview:
