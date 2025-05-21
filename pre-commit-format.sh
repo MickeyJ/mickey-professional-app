@@ -17,13 +17,13 @@ if ! git diff --quiet -- terraform/; then
   echo "Staged formatting changes."
   echo ""
   git status
-  echo "Run: git commit -m 'pre-commit terraform formatting'"
+  git commit -m 'pre-commit terraform formatting'
   exit 1
 fi
 
 # Step 3: Build Test
-echo "Build Test..."
 if ! git diff --quiet -- src/; then
+  echo "Testing 'npm run build' due to src code changes"
   npm run build
 fi
 
