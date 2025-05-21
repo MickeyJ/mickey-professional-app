@@ -45,6 +45,5 @@ variable "environment_variables" {
   description = "Environment variables for the Cloud Run service"
   type        = map(string)
   default = {
-    FAKE_VAR = "fake_value"
   }
 }

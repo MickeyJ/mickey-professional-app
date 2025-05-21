@@ -72,6 +72,8 @@ jobs:
       id-token: "write"
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Setup GCP/TF Env
         uses: ./.github/actions/setup-cloud-env
         env:
