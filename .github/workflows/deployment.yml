@@ -151,12 +151,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [detect-changes, build-preview, iac]
+    needs: [detect-changes, build-preview]
     if: |
       needs.detect-changes.outputs.code_changed == 'true' &&
       (
-        needs.detect-changes.outputs.infra_changed == 'false' ||
-        needs.iac.result == 'success'
+        needs.detect-changes.outputs.infra_changed != 'true' ||
+        (needs.iac.result != '' && needs.iac.result == 'success')
       ) &&
       github.ref == 'refs/heads/main' &&
       github.event_name != 'pull_request'
