@@ -1,14 +1,38 @@
 name: Build and Deploy to Cloud Run
 
 on:
+  # This will make the workflow run after another workflow completes
+  workflow_run:
+    workflows: ["Infrastructure Deployment"] # Replace with the exact name of the workflow that should run before this one
+    types: [completed]
+    branches: [main]
+
   push:
     branches: [main]
     paths:
       - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".npmrc"
+      - "next.config.js"
+      - "tsconfig.json"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "public/**"
+      - ".github/workflows/deploy.yml"
   pull_request:
     branches: [main]
     paths:
       - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".npmrc"
+      - "next.config.js"
+      - "tsconfig.json"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "public/**"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 env:
@@ -20,21 +44,25 @@ env:
   TF_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
 
 jobs:
-  check-infrastructure:
-    name: Check Infrastructure Status
+  # Only verify previous workflow success when triggered by workflow_run
+  verify-workflow-status:
+    # Only run this job when triggered by workflow_run
+    if: ${{ github.event_name == 'workflow_run' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for infrastructure workflow
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.ref }}
-          check-name: "Infrastructure Deployment" # This is the job name from infrastructure.yml
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-          allowed-conclusions: success
+      - name: Check previous workflow status
+        if: ${{ github.event.workflow_run.conclusion != 'success' }}
+        run: |
+          echo "Previous workflow did not succeed. Stopping the deployment process."
+          exit 1
 
   lint-and-test:
     name: Lint and Test
+    # Run this job if:
+    # 1. It was NOT triggered by workflow_run (direct trigger), OR
+    # 2. It WAS triggered by workflow_run AND the verify-workflow-status job succeeded
+    needs: [verify-workflow-status]
+    if: ${{ github.event_name != 'workflow_run' || success() }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -57,6 +85,9 @@ jobs:
 
   setup-build-deploy:
     name: Setup, Build, and Deploy
+    needs: [lint-and-test]
+    # Only run this job if the lint-and-test job was successful
+    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     # Add "id-token" with the intended permissions.
