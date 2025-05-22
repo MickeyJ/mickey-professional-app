@@ -162,7 +162,6 @@ jobs:
 
       # Plan Terraform changes
       - name: Terraform Plan
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         working-directory: ./terraform/infrastructure
         run: |
           terraform plan \
