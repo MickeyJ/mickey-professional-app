@@ -4,7 +4,7 @@ export default function ContactPage() {
       <h1 className="text-2xl font-bold mb-6 text-center">Contact</h1>
       <p className="text-center">This is the contact page.</p>
       <div className="w-full flex flex-row items-center justify-center mt-4">
-        <div className="max-w-md p-4 border border-gray-300 rounded">
+        <div className="max-w-md p-4 border flex flex-col items-center justify-center border-gray-300 rounded">
           <h2 className="text-xl font-bold mb-4">Send Me An Email</h2>
           <input
             type="text"
