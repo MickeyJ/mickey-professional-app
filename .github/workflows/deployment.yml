@@ -111,11 +111,7 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     needs: detect-changes
-    if: |
-      needs.detect-changes.outputs.infra_changed == 'true' && (
-        needs.detect-changes.outputs.code_changed == 'false' ||
-        needs.detect-changes.outputs.workflows_changed == 'true' 
-      )
+    if: needs.detect-changes.outputs.infra_changed == 'true'
 
     # Add "id-token" with the intended permissions.
     permissions:
