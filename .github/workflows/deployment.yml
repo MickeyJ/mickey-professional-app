@@ -23,6 +23,7 @@ jobs:
     outputs:
       infra_changed: ${{ steps.filter.outputs.infra }}
       code_changed: ${{ steps.filter.outputs.code }}
+      workflows_changed: ${{ steps.filter.outputs.workflows }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
@@ -31,6 +32,8 @@ jobs:
           filters: |
             infra:
               - 'terraform/**'
+            workflows:
+              - '.github/workflows/**'
             code:
               - 'src/**'
               - 'package.json'
@@ -39,13 +42,13 @@ jobs:
               - 'Dockerfile'
               - '.dockerignore'
               - 'public/**'
-              - '.github/workflows/deployment.yml'
         continue-on-error: false
 
       - name: Log change detection
         run: |
           echo "Infra changed: ${{ steps.filter.outputs.infra }}"
           echo "Code changed:  ${{ steps.filter.outputs.code }}"
+          echo "Workflows changed:  ${{ steps.filter.outputs.workflows }}"
 
   build-preview:
     name: Build Preview
@@ -71,8 +74,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [detect-changes, build-preview]
     if: |
-      needs.detect-changes.outputs.code_changed == 'true' &&
-      needs.detect-changes.outputs.infra_changed == 'false' &&
+      needs.detect-changes.outputs.code_changed == 'true' && (
+        needs.detect-changes.outputs.infra_changed == 'false' ||
+        needs.detect-changes.outputs.workflows_changed == 'true'
+      ) &&
       github.ref == 'refs/heads/main' &&
       github.event_name != 'pull_request'
 
@@ -107,8 +112,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: detect-changes
     if: |
-      needs.detect-changes.outputs.code_changed == 'false' && 
-      needs.detect-changes.outputs.infra_changed == 'true'
+      needs.detect-changes.outputs.infra_changed == 'true' && (
+        needs.detect-changes.outputs.code_changed == 'false' ||
+        needs.detect-changes.outputs.workflows_changed == 'true' 
+      )
 
     # Add "id-token" with the intended permissions.
     permissions:
@@ -162,7 +169,6 @@ jobs:
 
       # Plan Terraform changes
       - name: Terraform Plan
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         working-directory: ./terraform/infrastructure
         run: |
           terraform plan \
