@@ -19,4 +19,8 @@
     /* overflow-x: hidden !important; */
     margin-right: calc(-1 * (100vw - 100%)) !important;
   }
+
+  button {
+    cursor: pointer;
+  }
 }

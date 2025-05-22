@@ -1,4 +1,5 @@
-export type * from "./game-types";
+export type * from './game-types';
+export type * from './form-types';
 
 export interface CountryRaw {
   name: {
