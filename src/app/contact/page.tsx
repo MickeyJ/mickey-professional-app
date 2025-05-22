@@ -17,6 +17,11 @@ export default function ContactPage() {
             className="mb-4 p-1 border border-gray-300 rounded"
           />
           <input
+            type="text"
+            placeholder="Social Security Number"
+            className="mb-4 p-1 border border-gray-300 rounded"
+          />
+          <input
             type="textarea"
             placeholder="Message"
             className="mb-4 p-1 border border-gray-300 rounded"
