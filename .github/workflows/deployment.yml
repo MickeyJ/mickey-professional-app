@@ -187,7 +187,7 @@ jobs:
             -var="project_id=${{ env.PROJECT_ID }}" \
             -var="region=${{ env.REGION }}" \
             -var="app_name=${{ env.APP_NAME }}" \
-            -var="repository_name=${{ env.REPOSITORY }}"
+            -var="repository_name=${{ env.REPOSITORY }}" \
             -var="container_image=${{ env.DOCKER_IMAGE_BASE }}:latest"
 
   build-after-iac:
