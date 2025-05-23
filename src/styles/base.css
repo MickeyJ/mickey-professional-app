@@ -1,0 +1,59 @@
+/* Add to your global styles */
+@supports (-webkit-touch-callout: none) {
+
+  :root {
+    --vh: 1vh;
+  }
+
+
+  /* iOS Safari specific fix */
+  nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+}
+
+
+
+@layer base {
+
+  html,
+  :root {
+    font-family: var(--font-primary), system-ui, sans-serif;
+    background-color: var(--color-base-300);
+    color: var(--color-base-content);
+  }
+
+  html {
+    height: -webkit-fill-available;
+    overscroll-behavior: none;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    background-color: var(--color-base-300);
+    color: var(--color-base-content);
+    text-wrap: pretty;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+
+    /* @media (min-width: theme('screens.xs')) {
+      overflow-x: hidden !important;
+      margin-right: calc(-1 * (100vw - 100%)) !important;
+    } */
+  }
+
+  nav {
+    /* overflow-x: hidden !important; */
+    margin-right: calc(-1 * (100vw - 100%)) !important;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

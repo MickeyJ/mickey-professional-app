@@ -1,0 +1,305 @@
+/* Custom utilities using @utility */
+
+
+@utility text-dark {
+  color: var(--color-text-dark);
+}
+
+@utility text-bright {
+  color: var(--color-text-bright);
+}
+
+@utility text-dim {
+  color: var(--color-text-dim);
+}
+
+@utility text-display-lg {
+  font-size: var(--font-size-display-lg);
+  line-height: var(--line-height-display);
+  font-weight: 300;
+}
+
+@utility text-display-md {
+  font-size: var(--font-size-display-md);
+  line-height: var(--line-height-display);
+  font-weight: 300;
+}
+
+@utility text-display-sm {
+  font-size: var(--font-size-display-sm);
+  line-height: var(--line-height-display);
+  font-weight: 300;
+}
+
+@utility text-heading-lg {
+  font-size: var(--font-size-heading-lg);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+@utility text-heading-md {
+  font-size: var(--font-size-heading-md);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+@utility text-heading-sm {
+  font-size: var(--font-size-heading-sm);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+@utility text-body-lg {
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+@utility text-body-md {
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body);
+}
+
+@utility text-body-sm {
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body);
+}
+
+@utility rounded-card {
+  border-radius: var(--radius-card);
+}
+
+@utility rounded-button {
+  border-radius: var(--radius-button);
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+@utility shadow-card-hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+@utility glass-effect {
+  background-color: var(--color-base-400);
+  backdrop-filter: blur(8px);
+}
+
+@utility transition-smooth {
+  transition-duration: var(--duration-200);
+  transition-timing-function: var(--timing-ease-out);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility line-chart-axis-line {
+  color: var(--color-feature-3-500)
+}
+
+
+/* 
+  FEATURE 1 "THEME CUSTOMIZER" 
+*/
+@utility feature-1-icon {
+  background-color: var(--color-feature-1-100);
+  color: var(--color-feature-1-500);
+}
+
+@utility feature-1-link {
+  font-weight: 500;
+  color: var(--color-feature-1-300);
+  transition: color 0.2s;
+
+  &.active {
+    color: var(--color-feature-1-50);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--color-feature-1-700);
+      border-radius: 1px;
+    }
+  }
+
+  &:hover {
+    color: var(--color-feature-1-100);
+  }
+}
+
+/* 
+  FEATURE 2 "GAME" 
+*/
+@utility feature-2-icon {
+  background-color: var(--color-feature-2-100);
+  color: var(--color-feature-2-500);
+}
+
+@utility feature-2-link {
+  font-weight: 500;
+  color: var(--color-feature-2-300);
+  transition: color 0.2s;
+
+  &.active {
+    color: var(--color-feature-2-50);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--color-feature-2-700);
+      border-radius: 1px;
+    }
+  }
+
+  &:hover {
+    color: var(--color-feature-2-100);
+  }
+}
+
+/* 
+  FEATURE 3 "DATA" 
+*/
+@utility feature-3-icon {
+  background-color: var(--color-feature-3-100);
+  color: var(--color-feature-3-500);
+}
+
+@utility feature-3-link {
+  font-weight: 500;
+  color: var(--color-feature-3-300);
+  transition: color 0.2s;
+
+  &.active {
+    color: var(--color-feature-3-50);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--color-feature-3-700);
+      border-radius: 1px;
+    }
+  }
+
+  &:hover {
+    color: var(--color-feature-3-100);
+  }
+}
+
+/* 
+  TOP NAV LINK
+*/
+@utility nav-link {
+  font-weight: 500;
+  color: var(--color-text-dim);
+  opacity: 0.8;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
+
+  &.active {
+    color: var(--color-text-dim);
+    opacity: 1;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--color-neutral-500);
+      border-radius: 1px;
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-text-bright);
+  }
+}
+
+@utility bg-primary {
+  background-color: var(--color-base-100) !important;
+}
+
+@utility bg-secondary {
+  background-color: var(--color-base-200) !important;
+}
+
+@utility bg-tertiary {
+  background-color: var(--color-base-300);
+}
+
+@utility text-success {
+  color: var(--color-success);
+}
+
+@utility bg-success {
+  background-color: var(--color-success);
+}
+
+@utility text-warning {
+  color: var(--color-warning);
+}
+
+@utility bg-warning {
+  background-color: var(--color-warning);
+}
+
+@utility text-error {
+  color: var(--color-error);
+}
+
+@utility bg-error {
+  background-color: var(--color-error);
+}
+
+@utility text-info {
+  color: var(--color-info);
+}
+
+@utility bg-info {
+  background-color: var(--color-info);
+}
+
+
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Card scaling effects */
+@utility scale-on-hover {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}

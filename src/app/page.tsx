@@ -1,5 +1,5 @@
-import FeaturesSection from "@/_components/sections/features";
-import Hero from "@/_components/sections/hero";
+import FeaturesSection from '@/_components/sections/features';
+import Hero from '@/_components/sections/hero';
 
 export default function HomePage() {
   return (

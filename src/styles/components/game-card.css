@@ -1,0 +1,153 @@
+/* Base card styling with CSS variables for easy sizing */
+@utility game-card {
+  --card-size: 120px;
+  /* Default size */
+  width: var(--card-size);
+  height: var(--card-size);
+
+  /* Ensure cards always stay square */
+  aspect-ratio: 1/1;
+
+  /* Base styling */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: var(--color-base-300);
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+  transform-origin: center;
+
+  /* Ensure content is centered */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Only apply hover effects on devices that support hover (not touch devices) */
+  @media (hover: hover) and (pointer: fine) {
+
+    /* Hover state (not selected) */
+    &:not(.selected):hover {
+      border-color: var(--color-success);
+      transform: translateY(-2px);
+    }
+
+    /* Hover state when selected */
+    &.selected:hover {
+      border-color: var(--color-error);
+    }
+  }
+
+  /* Selected state */
+  &.selected {
+    transform: scale(0.95);
+    /* Slightly smaller when selected */
+    border-color: var(--color-success);
+  }
+
+  /* Focus state for accessibility (keyboard navigation) */
+  &:focus-visible {
+    outline: 2px solid var(--color-info);
+    outline-offset: 2px;
+  }
+
+  /* Active state for better touch feedback */
+  &:active {
+    transform: scale(0.98);
+    border-color: var(--color-info);
+    transition: all 0.1s ease-in-out;
+  }
+}
+
+/* Card header styling */
+@utility game-card-header {
+  width: 100%;
+  /* padding-top: 0.1rem; */
+  text-align: center;
+  z-index: 1;
+
+
+}
+
+/* Card name styling */
+@utility game-card-name {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--color-text-bright);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (min-width: theme('screens.sm')) {
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: theme('screens.md')) {
+    font-size: 0.8rem;
+  }
+}
+
+/* Card image container */
+@utility game-card-image {
+  width: 100%;
+  height: auto;
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation for card appearance */
+@keyframes card-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@utility card-appear {
+  animation: card-appear 0.2s ease-out forwards;
+}
+
+/* Loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@utility card-loading {
+  background: linear-gradient(135deg,
+      var(--color-base-300) 0%,
+      var(--color-neutral-700) 50%,
+      var(--color-base-300) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+
+/* Size modifiers - can be used on container or directly on card */
+@utility card-size-sm {
+  --card-size: 90px;
+}
+
+@utility card-size-md {
+  --card-size: 90px;
+
+  @media (min-width: theme('screens.sm')) {
+    --card-size: 120px;
+  }
+
+
+}
+
+@utility card-size-lg {
+  --card-size: 150px;
+}

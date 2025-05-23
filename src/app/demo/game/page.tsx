@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import type { FlippedCards, SelectedCards } from "@/types";
-import { Difficulty, GameScreen } from "@/types/game-types";
-import GameInstructions from "./screens/game-instructions";
-import GamePlay from "./screens/game-play";
-import GameSettings from "./screens/game-settings";
+import type { FlippedCards, SelectedCards } from '@/types';
+import { Difficulty, GameScreen } from '@/types/game-types';
+import GameInstructions from './screens/game-instructions';
+import GamePlay from './screens/game-play';
+import GameSettings from './screens/game-settings';
 
 const GAME_SETTINGS = {
   DIFFICULTY_OPTIONS: {
@@ -15,21 +15,21 @@ const GAME_SETTINGS = {
       timeLimit: 10,
       unmatchTime: 200,
       name: Difficulty.easy,
-      cardGameWidth: "max-w-[600px]",
+      cardGameWidth: 'max-w-[600px]',
     },
     [Difficulty.medium]: {
       pairs: 8,
       timeLimit: 15,
       unmatchTime: 300,
       name: Difficulty.medium,
-      cardGameWidth: "max-w-[700px]",
+      cardGameWidth: 'max-w-[700px]',
     },
     [Difficulty.hard]: {
       pairs: 12,
       timeLimit: 20,
       unmatchTime: 500,
       name: Difficulty.hard,
-      cardGameWidth: "max-w-[700px]",
+      cardGameWidth: 'max-w-[700px]',
     },
   },
 };
@@ -52,7 +52,7 @@ export default function GamePage() {
 
   const GameScreens = {
     [GameScreen.instructions]: {
-      title: "Game Instructions",
+      title: 'Game Instructions',
       render() {
         return (
           <GameInstructions
@@ -64,7 +64,7 @@ export default function GamePage() {
       },
     },
     [GameScreen.settings]: {
-      title: "Game Settings",
+      title: 'Game Settings',
       render() {
         return (
           <GameSettings
@@ -87,7 +87,7 @@ export default function GamePage() {
       },
     },
     [GameScreen.game_play]: {
-      title: "Game",
+      title: 'Game',
       render() {
         return (
           <GamePlay
@@ -110,5 +110,5 @@ export default function GamePage() {
     },
   };
 
-  return <div className="w-screen h-full pr-12">{GameScreens[gameScreen].render()}</div>;
+  return <div className="w-screen h-full md:pr-2">{GameScreens[gameScreen].render()}</div>;
 }

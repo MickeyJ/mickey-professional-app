@@ -1,0 +1,29 @@
+/* Primary button */
+@utility btn-primary {
+  @apply px-3 py-2 rounded-md font-bold cursor-pointer;
+  background-color: var(--color-neutral-50);
+  border: 1px solid transparent;
+  color: var(--color-neutral-950);
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--color-neutral-50);
+    background-color: transparent;
+    border: 1px solid var(--color-neutral-400);
+  }
+}
+
+
+
+/* Light primary button */
+@utility btn-secondary {
+  @apply px-3 py-2 rounded-md font-bold cursor-pointer;
+  background-color: transparent;
+  border: 1px solid var(--color-neutral-800);
+  color: var(--color-neutral-50);
+  transition: all 0.2s;
+
+  &:hover {
+    border: 1px solid var(--color-neutral-400);
+  }
+}

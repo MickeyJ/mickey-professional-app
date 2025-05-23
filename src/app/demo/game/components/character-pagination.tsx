@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
 interface CharacterPaginationProps {
   currentPage: number;
@@ -20,7 +20,7 @@ export default function CharacterPagination({
       >
         <ChevronLeftIcon className="w-7 h-7 text-white hover:text-info transition-color duration-200" />
       </button>
-      <span className="w-40 text-sm text-dim text-center">
+      <span className="w-40 mr-0.5 text-sm text-dim text-center">
         Page {currentPage} of {lastPage}
       </span>
       <button
