@@ -1,0 +1,23 @@
+@import './buttons.css';
+@import './game-settings.css';
+@import './game-card.css';
+
+
+
+
+/* Updated feature card for dark theme */
+@utility feature-card {
+  @apply rounded-card p-4 sm:p-5 md:p-7 shadow-card;
+  background-color: var(--color-base-300);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  transition: all 0.3s;
+
+  &:hover {
+    @apply shadow-card-hover;
+    background-color: var(--color-base-100);
+    border-color: rgb(255 255 255 / 0.4);
+    transform: translateY(-2px);
+
+
+  }
+}

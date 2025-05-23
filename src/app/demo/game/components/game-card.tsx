@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 // import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
@@ -13,6 +13,7 @@ export interface GameCardProps {
   location?: {
     name: string;
   };
+  sizeClass?: string; // 'card-size-sm' | 'card-size-md' | 'card-size-lg'
   className?: string;
 }
 
@@ -23,28 +24,30 @@ export default function GameCard({
   // location,
   isSelected,
   isFlipped,
-  className = "",
-  cardSize = "w-[120px] h-[120px]",
+  className = '',
+  // cardSize = "w-[120px] h-[120px]",
+  sizeClass = 'card-size-md',
 }: GameCardProps) {
-  const cardClassName = `game-card ${className} ${isFlipped ? "flipped" : ""} ${isSelected ? `selected` : ""}`;
+  const cardClassName = `game-card ${sizeClass} ${isSelected ? 'selected' : ''} ${isFlipped ? 'flipped' : ''} ${className}`;
 
   return (
-    <div className={`${cardSize} flex flex-col items-center justify-center`}>
-      <div
-        className={cardClassName}
-        tabIndex={index}
-      >
-        <div className="text-center justify-center px-1">
-          <h4 className="text-[10px] text-bright font-semibold truncate">{name}</h4>
-          {/* <InformationCircleIcon className="absolute top-1 right-1 w-3 h-3 text-bright" /> */}
-        </div>
+    <div
+      className={cardClassName}
+      tabIndex={index}
+    >
+      <div className="game-card-header">
+        <h4 className="game-card-name">{name}</h4>
+      </div>
+      <div className="game-card-image">
         <Image
           src={image}
           alt={name}
-          // fill={true}
-          width={500}
-          height={500}
-          className="w-full"
+          fill
+          sizes="(max-width: 768px) 90px, 120px"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center top',
+          }}
         />
       </div>
     </div>

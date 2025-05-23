@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { clear } from "console";
-import { useEffect, useState } from "react";
-import { Span } from "next/dist/trace";
+import { clear } from 'console';
+import { useEffect, useState } from 'react';
+import { Span } from 'next/dist/trace';
 
-import type { Character, DifficultySettings, FlippedCards, SelectedCards } from "@/types";
-import GameCard from "../components/game-card";
+import type { Character, DifficultySettings, FlippedCards, SelectedCards } from '@/types';
+import GameCard from '../components/game-card';
 
 interface GamePlayProps {
   selectedCards: SelectedCards;
@@ -58,7 +58,7 @@ export default function GamePlay({
       if (gameWon === null) {
         interval = setInterval(() => {
           setSeconds((prev) => prev + 1);
-          console.log("seconds", seconds);
+          console.log('seconds', seconds);
         }, 1000);
       } else {
         clearInterval(interval);
@@ -98,7 +98,7 @@ export default function GamePlay({
   };
 
   const handleFlipCard = (currentCardIndex: number, currentCardId: number) => {
-    console.log("handleFlipCard", currentFlippedCardIndices.length);
+    console.log('handleFlipCard', currentFlippedCardIndices.length);
 
     if (!currentFlippedCardIndices.length) {
       // Flip first card
@@ -137,7 +137,7 @@ export default function GamePlay({
       return;
     }
 
-    console.log("Max cards selected");
+    console.log('Max cards selected');
   };
 
   const renderGameOutcome = () => {
@@ -145,18 +145,18 @@ export default function GamePlay({
       const timeLeft = difficultySettings.timeLimit - seconds;
 
       const getTimeLeftColorText = () => {
-        let textColor = "text-success";
+        let textColor = 'text-success';
         if (timeLeft <= difficultySettings.timeLimit * 0.25) {
-          textColor = "text-error";
+          textColor = 'text-error';
         } else if (timeLeft <= difficultySettings.timeLimit * 0.5) {
-          textColor = "text-warning";
+          textColor = 'text-warning';
         }
         return <span className={`w-[25] inline-block text-center ${textColor}`}>{timeLeft}</span>;
       };
 
       return (
         <p className="text-dim">
-          You have <span className="text-warning">{matches}</span> of <span>{matchesNeeded}</span>{" "}
+          You have <span className="text-warning">{matches}</span> of <span>{matchesNeeded}</span>{' '}
           matches {!!timedChallengeOn && <span>and {getTimeLeftColorText()} seconds left!</span>}
         </p>
       );
@@ -180,12 +180,10 @@ export default function GamePlay({
           const index = i + 1;
           const isFlipped = !!flippedCards[index];
 
-          const cardSize = "w-[150px] h-[150px]";
-
           return (
             <div
               key={id + name + index}
-              className={`${cardSize} flex flex-col items-center justify-center`}
+              className={`flex flex-col items-center justify-center`}
             >
               <div onClick={() => !isFlipped && handleFlipCard(index, id)}>
                 {isFlipped ? (
@@ -197,11 +195,11 @@ export default function GamePlay({
                     name={name}
                     image={image}
                     // location={location}
-                    className={`card-appear ${cardSize}`}
-                    cardSize={cardSize}
+                    className={`card-appear`}
+                    sizeClass="card-size-lg"
                   />
                 ) : (
-                  <div className={`${cardSize} flex flex-col border-1 rounded-lg cursor-pointer`} />
+                  <div className="game-card card-size-lg" />
                 )}
               </div>
             </div>

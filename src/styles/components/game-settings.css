@@ -1,0 +1,378 @@
+/* Main container */
+@utility game-settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  padding-top: 0;
+  /* padding-left: 0.6rem; */
+  background-color: var(--color-base-100);
+}
+
+/* Main layout grid */
+@utility game-settings-main {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  gap: 0.5rem;
+
+  @media (min-width: theme('screens.sm')) {
+    flex-direction: row;
+  }
+
+}
+
+/* Panel base styles */
+@utility settings-panel {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  border: 2px solid;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+@utility settings-panel-left {
+  flex: 1;
+  border-color: var(--color-base-300);
+}
+
+@utility settings-panel-middle {
+  flex: 2;
+  border: 2px solid;
+}
+
+@utility settings-panel-middle-ready {
+  border-color: var(--color-success);
+}
+
+@utility settings-panel-middle-default {
+  border-color: var(--color-base-300);
+}
+
+@utility settings-panel-right {
+  flex-grow: .3;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form elements */
+@utility form-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@utility form-label {
+  font-size: 0.875rem;
+  color: var(--color-text-dark);
+}
+
+@utility form-select {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+@utility form-input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+}
+
+@utility form-option {
+  background-color: var(--color-base-100);
+  color: var(--color-text-dark);
+
+  &:focus {
+    background-color: var(--color-info);
+  }
+}
+
+/* Checkbox group */
+@utility checkbox-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+@utility form-checkbox {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-info);
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+@utility checkbox-label {
+  font-size: 0.875rem;
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+/* Selected cards section */
+@utility selected-cards-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@utility selected-cards-counter {
+  font-size: 0.875rem;
+  color: var(--color-text-dim);
+}
+
+@utility counter-highlight {
+  color: var(--color-info);
+  font-weight: bold;
+}
+
+@utility selected-cards-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Selected card chips */
+@utility selected-card-chip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--color-info);
+  border-radius: 0.125rem;
+  background-color: var(--color-base-200);
+  padding: 0.25rem;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-error);
+  }
+}
+
+@utility card-chip-delete {
+  font-size: 0.75rem;
+  color: var(--color-error);
+  font-weight: bold;
+  margin: 0 0.25rem;
+}
+
+/* Clear button */
+@utility clear-button {
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid;
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+@utility clear-button-active {
+  border-color: var(--color-error);
+  color: var(--color-error);
+
+  &:hover {
+    background-color: var(--color-error);
+    color: white;
+  }
+}
+
+@utility clear-button-disabled {
+  border-color: var(--color-base-300);
+  color: var(--color-text-dark);
+}
+
+/* Play button */
+@utility play-button {
+  width: 100%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+@utility play-button-ready {
+  cursor: pointer;
+  color: white;
+  background-color: var(--color-base-300);
+  transition: all 0.2s;
+
+  &:hover {
+    color: black;
+    background-color: var(--color-success);
+  }
+}
+
+@utility play-button-disabled {
+  color: var(--color-text-dark);
+  cursor: not-allowed;
+}
+
+/* Content sections */
+@utility character-cards-section {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+@utility error-message {
+  color: var(--color-text-error);
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+@utility character-cards-container {
+  width: 100%;
+  margin: .5rem 0;
+  position: relative;
+
+
+  /* Scroll indicator - adds a small animated arrow */
+  &::after {
+    content: "⌄";
+    position: absolute;
+    bottom: 10px;
+
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: var(--color-info);
+    animation: bounce 1.5s infinite;
+    opacity: 0.8;
+
+    /* Hide on larger screens */
+    @media (min-width: theme('screens.md')) {
+      display: none;
+    }
+  }
+}
+
+/* Bounce animation for the scroll indicator */
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+@utility character-cards-scroll {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 cards per row on mobile */
+  gap: 0.5rem;
+  justify-content: center;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0.5rem 0.1rem 2rem 0.1rem;
+
+  border: 3px solid var(--color-base-300);
+  border-left: none;
+  border-right: none;
+
+
+
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-info) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-info);
+    border-radius: 20px;
+  }
+
+  /* Add more breathing room on larger screens */
+  @media (min-width: theme('screens.sm')) {
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 cards per row on small screens */
+    max-height: 400px;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: theme('screens.md')) {
+    grid-template-columns: repeat(6, 1fr);
+    /* 5 cards per row on medium screens */
+    max-height: 700px;
+    gap: 1rem;
+    background: none;
+    border: none;
+    padding: 0.1rem;
+  }
+
+  @media (min-width: theme('screens.lg')) {
+    grid-template-columns: repeat(6, 1fr);
+    /* 6 cards per row on large screens */
+  }
+}
+
+/* Simplify card wrapper since grid handles the sizing */
+@utility card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  /* Let grid control the width */
+}
+
+/* Add a small helper text to indicate scrolling */
+@utility scroll-helper-text {
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  font-style: italic;
+
+  @media (min-width: theme('screens.md')) {
+    display: none;
+  }
+}

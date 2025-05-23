@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { getCharacterData, loadingCharacterData } from "@/api";
-import { useDebounce } from "@/hooks";
-import type { Character, DifficultySettings, SelectedCards } from "@/types";
-import { Difficulty } from "@/types/game-types";
-import CharacterPagination from "../components/character-pagination";
-import RenderCards from "../components/render-cards";
+import { getCharacterData, loadingCharacterData } from '@/api';
+import { useDebounce } from '@/hooks';
+import type { Character, DifficultySettings, SelectedCards } from '@/types';
+import { Difficulty } from '@/types/game-types';
+import CharacterPagination from '../components/character-pagination';
+import RenderCards from '../components/render-cards';
 
 interface GameSettingsProps {
   difficulty: Difficulty;
@@ -36,7 +36,7 @@ export default function GameSettings({
   // onGameScreenBack,
 }: GameSettingsProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [characterData, setCharacterData] = useState<Character[]>([]);
   // Game Setup state
   const [characterSearchCount, setCharacterSearchCount] = useState<number>(0);
@@ -46,7 +46,7 @@ export default function GameSettings({
 
   // Character search state
   const [nameSearchInput, debounceNameSearchInput, setNameSearchInput] = useDebounce<string>(
-    "",
+    '',
     300
   );
 
@@ -57,7 +57,7 @@ export default function GameSettings({
 
   useEffect(() => {
     fetchCharacters(debouncedCurrentPage, debounceNameSearchInput);
-    console.log("useEffect - fetchCharacters -", new Date().toISOString());
+    console.log('useEffect - fetchCharacters -', new Date().toISOString());
   }, [debouncedCurrentPage, debounceNameSearchInput]);
 
   useEffect(() => {
@@ -74,12 +74,12 @@ export default function GameSettings({
       const { data } = await getCharacterData(page, search);
       setCharacterData(data.characters.results);
       setCharacterSearchCount(data.characters.info.count);
-      console.log("fetchCharacters:", new Date().toISOString(), data.characters.results);
+      console.log('fetchCharacters:', new Date().toISOString(), data.characters.results);
 
       setLoading(false);
     } catch (error: unknown) {
-      console.error("Error fetching character data:", error);
-      setErrorMessage("Error fetching character data: " + (error as Error).message);
+      console.error('Error fetching character data:', error);
+      setErrorMessage('Error fetching character data: ' + (error as Error).message);
       setLoading(false);
     }
   }
@@ -103,11 +103,11 @@ export default function GameSettings({
   const selectedCardElements = Object.values(selectedCards).map((character: Character) => (
     <button
       key={character.id + character.name}
-      className="flex flex-row items-center text-xs text-info rounded-sm bg-base-200 p-1 border border-gray-300 hover:border-error transform-border duration-200 cursor-pointer"
+      className="selected-card-chip"
       onClick={() => handleSelectOrRemoveCard(character)}
     >
       {character.name}
-      <span className="text-xs text-error font-bold mx-1">X</span>
+      <span className="card-chip-delete">X</span>
     </button>
   ));
 
@@ -122,20 +122,21 @@ export default function GameSettings({
   };
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full p-4 bg-base-100">
-      <div className="w-full min-h-[150] flex flex-row items-stretch justify-start mt-4 gap-2">
-        <div className="flex-1/4 flex flex-col rounded border-2 border-base-300 p-2 gap-2">
+    <div className="game-settings-container">
+      <div className="game-settings-main">
+        {/* Left Panel - Settings */}
+        <div className="settings-panel settings-panel-left">
           {/* Difficulty Selection */}
-          <div className="w-full flex flex-col items-start">
+          <div className="form-field">
             <label
               htmlFor="difficultySelection"
-              className="text-sm text-dark"
+              className="form-label"
             >
               Choose Difficulty
             </label>
             <select
               id="difficultySelection"
-              className="w-full h-[30px] border border-gray-300 rounded px-2 cursor-pointer"
+              className="form-select"
               value={difficulty}
               onChange={(e) => {
                 setSelectedCards({});
@@ -146,7 +147,7 @@ export default function GameSettings({
                 <option
                   key={name}
                   value={name}
-                  className="bg-base-100 text-dark focus:bg-info"
+                  className="form-option"
                 >
                   {name}-({pairs} Cards)
                 </option>
@@ -155,10 +156,10 @@ export default function GameSettings({
           </div>
 
           {/* Character Search Input */}
-          <div className="w-full flex flex-col items-start">
+          <div className="form-field">
             <label
               htmlFor="nameSearchInput"
-              className="text-sm text-dark"
+              className="form-label"
             >
               Search Characters
             </label>
@@ -173,72 +174,68 @@ export default function GameSettings({
                   setCurrentPage(1);
                 }
               }}
-              className="w-full h-[30px] border border-gray-300 rounded px-2"
+              className="form-input"
             />
           </div>
 
           {/* Time Challenge Checkbox */}
-          <div className="w-full flex flex-row items-center justify-start gap-2 cursor-pointer">
+          <div className="checkbox-group">
             <input
               id="timedChallenge"
               type="checkbox"
               placeholder="character name"
               checked={timedChallengeOn}
               onChange={() => setTimeChallengeOn(!timedChallengeOn)}
-              className="w-4 h-4 text-info bg-gray-100 border-gray-300 rounded-full cursor-pointer"
+              className="form-checkbox"
             />
             <label
               htmlFor="timedChallenge"
-              className="text-sm text-dim cursor-pointer"
+              className="checkbox-label"
             >
               Timed Challenge - {difficultySettings.timeLimit}s
             </label>
           </div>
         </div>
 
+        {/* Middle Panel - Character Chips */}
         <div
-          className={`flex-1/2 flex flex-col rounded border-2  p-2 gap-2 ${readyToPlay ? "border-success" : "border-base-300"}`}
+          className={`settings-panel ${readyToPlay ? 'settings-panel-middle-ready' : 'settings-panel-middle-default'} settings-panel-middle`}
         >
           {/* Selected Character List/Buttons */}
           <div className="flex flex-col items-start">
-            <div className="w-full flex flex-row items-center justify-between">
-              <label className="text-sm text-dim">
-                <span className="text-info font-bold">{selectedCardElements.length} </span>
-                <span>of</span> <span className="text-info font-bold">{numCardsToSelect} </span>
+            <div className="selected-cards-header">
+              <label className="selected-cards-counter">
+                <span className="counter-highlight">{selectedCardElements.length} </span>
+                <span>of</span> <span className="counter-highlight">{numCardsToSelect} </span>
                 <span>Characters Selected</span>
               </label>
               <span
-                className={`text-xs rounded border-1  px-1 ml-1 cursor-pointer ${numCardsSelected ? "border-error text-error hover:bg-error hover:text-white" : "border-base-300 text-dark"} transition-all duration-200`}
+                className={`clear-button ${numCardsSelected ? 'clear-button-active' : 'clear-button-disabled'}`}
                 onClick={() => setSelectedCards({})}
               >
                 Clear
               </span>
             </div>
-            <div className="flex flex-row flex-wrap gap-2 mt-2">{selectedCardElements}</div>
+            <div className="selected-cards-grid">{selectedCardElements}</div>
           </div>
         </div>
 
-        {/* Play Button */}
-        <div className="flex-1/6 flex flex-row items-center justify-center">
-          <button
-            onClick={() => readyToPlay && onGameScreenNext()}
-            className={`w-full h-full border-1 rounded text-2xl font-bold ${readyToPlay ? "cursor-pointer text-white bg-base-300 hover:text-black hover:bg-success transition-all duration-200" : "text-dark"} `}
-          >
-            PLAY
-          </button>
-        </div>
+        {/* Right Panel - Play Button */}
       </div>
 
       {/* Character Cards */}
       {errorMessage ? (
-        <div className="text-red-500 text-center mt-6">{errorMessage}</div>
+        <div className="error-message">{errorMessage}</div>
       ) : (
-        <div className="mt-6">
-          <CharacterPagination
-            currentPage={currentPage}
-            lastPage={lastPage}
-            handlePageChange={handlePageChange}
-          />
+        <div className="character-cards-section">
+          <div>
+            <CharacterPagination
+              currentPage={currentPage}
+              lastPage={lastPage}
+              handlePageChange={handlePageChange}
+            />
+          </div>
+
           <RenderCards
             loading={loading}
             loadingData={loadingData}
@@ -247,6 +244,12 @@ export default function GameSettings({
             // flippedCards={flippedCards}
             handleSelectOrRemoveCard={handleSelectOrRemoveCard}
           />
+          <button
+            onClick={() => readyToPlay && onGameScreenNext()}
+            className={`play-button ${readyToPlay ? 'play-button-ready' : 'play-button-disabled'}`}
+          >
+            PLAY
+          </button>
         </div>
       )}
 
