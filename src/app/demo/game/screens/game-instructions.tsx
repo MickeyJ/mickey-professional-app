@@ -17,7 +17,7 @@ export default function GameInstructions({ onGameScreenNext }: GameInstructionsP
 
           <hr className="my-2 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
 
-          <h2 className="text-xl text-dim font-semibold underline">Diffiuclty</h2>
+          <h2 className="text-xl text-dim font-semibold underline">Difficulty</h2>
 
           <p className="text-dim">
             This determines the number of cards you'll need to match. It also changes the time

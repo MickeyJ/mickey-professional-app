@@ -1,0 +1,678 @@
+{
+    "version": "0.6",
+    "reqId": "1",
+    "status": "ok",
+    "sig": "998025448",
+    "table": {
+        "cols": [{
+            "id": "A",
+            "label": "Functional Group",
+            "type": "string"
+        }, {
+            "id": "B",
+            "label": "Frequency",
+            "type": "number",
+            "pattern": "General"
+        }],
+        "rows": [{
+            "c": [{
+                "v": "1,2-aminoalcohol"
+            }, {
+                "v": 3.0,
+                "f": "3"
+            }]
+        }, {
+            "c": [{
+                "v": "1,2-diol"
+            }, {
+                "v": 230.0,
+                "f": "230"
+            }]
+        }, {
+            "c": [{
+                "v": "1,2-diphenol"
+            }, {
+                "v": 26.0,
+                "f": "26"
+            }]
+        }, {
+            "c": [{
+                "v": "acetal"
+            }, {
+                "v": 133.0,
+                "f": "133"
+            }]
+        }, {
+            "c": [{
+                "v": "alcohol"
+            }, {
+                "v": 557.0,
+                "f": "557"
+            }]
+        }, {
+            "c": [{
+                "v": "aldehyde"
+            }, {
+                "v": 168.0,
+                "f": "168"
+            }]
+        }, {
+            "c": [{
+                "v": "alkene"
+            }, {
+                "v": 802.0,
+                "f": "802"
+            }]
+        }, {
+            "c": [{
+                "v": "alkyl aryl ether"
+            }, {
+                "v": 139.0,
+                "f": "139"
+            }]
+        }, {
+            "c": [{
+                "v": "alkyl bromide"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "alkyl chloride"
+            }, {
+                "v": 3.0,
+                "f": "3"
+            }]
+        }, {
+            "c": [{
+                "v": "alkylthiol"
+            }, {
+                "v": 51.0,
+                "f": "51"
+            }]
+        }, {
+            "c": [{
+                "v": "alkyne"
+            }, {
+                "v": 6.0,
+                "f": "6"
+            }]
+        }, {
+            "c": [{
+                "v": "alpha-aminoacid"
+            }, {
+                "v": 38.0,
+                "f": "38"
+            }]
+        }, {
+            "c": [{
+                "v": "alpha-hydroxyacid"
+            }, {
+                "v": 11.0,
+                "f": "11"
+            }]
+        }, {
+            "c": [{
+                "v": "amine"
+            }, {
+                "v": 87.0,
+                "f": "87"
+            }]
+        }, {
+            "c": [{
+                "v": "anion"
+            }, {
+                "v": 39.0,
+                "f": "39"
+            }]
+        }, {
+            "c": [{
+                "v": "aromatic compound"
+            }, {
+                "v": 636.0,
+                "f": "636"
+            }]
+        }, {
+            "c": [{
+                "v": "aryl chloride"
+            }, {
+                "v": 3.0,
+                "f": "3"
+            }]
+        }, {
+            "c": [{
+                "v": "arylthiol (thiophenol)"
+            }, {
+                "v": 6.0,
+                "f": "6"
+            }]
+        }, {
+            "c": [{
+                "v": "azo compound"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "carbonitrile"
+            }, {
+                "v": 6.0,
+                "f": "6"
+            }]
+        }, {
+            "c": [{
+                "v": "carbonyl compound"
+            }, {
+                "v": 526.0,
+                "f": "526"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid"
+            }, {
+                "v": 159.0,
+                "f": "159"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid amide"
+            }, {
+                "v": 20.0,
+                "f": "20"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid anhydride"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid derivative"
+            }, {
+                "v": 727.0,
+                "f": "727"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid ester"
+            }, {
+                "v": 536.0,
+                "f": "536"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid imide"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid imide, n-unsubstituted"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "carboxylic acid salt"
+            }, {
+                "v": 17.0,
+                "f": "17"
+            }]
+        }, {
+            "c": [{
+                "v": "cation"
+            }, {
+                "v": 32.0,
+                "f": "32"
+            }]
+        }, {
+            "c": [{
+                "v": "dialkyl ether"
+            }, {
+                "v": 74.0,
+                "f": "74"
+            }]
+        }, {
+            "c": [{
+                "v": "diaryl ether"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "disulfide"
+            }, {
+                "v": 44.0,
+                "f": "44"
+            }]
+        }, {
+            "c": [{
+                "v": "enediol"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "enol"
+            }, {
+                "v": 16.0,
+                "f": "16"
+            }]
+        }, {
+            "c": [{
+                "v": "enol ether"
+            }, {
+                "v": 6.0,
+                "f": "6"
+            }]
+        }, {
+            "c": [{
+                "v": "ether"
+            }, {
+                "v": 211.0,
+                "f": "211"
+            }]
+        }, {
+            "c": [{
+                "v": "guanidine"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "halogen derivative"
+            }, {
+                "v": 8.0,
+                "f": "8"
+            }]
+        }, {
+            "c": [{
+                "v": "hemiacetal"
+            }, {
+                "v": 132.0,
+                "f": "132"
+            }]
+        }, {
+            "c": [{
+                "v": "hemithioaminal"
+            }, {
+                "v": 4.0,
+                "f": "4"
+            }]
+        }, {
+            "c": [{
+                "v": "heterocyclic compound"
+            }, {
+                "v": 622.0,
+                "f": "622"
+            }]
+        }, {
+            "c": [{
+                "v": "hydrazine derivative"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "hydroperoxide"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "hydroxy compound"
+            }, {
+                "v": 680.0,
+                "f": "680"
+            }]
+        }, {
+            "c": [{
+                "v": "imidothioester"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "imine"
+            }, {
+                "v": 8.0,
+                "f": "8"
+            }]
+        }, {
+            "c": [{
+                "v": "isothiocyanate"
+            }, {
+                "v": 21.0,
+                "f": "21"
+            }]
+        }, {
+            "c": [{
+                "v": "ketene acetal or derivative"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "ketone"
+            }, {
+                "v": 328.0,
+                "f": "328"
+            }]
+        }, {
+            "c": [{
+                "v": "lactam"
+            }, {
+                "v": 4.0,
+                "f": "4"
+            }]
+        }, {
+            "c": [{
+                "v": "lactone"
+            }, {
+                "v": 77.0,
+                "f": "77"
+            }]
+        }, {
+            "c": [{
+                "v": "nitrite"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "nitro compound"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "oxime"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "oxo(het)arene"
+            }, {
+                "v": 47.0,
+                "f": "47"
+            }]
+        }, {
+            "c": [{
+                "v": "phenol or hydroxyhetarene"
+            }, {
+                "v": 153.0,
+                "f": "153"
+            }]
+        }, {
+            "c": [{
+                "v": "phosphoric acid"
+            }, {
+                "v": 3.0,
+                "f": "3"
+            }]
+        }, {
+            "c": [{
+                "v": "phosphoric acid derivative"
+            }, {
+                "v": 9.0,
+                "f": "9"
+            }]
+        }, {
+            "c": [{
+                "v": "phosphoric acid ester"
+            }, {
+                "v": 6.0,
+                "f": "6"
+            }]
+        }, {
+            "c": [{
+                "v": "primary alcohol"
+            }, {
+                "v": 341.0,
+                "f": "341"
+            }]
+        }, {
+            "c": [{
+                "v": "primary aliphatic amine (alkylamine)"
+            }, {
+                "v": 52.0,
+                "f": "52"
+            }]
+        }, {
+            "c": [{
+                "v": "primary amine"
+            }, {
+                "v": 62.0,
+                "f": "62"
+            }]
+        }, {
+            "c": [{
+                "v": "primary aromatic amine"
+            }, {
+                "v": 10.0,
+                "f": "10"
+            }]
+        }, {
+            "c": [{
+                "v": "primary carboxylic acid amide"
+            }, {
+                "v": 4.0,
+                "f": "4"
+            }]
+        }, {
+            "c": [{
+                "v": "quaternary ammonium salt"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "secondary alcohol"
+            }, {
+                "v": 352.0,
+                "f": "352"
+            }]
+        }, {
+            "c": [{
+                "v": "secondary aliphatic amine (dialkylamine)"
+            }, {
+                "v": 10.0,
+                "f": "10"
+            }]
+        }, {
+            "c": [{
+                "v": "secondary aliphatic/aromatic amine (alkylarylamine)"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "secondary amine"
+            }, {
+                "v": 11.0,
+                "f": "11"
+            }]
+        }, {
+            "c": [{
+                "v": "secondary carboxylic acid amide"
+            }, {
+                "v": 13.0,
+                "f": "13"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfenic acid derivative"
+            }, {
+                "v": 76.0,
+                "f": "76"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfone"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfonic acid"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfonic acid derivative"
+            }, {
+                "v": 5.0,
+                "f": "5"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfonyl halide"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfoxide"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfuric acid"
+            }, {
+                "v": 7.0,
+                "f": "7"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfuric acid amide"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "sulfuric acid derivative"
+            }, {
+                "v": 9.0,
+                "f": "9"
+            }]
+        }, {
+            "c": [{
+                "v": "tertiary alcohol"
+            }, {
+                "v": 100.0,
+                "f": "100"
+            }]
+        }, {
+            "c": [{
+                "v": "tertiary aliphatic amine (trialkylamine)"
+            }, {
+                "v": 14.0,
+                "f": "14"
+            }]
+        }, {
+            "c": [{
+                "v": "tertiary aliphatic/aromatic amine (alkylarylamine)"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "tertiary amine"
+            }, {
+                "v": 15.0,
+                "f": "15"
+            }]
+        }, {
+            "c": [{
+                "v": "tertiary carboxylic acid amide"
+            }, {
+                "v": 3.0,
+                "f": "3"
+            }]
+        }, {
+            "c": [{
+                "v": "thioacetal"
+            }, {
+                "v": 10.0,
+                "f": "10"
+            }]
+        }, {
+            "c": [{
+                "v": "thiocarboxylic acid"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "thiocarboxylic acid derivative"
+            }, {
+                "v": 20.0,
+                "f": "20"
+            }]
+        }, {
+            "c": [{
+                "v": "thiocarboxylic acid ester"
+            }, {
+                "v": 18.0,
+                "f": "18"
+            }]
+        }, {
+            "c": [{
+                "v": "thiocyanate"
+            }, {
+                "v": 2.0,
+                "f": "2"
+            }]
+        }, {
+            "c": [{
+                "v": "thioether"
+            }, {
+                "v": 60.0,
+                "f": "60"
+            }]
+        }, {
+            "c": [{
+                "v": "thiol (sulfanyl compound)"
+            }, {
+                "v": 57.0,
+                "f": "57"
+            }]
+        }, {
+            "c": [{
+                "v": "thiolactone"
+            }, {
+                "v": 1.0,
+                "f": "1"
+            }]
+        }],
+        "parsedNumHeaders": 0
+    }
+}
