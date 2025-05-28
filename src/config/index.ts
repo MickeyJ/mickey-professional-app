@@ -9,6 +9,10 @@ const config = {
       SEND_EMAIL: 'https://formspree.io/f/xdkgvdaq',
       USDA_FOOD: 'https://api.nal.usda.gov/fdc/v1/foods',
       SPOONACULAR: 'https://api.spoonacular.com',
+      FOOD_OASIS: 'https://zs39isn4zj.us-west-2.awsapprunner.com',
+      // process.env.NODE_ENV === 'production'
+      //   ? 'https://zs39isn4zj.us-west-2.awsapprunner.com'
+      //   : 'http://localhost:8000',
     },
   },
 };

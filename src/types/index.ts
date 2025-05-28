@@ -1,5 +1,6 @@
 export type * from './game-types';
 export type * from './form-types';
+export type * from './food-data-types';
 
 export interface CountryRaw {
   name: {
