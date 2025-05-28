@@ -56,12 +56,7 @@ export default function FoodDataChartContainer({
   }, [selectedItem, selectedAreas]);
 
   return (
-    <div className="mx-auto p-1">
-      <p className="text-sm text-center font-semibold italic text-warning opacity-50">
-        Note: Price trends may reflect currency changes, redenominations, or transitions between
-        reporting currencies.
-      </p>
-
+    <div className="mx-auto">
       {/* {loadingData && <LoadingSpinner />} */}
 
       {/* You can add your chart component here */}

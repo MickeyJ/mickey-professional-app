@@ -11,8 +11,12 @@ interface SelectSearchProps {
   label?: string;
   placeholder?: string;
   loading?: boolean;
+  className?: string;
+  persistInput?: boolean; // If true, keeps the search input
   options: SelectOption[];
   selected: SelectOption | null;
+  setExternalSearchInput?: (value: string) => void;
+  externalSearchInput?: string;
   onSelect: (optionValue: string) => void;
 }
 
@@ -20,14 +24,21 @@ export function SelectSearch({
   label,
   placeholder = 'Select Commodity',
   loading,
+  className = '',
+  persistInput,
   options,
   selected,
+  externalSearchInput,
+  setExternalSearchInput,
   onSelect,
 }: SelectSearchProps) {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [internalSearchInput, setInternalSearchInput] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>(options);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const searchInput = externalSearchInput || internalSearchInput;
+  const setSearchInput = setExternalSearchInput || setInternalSearchInput;
 
   useEffect(() => {
     if (searchInput) {
@@ -45,6 +56,7 @@ export function SelectSearch({
     function handleClickOutside(event: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setDropdownVisible(false);
+        !persistInput && setSearchInput('');
       }
     }
 
@@ -54,11 +66,11 @@ export function SelectSearch({
 
   return (
     <div
-      className="w-full max-w-md mx-auto relative"
+      className={`w-full max-w-md mx-auto relative ${className}`}
       ref={containerRef}
     >
       {/* Custom Select Button */}
-      <div className="form-field mb-2">
+      <div className="form-field">
         {label && <label className="form-label">{label}</label>}
         <button
           type="button"
@@ -115,7 +127,7 @@ export function SelectSearch({
                   className="p-2 hover:bg-base-300 cursor-pointer transition-colors"
                   onClick={() => {
                     onSelect(item.value);
-                    setSearchInput('');
+                    !persistInput && setSearchInput('');
                     setDropdownVisible(false);
                   }}
                 >

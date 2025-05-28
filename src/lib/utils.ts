@@ -61,10 +61,10 @@ export function stringToColor(str: string): string {
   const s = 65 + (hash % 20); // Saturation (65-85%)
   const l = 55 + (hash % 10); // Lightness (55-65%)
 
-  return `hsl(${h}, ${s}%, ${l}%)`;
-}
+  const color = `hsl(${h}, ${s}%, ${l}%)`;
 
-// Also add the functions to calculate stats and balanced domain:
+  return color;
+}
 
 export function calculateStats(values: number[]) {
   const sorted = [...values].sort((a, b) => a - b);

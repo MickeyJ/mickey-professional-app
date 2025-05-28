@@ -12,6 +12,7 @@ interface SelectSearchProps {
   placeholder?: string;
   loading?: boolean;
   maxSelected?: number;
+  className?: string;
   options: SelectOption[];
   selected: SelectOption[];
   onSelect: (selectedOptions: SelectOption[]) => void;
@@ -22,6 +23,7 @@ export function MultiSelectSearch({
   placeholder = 'Select Locations',
   loading,
   maxSelected = 5,
+  className = '',
   options,
   selected,
   onSelect,
@@ -51,6 +53,8 @@ export function MultiSelectSearch({
     function handleClickOutside(event: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setDropdownVisible(false);
+        setSearchInput('');
+        console.log(`Clicked outside, closing dropdown`);
       }
     }
 
@@ -96,11 +100,11 @@ export function MultiSelectSearch({
 
   return (
     <div
-      className="w-full max-w-md mx-auto relative"
+      className={`w-full max-w-md mx-auto relative ${className}`}
       ref={containerRef}
     >
       {/* Custom Select Button */}
-      <div className="form-field mb-2">
+      <div className="form-field">
         {label && <label className="form-label">{label}</label>}
         <button
           type="button"
@@ -112,7 +116,7 @@ export function MultiSelectSearch({
               selected.map((item) => (
                 <div
                   key={item.value}
-                  className="flex flex-row gap-1 max-w-20 text-xs border-1 border-neutral-700 bg-base-200 px-2 py-1 rounded-md items-center justify-between "
+                  className="flex flex-row gap-1 max-w-15 text-xs border-1 border-neutral-700 bg-base-200 px-2 py-1 rounded-md items-center justify-between "
                 >
                   <span className="truncate">{item.label}</span>
                   <span

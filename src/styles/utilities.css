@@ -235,6 +235,33 @@
   }
 }
 
+@utility sub-link {
+  color: var(--color-text-dark);
+  transition: color 0.2s, opacity 0.2s;
+
+  &.sub-active {
+    color: var(--color-text-dim);
+    opacity: 1;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--color-neutral-600);
+      border-radius: 1px;
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-text-bright);
+  }
+}
+
 @utility bg-primary {
   background-color: var(--color-base-100) !important;
 }

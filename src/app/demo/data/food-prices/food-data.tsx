@@ -8,7 +8,7 @@ import { getFoodOasisAreasForItem, getFoodOasisItems } from '@/api';
 import type { FoodOasisDataArea, FoodOasisDataItem } from '@/types';
 import FoodDataChartContainer from './food-data-chart-container';
 
-export default function FoodDataPage() {
+export default function FoodData() {
   // const [loadingData, setLoadingData] = useState<boolean>(false);
   // const [fetchError, setFetchError] = useState<string>('');
   const [foodDataItems, setFoodDataItems] = useState<FoodOasisDataItem[]>([]);
@@ -64,8 +64,8 @@ export default function FoodDataPage() {
 
   return (
     <div className="mx-auto p-4">
-      <div className="flex flex-row justify-between items-center mb-2 gap-4">
-        <div className="form-field">
+      <div className="flex flex-row justify-between items-center gap-1">
+        <div className="form-field max-w-[200]">
           <SelectSearch
             loading={loadingItems}
             options={foodDataItems.map((item) => ({
@@ -84,7 +84,7 @@ export default function FoodDataPage() {
             }
           />
         </div>
-        <div className="form-field">
+        <div className="form-field flex-2">
           <MultiSelectSearch
             maxSelected={5}
             loading={loadingAreas}
@@ -105,6 +105,9 @@ export default function FoodDataPage() {
             }
           />
         </div>
+        <p className="text-xs text-info opacity-80 flex-1">
+          Note: Price trends may reflect currency changes, redenominations, etc. Interesting!
+        </p>
       </div>
       <FoodDataChartContainer
         selectedItem={selectedItem}

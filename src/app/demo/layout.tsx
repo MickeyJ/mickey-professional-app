@@ -11,13 +11,13 @@ export default function DemoPageLayout({ children }: { children: React.ReactNode
   const pathname = usePathname();
 
   const demoItems = [
+    // {
+    //   name: 'Theme Customizer',
+    //   href: '/demo/theme',
+    //   linkClassName: 'feature-1-link',
+    // },
     {
-      name: 'Theme Customizer',
-      href: '/demo/theme',
-      linkClassName: 'feature-1-link',
-    },
-    {
-      name: 'Interactive Game',
+      name: 'Rick and Morty Game',
       href: '/demo/game',
       linkClassName: 'feature-2-link',
     },
@@ -25,10 +25,16 @@ export default function DemoPageLayout({ children }: { children: React.ReactNode
       name: 'Data Visualization',
       href: '/demo/data',
       linkClassName: 'feature-3-link',
+      subRoutes: ['/food-prices', '/food-nutrition'],
     },
   ];
 
-  const isActive = (href: string) => pathname === href;
+  const isActive = (href: string) => {
+    // Check if the current pathname matches the href or starts with it for sub-routes
+    console.log(`Checking active state for href: ${href}, current pathname: ${pathname}`);
+
+    return pathname === href || pathname.startsWith(href + '/');
+  };
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -38,13 +44,33 @@ export default function DemoPageLayout({ children }: { children: React.ReactNode
           {/* Desktop navigation */}
           <ul className="hidden sm:flex flex-col gap-3 items-center justify-center w-full sm:flex-row sm:gap-8 sm:items-start sm:justify-start">
             {demoItems.map((item) => (
-              <li key={item.name}>
+              <li
+                key={item.name}
+                className=""
+              >
                 <Link
                   href={item.href}
                   className={cn(`${item.linkClassName}`, isActive(item.href) && ' active')}
                 >
                   {item.name}
                 </Link>
+                <div className="h-[20] mt-1 flex flex-row items-center gap-2">
+                  {isActive(item.href) &&
+                    item.subRoutes &&
+                    item.subRoutes.map((subRoute) => (
+                      <Link
+                        key={subRoute}
+                        href={`${item.href}${subRoute}`}
+                        className={cn(
+                          'sub-link text-xs',
+                          isActive(`${item.href}${subRoute}`) && ' sub-active'
+                        )}
+                      >
+                        {' '}
+                        {subRoute}{' '}
+                      </Link>
+                    ))}
+                </div>
               </li>
             ))}
           </ul>
@@ -52,6 +78,9 @@ export default function DemoPageLayout({ children }: { children: React.ReactNode
           {/* Mobile menu button */}
           <button
             className="sm:hidden p-2 fixed top-3 z-50 cursor-pointer"
+            style={{
+              top: 'calc(12px + env(safe-area-inset-top, 0px))',
+            }}
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -127,14 +156,28 @@ export default function DemoPageLayout({ children }: { children: React.ReactNode
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={cn(
-                      `${item.linkClassName} block py-2`,
-                      isActive(item.href) && ' active'
-                    )}
-                    onClick={() => setIsOpen(false)} // Close menu when link is clicked
+                    onClick={() => setIsOpen(false)}
+                    className={cn(`${item.linkClassName} block`, isActive(item.href) && ' active')}
                   >
                     {item.name}
                   </Link>
+                  <div className="h-[20] mt-1 flex flex-row items-center gap-2">
+                    {item.subRoutes &&
+                      item.subRoutes.map((subRoute) => (
+                        <Link
+                          key={subRoute}
+                          href={`${item.href}${subRoute}`}
+                          onClick={() => setIsOpen(false)}
+                          className={cn(
+                            'sub-link text-sm',
+                            isActive(`${item.href}${subRoute}`) && ' sub-active'
+                          )}
+                        >
+                          {' '}
+                          {subRoute}{' '}
+                        </Link>
+                      ))}
+                  </div>
                 </li>
               ))}
             </ul>

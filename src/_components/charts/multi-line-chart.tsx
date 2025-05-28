@@ -82,7 +82,7 @@ export default function MultiLineChart({
       });
 
       allNormalizedPrices = normalizedData.flatMap((line) =>
-        line.data_points.map((point) => point.normalized_price)
+        line.data_points.map((point: { normalized_price: number }) => point.normalized_price)
       );
     }
 
@@ -199,9 +199,24 @@ export default function MultiLineChart({
       // Add colored rectangles
       legendItems
         .append('rect')
-        .attr('width', 18)
+        .attr('width', 18) // Make wider to accommodate text
         .attr('height', 18)
-        .style('fill', (d) => stringToColor(d.area_name));
+        .style('fill', (d) => stringToColor(d.area_name))
+        .style('stroke', '#333')
+        .style('stroke-width', 1);
+
+      // Add currency text inside the rectangles
+      legendItems
+        .append('text')
+        .attr('x', 9) // Center horizontally in the 50px wide rectangle
+        .attr('y', 9)
+        .attr('dy', '0.35em')
+        .style('fill', 'black')
+        .style('font-size', '8px')
+        .style('font-weight', 'bold')
+        .style('text-anchor', 'middle')
+        // .style('text-shadow', '2px 1px 2px rgba(0,0,0,0.8)') // Better readability
+        .text((d) => d.currency);
 
       // Add country names
       legendItems

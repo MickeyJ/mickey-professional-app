@@ -18,6 +18,10 @@ RUN npm rebuild --platform=linux --arch=x64
 # Copy project files
 COPY . .
 
+# Accept build-time environment variables
+ARG NEXT_PUBLIC_USDA_API_KEY
+ENV NEXT_PUBLIC_USDA_API_KEY=$NEXT_PUBLIC_USDA_API_KEY
+
 # Build the Next.js application
 RUN npm run build
 
