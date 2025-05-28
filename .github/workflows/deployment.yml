@@ -16,6 +16,7 @@ env:
   TF_STATE_BUCKET: ${{ secrets.GCP_PROJECT_ID }}-terraform-state
   TF_SA_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
   DOCKER_IMAGE_BASE: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mickey-app-repo/mickey-app
+  NEXT_PUBLIC_USDA_API_KEY: ${{ secrets.NEXT_PUBLIC_USDA_API_KEY }}
 
 jobs:
   detect-changes:
@@ -60,8 +61,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install lightningcss && npm ci --force && npm rebuild --platform=linux --arch=x64
@@ -87,8 +88,8 @@ jobs:
 
     # Add "id-token" with the intended permissions.
     permissions:
-      contents: "read"
-      id-token: "write"
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - uses: actions/checkout@v4
@@ -110,6 +111,7 @@ jobs:
           region: ${{ env.REGION }}
           app_name: ${{ env.APP_NAME }}
           repository: ${{ env.REPOSITORY }}
+          next_public_usda_api_key: ${{ env.NEXT_PUBLIC_USDA_API_KEY }}
 
   iac:
     name: Terraform
@@ -119,8 +121,8 @@ jobs:
 
     # Add "id-token" with the intended permissions.
     permissions:
-      contents: "read"
-      id-token: "write"
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - uses: actions/checkout@v4
@@ -203,8 +205,8 @@ jobs:
 
     # Add "id-token" with the intended permissions.
     permissions:
-      contents: "read"
-      id-token: "write"
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - uses: actions/checkout@v4
@@ -226,3 +228,4 @@ jobs:
           region: ${{ env.REGION }}
           app_name: ${{ env.APP_NAME }}
           repository: ${{ env.REPOSITORY }}
+          next_public_usda_api_key: ${{ secrets.NEXT_PUBLIC_USDA_API_KEY }}

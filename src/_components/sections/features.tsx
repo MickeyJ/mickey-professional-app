@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { ChartIcon, GameIcon, SlidersIcon } from '@/_components/ui/icons';
 import { cn } from '@/lib/utils';
 
 // Feature Card
@@ -58,46 +57,30 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   );
 };
 
-// Features Section
-export default function FeaturesSection() {
-  const features = [
-    {
-      icon: <SlidersIcon />,
-      title: 'Theme',
-      description:
-        "Modify this site's appearance in real-time. Change colors, fonts, and layout with live previews.",
-      href: '/demo/theme',
-      linkText: 'Try it',
-      colorScheme: 'blue' as const,
-    },
-    {
-      icon: <GameIcon />,
-      title: 'Game',
-      description: 'Play a mini-game that demonstrates JavaScript logic and smooth animations.',
-      href: '/demo/game',
-      linkText: 'Play',
-      colorScheme: 'green' as const,
-    },
-    {
-      icon: <ChartIcon />,
-      title: 'Data',
-      description:
-        'Explore interactive charts and graphs powered by real APIs with customizable parameters.',
-      href: '/demo/data',
-      linkText: 'Visualize',
-      colorScheme: 'purple' as const,
-    },
-  ];
+interface FeatureSectionProps {
+  title: string;
+  subTitle: string;
+  features: FeatureCardProps[];
+}
 
+// Features Section
+export default function FeaturesSection({ title, subTitle, features = [] }: FeatureSectionProps) {
+  const featuresGridClass = () => {
+    if (features.length === 1) return 'sm:grid-cols-1';
+    if (features.length === 2) return 'sm:grid-cols-2';
+    if (features.length === 3) return 'sm:grid-cols-3';
+    // Handle more than 3 features
+    return `sm:grid-cols-${Math.min(features.length, 4)}`;
+  };
   return (
     <section className="py-10 px-6 bg-secondary">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-heading-lg text-bright mb-4">Interactive Demonstrations</h2>
-          <p className="text-body-lg text-dim">Explore the tools and techniques I use daily</p>
+          <h2 className="text-heading-lg text-bright mb-4">{title}</h2>
+          <p className="text-body-lg text-dim">{subTitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div className={`grid grid-cols-1 ${featuresGridClass()} gap-8`}>
           {features.map((feature, index) => (
             <FeatureCard
               key={index}

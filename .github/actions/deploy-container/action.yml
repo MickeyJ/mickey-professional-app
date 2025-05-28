@@ -4,28 +4,31 @@ description: Build Docker image and update Cloud Run
 inputs:
   docker_image_base:
     required: true
-    description: "Base name of the Docker image (e.g., gcr.io/my-project/my-app)"
+    description: 'Base name of the Docker image (e.g., gcr.io/my-project/my-app)'
   image_tag:
     required: true
-    description: "Tag for the Docker image (e.g., latest, v1.0.0)"
+    description: 'Tag for the Docker image (e.g., latest, v1.0.0)'
   tf_state_bucket:
     required: true
-    description: "Name of the GCS bucket for Terraform state"
+    description: 'Name of the GCS bucket for Terraform state'
   project_id:
     required: true
-    description: "GCP Project ID"
+    description: 'GCP Project ID'
   region:
     required: true
-    description: "GCP region"
+    description: 'GCP region'
   app_name:
     required: true
-    description: "Name of the Cloud Run service"
+    description: 'Name of the Cloud Run service'
   repository:
     required: true
-    description: "Name of the Docker repository (e.g., my-app-repo)"
+    description: 'Name of the Docker repository (e.g., my-app-repo)'
+  next_public_usda_api_key:
+    required: true
+    description: 'USDA API Key for build time'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Terraform Init
       working-directory: ./terraform/infrastructure
@@ -41,7 +44,10 @@ runs:
       shell: bash
 
     - name: Build Docker image
-      run: docker build -t ${{ inputs.docker_image_base }}:${{ inputs.image_tag }} .
+      run: |
+        docker build \
+          --build-arg NEXT_PUBLIC_USDA_API_KEY="${{ inputs.next_public_usda_api_key }}" \
+          -t ${{ inputs.docker_image_base }}:${{ inputs.image_tag }} .
       shell: bash
 
     - name: Tag as latest
