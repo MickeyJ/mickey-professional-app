@@ -1,0 +1,57 @@
+@import './dashboard.css';
+@import './cards.css';
+
+@utility section-spacing {
+  @apply py-12;
+
+  @screen md {
+    @apply py-16;
+  }
+
+  @screen lg {
+    @apply py-20;
+  }
+}
+
+@utility container-padding {
+  @apply px-4;
+
+  @screen sm {
+    @apply px-6;
+  }
+
+  @screen lg {
+    @apply px-8;
+  }
+}
+
+
+@utility btn-primary {
+  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
+  background-color: var(--color-accent-1-primary);
+  color: var(--color-accent-1-content);
+
+  &:hover {
+    background-color: var(--color-accent-700);
+    transform: translateY(-1px);
+  }
+
+  @screen md {
+    @apply px-8 py-4 text-lg;
+  }
+}
+
+@utility btn-secondary-research {
+  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
+  background-color: var(--color-accent-2-primary);
+  color: var(--color-accent-2-content);
+
+  &:hover {
+    background-color: var(--color-secondary-700);
+    transform: translateY(-1px);
+  }
+
+  @screen md {
+    @apply px-8 py-4 text-lg;
+  }
+}

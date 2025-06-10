@@ -1,27 +1,5 @@
 /* Research portal specific utilities */
-@utility section-spacing {
-  @apply py-12;
 
-  @screen md {
-    @apply py-16;
-  }
-
-  @screen lg {
-    @apply py-20;
-  }
-}
-
-@utility container-padding {
-  @apply px-4;
-
-  @screen sm {
-    @apply px-6;
-  }
-
-  @screen lg {
-    @apply px-8;
-  }
-}
 
 @utility card-base {
   background-color: var(--color-base-2-bg);
@@ -33,42 +11,12 @@
   }
 }
 
-@utility btn-primary-research {
-  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
-  background-color: var(--color-accent-primary);
-  color: var(--color-accent-primary-content);
-
-  &:hover {
-    background-color: var(--color-accent-700);
-    transform: translateY(-1px);
-  }
-
-  @screen md {
-    @apply px-8 py-4 text-lg;
-  }
-}
-
-@utility btn-secondary-research {
-  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
-  background-color: var(--color-highlight-primary);
-  color: var(--color-highlight-content);
-
-  &:hover {
-    background-color: var(--color-secondary-700);
-    transform: translateY(-1px);
-  }
-
-  @screen md {
-    @apply px-8 py-4 text-lg;
-  }
-}
-
 @utility stat-card {
   @apply card-base text-center;
 
   .stat-number {
     @apply text-2xl font-bold mb-2;
-    color: var(--color-highlight-primary);
+    color: var(--color-accent-2-primary);
     /* Warm honey for stats */
 
     @screen md {
@@ -108,7 +56,7 @@
   }
 
   .simple-card-subtitle {
-    color: var(--color-accent-primary);
+    color: var(--color-accent-1-primary);
     /* Periwinkle for subtitles */
     @apply text-base font-medium mb-4;
 
@@ -140,7 +88,7 @@
   @apply card-base;
 
   .category-title {
-    color: var(--color-success-primary);
+    color: var(--color-accent-3-primary);
     /* Eucalyptus for data categories */
     @apply font-semibold mb-3 text-base;
 
@@ -169,13 +117,13 @@
   }
 
   &.secondary-placeholder {
-    background-color: var(--color-highlight-bg);
+    background-color: var(--color-accent-2-bg);
     border: 1px solid var(--color-secondary-200);
     color: var(--color-secondary-700);
   }
 
   &.tertiary-placeholder {
-    background-color: var(--color-success-bg);
+    background-color: var(--color-accent-3-bg);
     border: 1px solid var(--color-tertiary-200);
     color: var(--color-tertiary-700);
   }

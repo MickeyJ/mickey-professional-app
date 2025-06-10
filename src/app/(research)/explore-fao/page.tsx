@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { CardSimple } from '@/_components/fao/components/card-simple';
 
 export default function FAOExplorerLandingPage() {
@@ -14,7 +16,12 @@ export default function FAOExplorerLandingPage() {
             production, trade, environmental indicators, and food security metrics from 1961 to
             2024.
           </p>
-          <button className="btn-primary-research">Explore Now</button>
+          <Link
+            href="/explore-fao/dashboard"
+            className="inline-block"
+          >
+            <button className="btn-primary">Explore Now</button>
+          </Link>
         </div>
       </section>
 
@@ -196,7 +203,12 @@ export default function FAOExplorerLandingPage() {
             Access interactive visualizations and analysis tools designed for rigorous academic
             research and policy development.
           </p>
-          <button className="btn-primary-research">Explore Now</button>
+          <Link
+            href="/explore-fao/dashboard"
+            className="inline-block"
+          >
+            <button className="btn-primary">Explore Now</button>
+          </Link>
         </div>
       </section>
     </div>

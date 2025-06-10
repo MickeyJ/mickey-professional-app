@@ -13,6 +13,8 @@
   --color-neutral-900: oklch(10% 0 0);
   --color-neutral-950: oklch(0% 0 0);
 
+  --color-base-content: var(--color-neutral-900);
+
   /* Base theme colors - pure grayscale */
   --color-base-1-bg: var(--color-neutral-200);
   --color-base-1-brdr: var(--color-neutral-400);
@@ -65,18 +67,18 @@
   --color-tertiary-900: oklch(22% 0.098 155);
 
   /* Semantic mappings */
-  --color-accent-bg: var(--color-accent-50);
-  --color-accent-primary: var(--color-accent-600);
-  --color-accent-primary-content: var(--color-neutral-50);
+  --color-accent-1-bg: var(--color-accent-50);
+  --color-accent-1-primary: var(--color-accent-600);
+  --color-accent-1-content: var(--color-neutral-50);
 
   /* Add semantic mappings for the other colors */
-  --color-highlight-bg: var(--color-secondary-50);
-  --color-highlight-primary: var(--color-secondary-600);
-  --color-highlight-content: var(--color-neutral-50);
+  --color-accent-2-bg: var(--color-secondary-50);
+  --color-accent-2-primary: var(--color-secondary-600);
+  --color-accent-2-content: var(--color-neutral-50);
 
-  --color-success-bg: var(--color-tertiary-50);
-  --color-success-primary: var(--color-tertiary-600);
-  --color-success-content: var(--color-neutral-50);
+  --color-accent-3-bg: var(--color-tertiary-50);
+  --color-accent-3-primary: var(--color-tertiary-600);
+  --color-accent-3-content: var(--color-neutral-50);
 
 
   /* Primary and Secondary */

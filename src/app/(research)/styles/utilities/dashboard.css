@@ -1,0 +1,255 @@
+/* Add to src/app/(research)/styles/utilities.css */
+
+@utility main-content {
+  min-width: 0;
+  /* Prevent grid blowout */
+  position: relative;
+}
+
+/* Sidebar responsive behavior */
+@utility dashboard-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: calc(100vh - var(--header-height, 57px));
+  position: relative;
+}
+
+/* Content utilities */
+@utility dashboard-content {
+  @apply p-6;
+
+  @screen lg {
+    @apply p-8;
+  }
+
+  @screen xl {
+    @apply p-10;
+  }
+}
+
+@utility dashboard-grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @screen md {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @screen xl {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@utility sidebar-push {
+  background-color: var(--color-base-2-bg);
+  border-right: 1px solid var(--color-base-2-brdr);
+  width: 16rem;
+  /* 256px on mobile */
+  transition: margin-left 0.3s ease-in-out;
+  overflow: hidden;
+
+  @screen md {
+    width: 18rem;
+    /* 288px */
+  }
+
+  @screen lg {
+    width: 20rem;
+    /* 320px */
+  }
+}
+
+
+
+/* Sidebar states */
+.sidebar-collapsed {
+  .sidebar-push {
+    margin-left: -16rem;
+
+    @screen md {
+      margin-left: -18rem;
+    }
+
+    @screen lg {
+      margin-left: -20rem;
+    }
+  }
+}
+
+/* Icon button utility */
+@utility icon-button {
+  @apply p-2 rounded-lg transition-colors;
+  color: var(--color-base-3-txt);
+
+  &:hover {
+    background-color: var(--color-base-2-bg);
+    color: var(--color-base-content);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+
+/* Layout utilities */
+@utility sidebar-width {
+  width: 18rem;
+  /* 288px */
+
+  @screen lg {
+    width: 20rem;
+    /* 320px */
+  }
+}
+
+@utility dashboard-height {
+  height: calc(100vh - var(--header-height, 57px));
+}
+
+@utility scroll-area {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation utilities */
+@utility nav-section {
+  @apply space-y-6;
+}
+
+@utility nav-section-title {
+  @apply text-sm font-medium;
+  color: var(--color-accent-3-primary);
+
+  @screen md {
+    @apply text-base;
+  }
+}
+
+@utility nav-item {
+  @apply block px-3 py-2 rounded-md text-sm transition-all duration-200;
+
+  &:hover {
+    background-color: var(--color-base-3-bg);
+    color: var(--color-base-content);
+    transform: translateY(-2px);
+  }
+}
+
+@utility nav-item-active {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-3-primary);
+  @apply font-medium;
+}
+
+@utility nav-item-inactive {
+  color: var(--color-base-1-txt);
+}
+
+/* Header utilities */
+@utility dashboard-header {
+  background-color: var(--color-base-3-bg);
+  border-bottom: 1px solid var(--color-base-2-brdr);
+  height: var(--header-height, 57px);
+  @apply flex items-center;
+}
+
+@utility header-content {
+  @apply px-6 py-4 w-full;
+
+  @screen lg {
+    @apply px-8;
+  }
+}
+
+
+/* Interactive elements */
+@utility expand-button {
+  @apply flex items-center justify-between w-full text-left transition-colors;
+
+  &:hover {
+    color: var(--color-accent-1-primary);
+  }
+
+  svg {
+    @apply w-4 h-4 transition-transform duration-200;
+    color: var(--color-base-3-txt);
+  }
+}
+
+@utility expanded {
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+/* Chart container utilities */
+@utility chart-container {
+  background-color: var(--color-base-3-bg);
+  border: 1px solid var(--color-base-3-brdr);
+  @apply rounded-lg p-6;
+
+  @screen md {
+    @apply p-8;
+  }
+}
+
+@utility chart-title {
+  @apply text-lg font-semibold mb-2;
+  color: var(--color-base-content);
+
+  @screen md {
+    @apply text-xl mb-3;
+  }
+}
+
+@utility chart-description {
+  @apply text-sm mb-6;
+  color: var(--color-base-3-txt);
+  line-height: 1.6;
+
+  @screen md {
+    @apply text-base;
+  }
+}
+
+/* Loading states */
+@utility skeleton {
+  background: linear-gradient(90deg,
+      var(--color-base-2-bg) 0%,
+      var(--color-base-3-bg) 50%,
+      var(--color-base-2-bg) 100%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  @apply rounded;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive utilities */
+@utility hide-mobile {
+  @apply hidden;
+
+  @screen md {
+    @apply block;
+  }
+}
+
+@utility show-mobile {
+  @apply block;
+
+  @screen md {
+    @apply hidden;
+  }
+}
