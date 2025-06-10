@@ -1,0 +1,98 @@
+@theme {
+
+  /* Neutral grayscale palette */
+  --color-neutral-50: oklch(100% 0 0);
+  --color-neutral-100: oklch(98% 0 0);
+  --color-neutral-200: oklch(90% 0 0);
+  --color-neutral-300: oklch(70% 0 0);
+  --color-neutral-400: oklch(60% 0 0);
+  --color-neutral-500: oklch(50% 0 0);
+  --color-neutral-600: oklch(40% 0 0);
+  --color-neutral-700: oklch(30% 0 0);
+  --color-neutral-800: oklch(20% 0 0);
+  --color-neutral-900: oklch(10% 0 0);
+  --color-neutral-950: oklch(0% 0 0);
+
+  /* Base theme colors - pure grayscale */
+  --color-base-1-bg: var(--color-neutral-200);
+  --color-base-1-brdr: var(--color-neutral-400);
+  --color-base-1-txt: var(--color-neutral-800);
+
+  --color-base-2-bg: var(--color-neutral-100);
+  --color-base-2-brdr: var(--color-neutral-300);
+  --color-base-2-txt: var(--color-neutral-800);
+
+  --color-base-3-bg: var(--color-neutral-50);
+  --color-base-3-brdr: var(--color-neutral-500);
+  --color-base-3-txt: var(--color-neutral-600);
+
+  /* Generic accent palette - easily swappable */
+
+  /* Primary accent - Soft Periwinkle (main actions) */
+  --color-accent-50: oklch(96% 0.01 250);
+  --color-accent-100: oklch(92% 0.018 250);
+  --color-accent-200: oklch(87% 0.028 250);
+  --color-accent-300: oklch(74% 0.038 250);
+  --color-accent-400: oklch(64% 0.048 250);
+  --color-accent-500: oklch(54% 0.058 250);
+  --color-accent-600: oklch(44% 0.068 250);
+  --color-accent-700: oklch(34% 0.078 250);
+  --color-accent-800: oklch(27% 0.088 250);
+  --color-accent-900: oklch(21% 0.098 250);
+
+  /* Secondary accent - Warm Honey (highlights/stats) */
+  --color-secondary-50: oklch(97% 0.015 85);
+  --color-secondary-100: oklch(93% 0.025 85);
+  --color-secondary-200: oklch(88% 0.035 85);
+  --color-secondary-300: oklch(75% 0.045 85);
+  --color-secondary-400: oklch(65% 0.055 85);
+  --color-secondary-500: oklch(55% 0.065 85);
+  --color-secondary-600: oklch(45% 0.075 85);
+  --color-secondary-700: oklch(35% 0.085 85);
+  --color-secondary-800: oklch(28% 0.095 85);
+  --color-secondary-900: oklch(22% 0.105 85);
+
+  /* Tertiary accent - Eucalyptus Mist (success/data) */
+  --color-tertiary-50: oklch(97% 0.01 155);
+  --color-tertiary-100: oklch(93% 0.018 155);
+  --color-tertiary-200: oklch(88% 0.028 155);
+  --color-tertiary-300: oklch(75% 0.038 155);
+  --color-tertiary-400: oklch(65% 0.048 155);
+  --color-tertiary-500: oklch(55% 0.058 155);
+  --color-tertiary-600: oklch(45% 0.068 155);
+  --color-tertiary-700: oklch(35% 0.078 155);
+  --color-tertiary-800: oklch(28% 0.088 155);
+  --color-tertiary-900: oklch(22% 0.098 155);
+
+  /* Semantic mappings */
+  --color-accent-bg: var(--color-accent-50);
+  --color-accent-primary: var(--color-accent-600);
+  --color-accent-primary-content: var(--color-neutral-50);
+
+  /* Add semantic mappings for the other colors */
+  --color-highlight-bg: var(--color-secondary-50);
+  --color-highlight-primary: var(--color-secondary-600);
+  --color-highlight-content: var(--color-neutral-50);
+
+  --color-success-bg: var(--color-tertiary-50);
+  --color-success-primary: var(--color-tertiary-600);
+  --color-success-content: var(--color-neutral-50);
+
+
+  /* Primary and Secondary */
+  --color-primary: oklch(15% 0 0);
+  --color-primary-content: oklch(95% 0 0);
+  --color-secondary: oklch(95% 0 0);
+  --color-secondary-content: oklch(15% 0 0);
+
+  /* Status colors - keeping as is */
+  --color-info: oklch(88.263% 0.093 212.846);
+  --color-info-content: oklch(17.652% 0.018 212.846);
+  --color-success: oklch(87.099% 0.219 148.024);
+  --color-success-content: oklch(17.419% 0.043 148.024);
+  --color-warning: oklch(95.533% 0.134 112.757);
+  --color-warning-content: oklch(19.106% 0.026 112.757);
+  --color-error: oklch(68.22% 0.206 24.43);
+  --color-error-content: oklch(13.644% 0.041 24.43);
+
+}

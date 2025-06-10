@@ -1,0 +1,182 @@
+/* Research portal specific utilities */
+@utility section-spacing {
+  @apply py-12;
+
+  @screen md {
+    @apply py-16;
+  }
+
+  @screen lg {
+    @apply py-20;
+  }
+}
+
+@utility container-padding {
+  @apply px-4;
+
+  @screen sm {
+    @apply px-6;
+  }
+
+  @screen lg {
+    @apply px-8;
+  }
+}
+
+@utility card-base {
+  background-color: var(--color-base-2-bg);
+  border: 1px solid var(--color-base-2-brdr);
+  @apply rounded-lg p-6;
+
+  @screen md {
+    @apply p-8;
+  }
+}
+
+@utility btn-primary-research {
+  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
+  background-color: var(--color-accent-primary);
+  color: var(--color-accent-primary-content);
+
+  &:hover {
+    background-color: var(--color-accent-700);
+    transform: translateY(-1px);
+  }
+
+  @screen md {
+    @apply px-8 py-4 text-lg;
+  }
+}
+
+@utility btn-secondary-research {
+  @apply px-6 py-3 rounded-lg font-semibold text-base cursor-pointer transition-all duration-200;
+  background-color: var(--color-highlight-primary);
+  color: var(--color-highlight-content);
+
+  &:hover {
+    background-color: var(--color-secondary-700);
+    transform: translateY(-1px);
+  }
+
+  @screen md {
+    @apply px-8 py-4 text-lg;
+  }
+}
+
+@utility stat-card {
+  @apply card-base text-center;
+
+  .stat-number {
+    @apply text-2xl font-bold mb-2;
+    color: var(--color-highlight-primary);
+    /* Warm honey for stats */
+
+    @screen md {
+      @apply text-3xl;
+    }
+
+    @screen lg {
+      @apply text-4xl;
+    }
+  }
+
+  .stat-label {
+    color: var(--color-base-2-txt);
+    @apply font-medium text-sm;
+
+    @screen md {
+      @apply text-base;
+    }
+  }
+}
+
+@utility simple-card-container {
+  background-color: var(--color-base-3-bg);
+  @apply rounded-lg p-6 shadow-sm;
+
+  @screen md {
+    @apply p-8;
+  }
+
+  .simple-card-title {
+    color: var(--color-base-content);
+    @apply text-lg font-semibold mb-3;
+
+    @screen md {
+      @apply text-xl mb-4;
+    }
+  }
+
+  .simple-card-subtitle {
+    color: var(--color-accent-primary);
+    /* Periwinkle for subtitles */
+    @apply text-base font-medium mb-4;
+
+    @screen md {
+      @apply text-lg mb-5;
+    }
+  }
+
+  .simple-card-body {
+    color: var(--color-base-3-txt);
+    @apply text-sm leading-relaxed mb-4;
+
+    @screen md {
+      @apply text-base mb-6;
+    }
+  }
+
+  .simple-card-meta {
+    color: var(--color-base-3-txt);
+    @apply text-xs;
+
+    @screen md {
+      @apply text-sm;
+    }
+  }
+}
+
+@utility category-card {
+  @apply card-base;
+
+  .category-title {
+    color: var(--color-success-primary);
+    /* Eucalyptus for data categories */
+    @apply font-semibold mb-3 text-base;
+
+    @screen md {
+      @apply text-lg mb-4;
+    }
+  }
+
+  .category-list {
+    color: var(--color-base-2-txt);
+    @apply space-y-1 text-sm leading-relaxed;
+
+    @screen md {
+      @apply space-y-2 text-base;
+    }
+  }
+}
+
+@utility image-placeholder {
+  @apply w-full rounded-lg flex items-center justify-center font-medium transition-colors;
+
+  &.primary-placeholder {
+    background-color: var(--color-accent-50);
+    border: 1px solid var(--color-accent-200);
+    color: var(--color-accent-700);
+  }
+
+  &.secondary-placeholder {
+    background-color: var(--color-highlight-bg);
+    border: 1px solid var(--color-secondary-200);
+    color: var(--color-secondary-700);
+  }
+
+  &.tertiary-placeholder {
+    background-color: var(--color-success-bg);
+    border: 1px solid var(--color-tertiary-200);
+    color: var(--color-tertiary-700);
+  }
+}
