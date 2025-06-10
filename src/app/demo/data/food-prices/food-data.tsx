@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { MultiSelectSearch } from '@/_components/ui/multiselect-search';
 import { SelectSearch } from '@/_components/ui/select-search';
+import { YearRangeSlider } from '@/_components/ui/year-range-slider';
 import { getFoodOasisAreasForItem, getFoodOasisItems } from '@/api';
 import type { FoodOasisDataArea, FoodOasisDataItem } from '@/types';
 import FoodDataChartContainer from './food-data-chart-container';
@@ -11,6 +12,8 @@ import FoodDataChartContainer from './food-data-chart-container';
 export default function FoodData() {
   // const [loadingData, setLoadingData] = useState<boolean>(false);
   // const [fetchError, setFetchError] = useState<string>('');
+  const [startYear, setStartYear] = useState<number>(1990);
+  const [endYear, setEndYear] = useState<number>(2024);
   const [foodDataItems, setFoodDataItems] = useState<FoodOasisDataItem[]>([]);
   const [loadingItems, setLoadingItems] = useState<boolean>(false);
   const [foodDataAreas, setFoodDataAreas] = useState<FoodOasisDataArea[]>([]);
@@ -41,6 +44,8 @@ export default function FoodData() {
   }, []);
 
   useEffect(() => {
+    console.log(`Selected Item: ${selectedItem ? selectedItem.name : 'None'}`);
+
     const fetchDataForItem = async () => {
       if (selectedItem) {
         setLoadingAreas(true);
@@ -64,7 +69,7 @@ export default function FoodData() {
 
   return (
     <div className="mx-auto p-4">
-      <div className="flex flex-row justify-between items-center gap-1">
+      <div className="flex flex-row justify-between items-center gap-4">
         <div className="form-field max-w-[200]">
           <SelectSearch
             loading={loadingItems}
@@ -77,14 +82,14 @@ export default function FoodData() {
                 ? { label: selectedItem.name, value: selectedItem.item_code.toString() }
                 : null
             }
-            onSelect={(value) =>
-              setSelectedItem(
-                foodDataItems.find((item) => item.item_code === Number(value)) || null
-              )
-            }
+            onSelect={(value) => {
+              console.log(`Selected item value: ${value}`);
+
+              return setSelectedItem(foodDataItems.find((item) => item.item_code == value) || null);
+            }}
           />
         </div>
-        <div className="form-field flex-2">
+        <div className="form-field flex-1">
           <MultiSelectSearch
             maxSelected={5}
             loading={loadingAreas}
@@ -99,19 +104,27 @@ export default function FoodData() {
             onSelect={(selectedOptions) =>
               setSelectedAreas(
                 foodDataAreas.filter((area) =>
-                  selectedOptions.some((option) => option.value === area.area_code.toString())
+                  selectedOptions.some((option) => option.value === area.area_code)
                 )
               )
             }
           />
         </div>
-        <p className="text-xs text-info opacity-80 flex-1">
-          Note: Price trends may reflect currency changes, redenominations, etc. Interesting!
-        </p>
+        <div className="form-field flex-1">
+          <YearRangeSlider
+            startYear={startYear}
+            endYear={endYear}
+            setStartYear={setStartYear}
+            setEndYear={setEndYear}
+          />
+        </div>
       </div>
+
       <FoodDataChartContainer
         selectedItem={selectedItem}
         selectedAreas={selectedAreas}
+        startYear={startYear}
+        endYear={endYear}
       />
     </div>
   );

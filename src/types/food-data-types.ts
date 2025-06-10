@@ -97,12 +97,12 @@ export interface FoodOasisDataAreasResponse {
 export interface FoodOasisDataItem {
   id: number;
   name: string;
-  item_code: number;
+  item_code: string;
 }
 
 export interface FoodOasisDataArea {
   name: string;
-  area_code: number;
+  area_code: string;
   currency: string;
   data_points: number;
   earliest_year: number;
@@ -126,7 +126,7 @@ export interface FoodOasisMultiLineChartDataLine {
 export interface FoodOasisMultiLineChartData {
   item: {
     name: string;
-    code: number;
+    code: string;
   };
   parameters: {
     requested_areas: number[];
