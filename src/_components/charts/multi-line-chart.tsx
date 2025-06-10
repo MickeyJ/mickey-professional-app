@@ -15,7 +15,7 @@ export default function MultiLineChart({
   data,
   loading,
   width = 800,
-  height = 400,
+  height = 500,
 }: MultiLineChartProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState({ width, height });
@@ -77,6 +77,7 @@ export default function MultiLineChart({
           data_points: line.data_points.map((point) => ({
             ...point,
             normalized_price: ((point.price_per_t - basePrice) / basePrice) * 100,
+            // normalized_price: point.price_per_t,
           })),
         };
       });
@@ -150,10 +151,19 @@ export default function MultiLineChart({
       .attr('x2', chartWidth)
       .attr('y1', yScale(0))
       .attr('y2', yScale(0))
-      .style('stroke', '#666')
-      .style('stroke-width', 1)
-      .style('stroke-dasharray', '3,3')
+      .style('stroke', '#999')
+      .style('stroke-width', 2)
+      .style('stroke-dasharray', '7,7') // slightly longer dashes
       .style('opacity', 0.7);
+
+    chartGroup
+      .append('text')
+      .attr('x', chartWidth + 5)
+      .attr('y', yScale(0))
+      .attr('dy', '0.3em')
+      .style('fill', '#666')
+      .style('font-size', '10px')
+      .text('0%');
 
     if (data && data.lines.length) {
       // Create the line generator

@@ -22,28 +22,28 @@ export const sendEmail = async (emailFormFields: EmailFormFields): Promise<unkno
 
 export const getFoodOasisItems = async (): Promise<FoodOasisDataItemResponse> => {
   const response = await axios.get<FoodOasisDataItemResponse>(
-    `${config.URL.API.FOOD_OASIS}/v1/data/items`
+    `${config.URL.API.FOOD_OASIS}/v1/prices/multi-line/items`
   );
   return response.data;
 };
 
 export const getFoodOasisAreasForItem = async (
-  itemCode: number
+  itemCode: string
 ): Promise<FoodOasisDataAreasResponse> => {
   const response = await axios.get<FoodOasisDataAreasResponse>(
-    `${config.URL.API.FOOD_OASIS}/v1/data/available-data-for-item?item_code=${itemCode}`
+    `${config.URL.API.FOOD_OASIS}/v1/prices/multi-line/available-areas?item_code=${itemCode}`
   );
   return response.data;
 };
 
 export const getFoodOasisChartData = async (
-  itemCode: number,
-  areaCodes: number[]
+  itemCode: string,
+  areaCodes: string[]
 ): Promise<FoodOasisMultiLineChartData> => {
   // areaCodes looks like: 'area_codes=123&area_codes=456'
   const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
   const response = await axios.get<FoodOasisMultiLineChartData>(
-    `${config.URL.API.FOOD_OASIS}/v1/viz/multi-line-price-trends?item_code=${itemCode}&${areaCodeQueries}`
+    `${config.URL.API.FOOD_OASIS}/v1/prices/multi-line/price-data?item_code=${itemCode}&year_start=1990&year_end=2024&${areaCodeQueries}`
   );
   return response.data;
 };
