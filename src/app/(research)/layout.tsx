@@ -4,17 +4,17 @@ import { Mulish, Source_Sans_3 } from 'next/font/google';
 
 import './globals.css';
 
+const primary = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-primary',
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'], // More weights available
+  display: 'swap',
+});
+
 const muli = Mulish({
   subsets: ['latin'],
   variable: '--font-primary',
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-});
-
-const source_sans_3 = Source_Sans_3({
-  subsets: ['latin'],
-  variable: '--font-primar',
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900'], // More weights available
   display: 'swap',
 });
 
@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${muli.variable} ${source_sans_3.variable}`}
+      className={`${primary.variable} ${muli.variable}`}
     >
       <body className="antialiased min-h-screen flex flex-col">
         <main className="pt-[var(--nav-height)] flex-1 leading-relaxed">{children}</main>

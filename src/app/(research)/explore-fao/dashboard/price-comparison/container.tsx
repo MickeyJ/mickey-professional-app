@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { MultiSelectSearch } from '@/_components/ui/multiselect-search';
-import { SelectSearch } from '@/_components/ui/select-search';
-import { YearRangeSlider } from '@/_components/ui/year-range-slider';
+import { MultiSelectSearch } from '@/_components/fao/ui/multiselect-search';
+import { SelectSearch } from '@/_components/fao/ui/select-search';
+import { YearRangeSlider } from '@/_components/fao/ui/year-range-slider';
 import { getFoodOasisAreasForItem, getFoodOasisItems } from '@/api';
 import type { FoodOasisDataArea, FoodOasisDataItem } from '@/types';
-import FoodDataChartContainer from './food-data-chart-container';
+import FoodDataChartContainer from './chart-container';
 
-export default function FoodData() {
+export default function PriceComparisonContainer() {
   // const [loadingData, setLoadingData] = useState<boolean>(false);
   // const [fetchError, setFetchError] = useState<string>('');
   const [startYear, setStartYear] = useState<number>(1990);
@@ -92,6 +92,7 @@ export default function FoodData() {
         <div className="form-field flex-1">
           <MultiSelectSearch
             maxSelected={5}
+            showSelectedCount={true}
             loading={loadingAreas}
             options={foodDataAreas.map((area) => ({
               label: area.name,

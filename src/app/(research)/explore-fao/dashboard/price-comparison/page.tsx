@@ -1,13 +1,13 @@
-import FoodData from './food-data';
+import PriceComparisonContainer from './container';
 
-export default function FoodPricesPage() {
+export default function PriceComparisonPage() {
   return (
     <div className="mx-auto p-4 pt-1">
       <div className="flex flex-row  items-center justify-center gap-2 mb-1">
         <h4 className="text-heading-sm font-bold">Global Food Price Explorer</h4>
       </div>
 
-      <FoodData />
+      <PriceComparisonContainer />
       <div className="mx-1 rounded-md bg-base-200 p-4 mt-4">
         <h4 className="text-md font-bold">About the Data</h4>
         <p className="text-dim text-sm">

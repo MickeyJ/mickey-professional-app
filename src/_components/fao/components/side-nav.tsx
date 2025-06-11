@@ -19,7 +19,7 @@ const navSections: NavSection[] = [
     items: [
       {
         label: 'Price Volatility Comparison',
-        href: '/explore-fao/dashboard/price-volatility',
+        href: '/explore-fao/dashboard/price-comparison',
         description: 'Compare market volatility across time periods',
       },
       {

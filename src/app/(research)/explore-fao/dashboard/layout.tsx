@@ -7,7 +7,7 @@ import { Sidenav } from '@/_components/fao/components/side-nav';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Default to open on desktop, closed on mobile
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Set initial state based on screen size
   useEffect(() => {

@@ -3,7 +3,7 @@
   /* Neutral grayscale palette */
   --color-neutral-50: oklch(100% 0 0);
   --color-neutral-100: oklch(98% 0 0);
-  --color-neutral-200: oklch(90% 0 0);
+  --color-neutral-200: oklch(95% 0 0);
   --color-neutral-300: oklch(70% 0 0);
   --color-neutral-400: oklch(60% 0 0);
   --color-neutral-500: oklch(50% 0 0);
@@ -68,7 +68,7 @@
 
   /* Semantic mappings */
   --color-accent-1-bg: var(--color-accent-50);
-  --color-accent-1-primary: var(--color-accent-600);
+  --color-accent-1-primary: var(--color-accent-500);
   --color-accent-1-content: var(--color-neutral-50);
 
   /* Add semantic mappings for the other colors */
@@ -77,7 +77,7 @@
   --color-accent-2-content: var(--color-neutral-50);
 
   --color-accent-3-bg: var(--color-tertiary-50);
-  --color-accent-3-primary: var(--color-tertiary-600);
+  --color-accent-3-primary: var(--color-tertiary-500);
   --color-accent-3-content: var(--color-neutral-50);
 
 

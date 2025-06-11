@@ -1,5 +1,7 @@
 @import './dashboard.css';
 @import './cards.css';
+@import './select-inputs.css';
+@import './range-slider.css';
 
 @utility section-spacing {
   @apply py-12;

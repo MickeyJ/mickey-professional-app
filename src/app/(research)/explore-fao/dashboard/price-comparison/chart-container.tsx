@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import MultiLineChart from '@/_components/charts/multi-line-chart';
+import MultiLineChart from '@/_components/fao/charts/multi-line-chart';
 import { getFoodOasisChartData } from '@/api';
 import type { FoodOasisDataArea, FoodOasisDataItem, FoodOasisMultiLineChartData } from '@/types';
 
@@ -11,7 +11,7 @@ interface FoodDataChartContainerProps {
   endYear: number;
 }
 
-export default function FoodDataChartContainer({
+export default function PriceComparisonChartContainer({
   selectedItem,
   selectedAreas,
   startYear,
