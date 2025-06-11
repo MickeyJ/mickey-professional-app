@@ -49,21 +49,45 @@ export const formatCountryData = ({
   fifa,
 });
 
+// Define a palette of visually distinct colors
+const CHART_COLORS = [
+  '#e63946', // red
+  '#2a9d8f', // teal
+  '#f77f00', // orange
+  '#06ffa5', // mint
+  '#7209b7', // purple
+  '#fbca04', // yellow
+  '#2196f3', // blue
+  '#d62828', // crimson
+  '#52b788', // green
+  '#f72585', // pink
+];
+
+// Improved deterministic color function
+export function getCountryColor(countryName: string): string {
+  // Create hash from country name
+  let hash = 0;
+  for (let i = 0; i < countryName.length; i++) {
+    hash = (hash << 5) - hash + countryName.charCodeAt(i);
+    hash = hash & hash;
+  }
+
+  // Map to color palette
+  const index = Math.abs(hash) % CHART_COLORS.length;
+  return CHART_COLORS[index];
+}
+
 export function stringToColor(str: string): string {
-  // Generate a hash from the string
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  // Convert hash to a color with good saturation and brightness
-  const h = Math.abs(hash % 360); // Hue (0-360)
-  const s = 65 + (hash % 20); // Saturation (65-85%)
-  const l = 55 + (hash % 10); // Lightness (55-65%)
+  const h = Math.abs(hash % 360);
+  const s = 75 + (hash % 20); // Saturation (75-95%) - more vibrant
+  const l = 45 + (hash % 15); // Lightness (45-60%) - richer colors
 
-  const color = `hsl(${h}, ${s}%, ${l}%)`;
-
-  return color;
+  return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
 export function calculateStats(values: number[]) {

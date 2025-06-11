@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -94,6 +94,15 @@ const navSections: NavSection[] = [
 export function Sidenav() {
   const pathname = usePathname();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
+
+  // Set expanded sections after mount (client-side only)
+  useEffect(() => {
+    const activeSections = navSections
+      .filter((section) => section.items.some((item) => item.href === pathname))
+      .map((section) => section.title);
+
+    setExpandedSections(activeSections);
+  }, []); // Re-run when pathname changes
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) =>

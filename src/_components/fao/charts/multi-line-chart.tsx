@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-import { stringToColor } from '@/lib/utils';
 import type { FoodOasisMultiLineChartData } from '@/types';
 
 interface MultiLineChartProps {
@@ -10,6 +9,15 @@ interface MultiLineChartProps {
   height?: number;
   loading?: boolean;
 }
+
+// Distinct colors optimized for white background
+const DISTINCT_COLORS = [
+  '#2563eb', // Bright blue
+  '#dc2626', // Vibrant red
+  '#16a34a', // Green
+  '#ea580c', // Orange
+  '#9333ea', // Purple
+];
 
 export default function MultiLineChart({
   data,
@@ -40,8 +48,10 @@ export default function MultiLineChart({
   useEffect(() => {
     if (!svgRef.current) return;
 
-    d3.select(svgRef.current).selectAll('*').remove(); // Clear previous content
-    const margin = { top: 20, right: 100, bottom: 30, left: 70 };
+    d3.select(svgRef.current).selectAll('*').remove();
+
+    // Adjusted margins for better spacing
+    const margin = { top: 20, right: 150, bottom: 50, left: 80 };
     const chartWidth = dimensions.width - margin.left - margin.right;
     const chartHeight = dimensions.height - margin.top - margin.bottom;
 
@@ -56,7 +66,7 @@ export default function MultiLineChart({
 
     // Default domain values when no data is present
     const defaultYears = [2010, 2023];
-    const defaultPriceRange = [0, 100]; // Default price change range -20% to +20%
+    const defaultPriceRange = [0, 100];
 
     // Use data if available, otherwise use defaults
     const allYears =
@@ -68,16 +78,14 @@ export default function MultiLineChart({
     let allNormalizedPrices: number[] = defaultPriceRange;
     let normalizedData: any[] = [];
 
-    // Add this data transformation before creating scales
     if (data && data.lines.length > 0) {
       normalizedData = data.lines.map((line) => {
-        const basePrice = line.data_points[0].price_per_t; // First year as baseline
+        const basePrice = line.data_points[0].price_per_t;
         return {
           ...line,
           data_points: line.data_points.map((point) => ({
             ...point,
             normalized_price: ((point.price_per_t - basePrice) / basePrice) * 100,
-            // normalized_price: point.price_per_t,
           })),
         };
       });
@@ -87,165 +95,214 @@ export default function MultiLineChart({
       );
     }
 
-    // years
+    // Scales
     const xScale = d3
       .scaleLinear()
       .domain(d3.extent(allYears) as [number, number])
       .range([0, chartWidth]);
 
-    // prices
     const yScale = d3
       .scaleLinear()
-      .domain(d3.extent(allNormalizedPrices) as [number, number]) // from 0 to max price
+      .domain(d3.extent(allNormalizedPrices) as [number, number])
       .range([chartHeight, 0]);
 
-    // color for different lines?
-    // const colorScale = d3
-    //   .scaleOrdinal(d3.schemeCategory10)
-    //   .domain(normalizedData.map((line) => line.area_name));
+    // Grid lines (subtle)
+    chartGroup
+      .append('g')
+      .attr('class', 'grid')
+      .attr('transform', `translate(0, ${chartHeight})`)
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(-chartHeight)
+          .tickFormat(() => '')
+      )
+      .style('stroke-dasharray', '3,3')
+      .style('opacity', 0.1);
 
-    // years axis
-    const xAxis = d3
-      .axisBottom(xScale)
-      .tickFormat(d3.format('d')) // format as integer
-      .ticks(8); // nice spacing
+    chartGroup
+      .append('g')
+      .attr('class', 'grid')
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickSize(-chartWidth)
+          .tickFormat(() => '')
+      )
+      .style('stroke-dasharray', '3,3')
+      .style('opacity', 0.1);
 
-    const yAxis = d3.axisLeft(yScale).tickFormat((d) => `${d3.format(',.0f')(d)}%`); // $1,832
+    // Axes
+    const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d')).ticks(10);
 
-    // add x axis to chart
+    const yAxis = d3.axisLeft(yScale).tickFormat((d) => `${d3.format('+,.0f')(d)}%`);
+
+    // X axis
     chartGroup
       .append('g')
       .attr('class', 'x-axis')
-      .attr('transform', `translate(0, ${chartHeight})`) // move to bottom
-      .call(xAxis);
+      .attr('transform', `translate(0, ${chartHeight})`)
+      .call(xAxis)
+      .style('color', 'var(--color-base-content)')
+      .style('font-size', '12px');
 
-    // Add Y Axis to chart
+    // Y axis
     chartGroup
-      .append('g') // what is g?
+      .append('g')
       .attr('class', 'y-axis')
-      .call(yAxis);
+      .call(yAxis)
+      .style('color', 'var(--color-base-content)')
+      .style('font-size', '12px');
 
-    // add axis labels - years
+    // Axis labels
     chartGroup
       .append('text')
       .attr('class', 'x-label')
       .attr('x', chartWidth / 2)
-      .attr('y', chartHeight + 40)
+      .attr('y', chartHeight + 50)
       .style('text-anchor', 'middle')
+      .style('fill', 'var(--color-base-content)')
+      .style('font-size', '14px')
+      .style('font-weight', '500')
       .text('Year');
 
-    // add vertical axis labels - price change
     chartGroup
       .append('text')
       .attr('class', 'y-label')
       .attr('transform', 'rotate(-90)')
       .attr('x', -chartHeight / 2)
-      .attr('y', -50)
+      .attr('y', -60)
       .style('text-anchor', 'middle')
       .style('fill', 'var(--color-base-content)')
-      .text('Price Change (%)'); // Change in price from first year
+      .style('font-size', '14px')
+      .style('font-weight', '500')
+      .text('Price Change (%)');
 
-    // Add after creating the axes, before drawing lines
+    // Zero line (more prominent)
     chartGroup
       .append('line')
       .attr('x1', 0)
       .attr('x2', chartWidth)
       .attr('y1', yScale(0))
       .attr('y2', yScale(0))
-      .style('stroke', '#999')
-      .style('stroke-width', 2)
-      .style('stroke-dasharray', '7,7') // slightly longer dashes
-      .style('opacity', 0.7);
+      .style('stroke', 'var(--color-base-content)')
+      .style('stroke-width', 1)
+      .style('opacity', 0.3);
 
-    chartGroup
-      .append('text')
-      .attr('x', chartWidth + 5)
-      .attr('y', yScale(0))
-      .attr('dy', '0.3em')
-      .style('fill', '#666')
-      .style('font-size', '10px')
-      .text('0%');
+    // Tooltip
+    const tooltip = d3
+      .select('body')
+      .append('div')
+      .attr('class', 'chart-tooltip')
+      .style('position', 'absolute')
+      .style('visibility', 'hidden')
+      .style('background-color', 'rgba(0, 0, 0, 0.8)')
+      .style('color', 'white')
+      .style('padding', '8px 12px')
+      .style('border-radius', '4px')
+      .style('font-size', '12px')
+      .style('pointer-events', 'none')
+      .style('z-index', '1000');
 
     if (data && data.lines.length) {
-      // Create the line generator
+      // Line generator
       const line = d3
         .line<{ year: number; normalized_price: number }>()
-        .x((d) => xScale(d.year)) // Use xScale to position points horizontally
-        .y((d) => yScale(d.normalized_price)) // Use yScale to position points vertically
-        .curve(d3.curveMonotoneX); // Smooth curve that preserves monotonicity
+        .x((d) => xScale(d.year))
+        .y((d) => yScale(d.normalized_price))
+        .curve(d3.curveMonotoneX);
 
       // Create a group for each country's line
       const lineGroups = chartGroup
         .selectAll('.line-group')
-        .data(normalizedData) // Bind each country's data
+        .data(normalizedData)
         .enter()
         .append('g')
         .attr('class', 'line-group');
 
-      // Draw the actual lines
+      // Draw lines
       lineGroups
         .append('path')
         .attr('class', 'price-line')
-        .attr('d', (d) => line(d.data_points)) // Use our line generator
-        .style('fill', 'none') // Lines should not be filled
-        .style('stroke', (d) => stringToColor(d.area_name)) // Color by country
-        .style('stroke-width', 2.5)
-        .style('opacity', 0.8);
+        .attr('d', (d) => line(d.data_points))
+        .style('fill', 'none')
+        .style('stroke', (d, i) => DISTINCT_COLORS[i % DISTINCT_COLORS.length])
+        .style('stroke-width', 3)
+        .style('opacity', 0.9)
+        .style('transition', 'opacity 0.2s');
 
-      // Create legend
-      const legend = chartGroup
+      // Add invisible wider hover area for better interaction
+      lineGroups
+        .append('path')
+        .attr('class', 'hover-line')
+        .attr('d', (d) => line(d.data_points))
+        .style('fill', 'none')
+        .style('stroke', 'transparent')
+        .style('stroke-width', 20)
+        .style('cursor', 'pointer')
+        .on('mousemove', function (event, lineData) {
+          // Find closest data point
+          const [mouseX] = d3.pointer(event);
+          const year = Math.round(xScale.invert(mouseX));
+          const dataPoint = lineData.data_points.find((d: any) => d.year === year);
+
+          if (dataPoint) {
+            tooltip
+              .style('visibility', 'visible')
+              .html(
+                `
+                <div><strong>${lineData.area_name}</strong></div>
+                <div>Year: ${dataPoint.year}</div>
+                <div>Change: ${dataPoint.normalized_price > 0 ? '+' : ''}${dataPoint.normalized_price.toFixed(1)}%</div>
+                <div>Price: ${lineData.currency} ${dataPoint.price_per_t.toFixed(2)}</div>
+              `
+              )
+              .style('top', event.pageY - 10 + 'px')
+              .style('left', event.pageX + 10 + 'px');
+          }
+        })
+        .on('mouseout', function () {
+          tooltip.style('visibility', 'hidden');
+        });
+
+      // Legend (vertical on the right)
+      const legendContainer = svg
         .append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${chartWidth + 20}, 20)`); // Position to the right
+        .attr('transform', `translate(${dimensions.width - margin.right + 20}, ${margin.top})`);
 
-      // Create legend items
-      const legendItems = legend
+      const legendItems = legendContainer
         .selectAll('.legend-item')
         .data(data.lines)
         .enter()
         .append('g')
         .attr('class', 'legend-item')
-        .attr('transform', (d, i) => `translate(0, ${i * 25})`); // Stack vertically
+        .attr('transform', (d, i) => `translate(0, ${i * 25})`);
 
-      // Add colored rectangles
+      // Legend dots
       legendItems
-        .append('rect')
-        .attr('width', 18) // Make wider to accommodate text
-        .attr('height', 18)
-        .style('fill', (d) => stringToColor(d.area_name))
-        .style('stroke', '#333')
-        .style('stroke-width', 1);
+        .append('circle')
+        .attr('cx', 8)
+        .attr('cy', 8)
+        .attr('r', 6)
+        .style('fill', (d, i) => DISTINCT_COLORS[i % DISTINCT_COLORS.length]);
 
-      // Add currency text inside the rectangles
+      // Legend text
       legendItems
         .append('text')
-        .attr('x', 9) // Center horizontally in the 50px wide rectangle
-        .attr('y', 9)
+        .attr('x', 20)
+        .attr('y', 8)
         .attr('dy', '0.35em')
-        .style('fill', 'black')
-        .style('font-size', '8px')
-        .style('font-weight', 'bold')
-        .style('text-anchor', 'middle')
-        // .style('text-shadow', '2px 1px 2px rgba(0,0,0,0.8)') // Better readability
-        .text((d) => d.currency);
-
-      // Add country names
-      legendItems
-        .append('text')
-        .attr('x', 25)
-        .attr('y', 9)
-        .attr('dy', '0.35em') // Center vertically
         .style('fill', 'var(--color-base-content)')
-        .style('font-size', '12px')
-        .attr('class', 'max-w-10 truncate')
-        .text((d) => d.area_name)
-        .text((d) => {
-          const maxLength = 10; // Maximum character length
-          return d.area_name.length > maxLength
-            ? d.area_name.substring(0, maxLength) + '...'
-            : d.area_name;
-        });
+        .style('font-size', '13px')
+        .style('font-weight', '400')
+        .text((d) => d.area_name);
     }
+
+    // Cleanup tooltip on unmount
+    return () => {
+      d3.select('body').selectAll('.chart-tooltip').remove();
+    };
   }, [data, dimensions]);
 
   return (
@@ -257,9 +314,8 @@ export default function MultiLineChart({
         className="w-full"
         preserveAspectRatio="xMidYMid meet"
       />
-      {/* Loading overlay */}
       {loading && (
-        <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/3 flex items-center justify-center">
           <div className="flex flex-col items-center gap-2">
             <div className="h-8 w-8 border-4 border-t-blue-500 border-blue-300/30 rounded-full animate-spin"></div>
             <p className="text-white text-sm font-medium">Loading data...</p>
