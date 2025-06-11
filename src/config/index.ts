@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const config = {
   FORM: {
     MAX_MESSAGE_LENGTH: 200,
@@ -17,6 +19,8 @@ const config = {
   },
 };
 
-console.log(process.env.NODE_ENV);
+export const faoApi = axios.create({
+  baseURL: config.URL.API.FOOD_OASIS,
+});
 
 export default config;
