@@ -10,18 +10,18 @@
 }
 
 @utility form-select-trigger {
-  @apply w-full text-left flex justify-between items-center rounded-lg;
+  @apply w-full text-left flex justify-between items-center rounded-lg shadow-sm;
   min-height: 2.5rem;
   padding: 0.5rem 0.75rem;
-  background-color: var(--color-base-3-bg);
-  border: 1px solid var(--color-base-3-brdr);
+  background-color: var(--color-base-1-bg);
+  border: 1px solid var(--color-base-1-brdr);
   color: var(--color-base-content);
   transition: all 0.2s ease;
   cursor: pointer;
 
   &:hover {
     border-color: var(--color-base-2-brdr);
-    background-color: var(--color-base-2-bg);
+    background-color: var(--color-base-1-bg);
   }
 
   &:focus {
@@ -33,14 +33,14 @@
 
 @utility form-input {
   @apply w-full px-3 py-2 rounded-md text-sm;
-  background-color: var(--color-base-3-bg);
-  border: 1px solid var(--color-base-3-brdr);
+  background-color: var(--color-base-1-bg);
+  border: 1px solid var(--color-base-1-brdr);
   color: var(--color-base-content);
 
   &:focus {
     outline: none;
     border-color: var(--color-accent-500);
-    background-color: var(--color-base-2-bg);
+    background-color: var(--color-base-1-bg);
   }
 
   &::placeholder {
@@ -50,14 +50,14 @@
 
 @utility dropdown-container {
   @apply absolute z-50 w-full mt-1 rounded-lg shadow-lg overflow-hidden;
-  background-color: var(--color-base-3-bg);
+  background-color: var(--color-base-1-bg);
   border: 1px solid var(--color-base-2-brdr);
   max-height: 15rem;
 }
 
 @utility dropdown-search {
   @apply sticky top-0 p-2;
-  background-color: var(--color-base-3-bg);
+  background-color: var(--color-base-1-bg);
   border-bottom: 1px solid var(--color-base-2-brdr);
 }
 

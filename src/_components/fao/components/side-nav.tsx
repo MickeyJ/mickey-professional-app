@@ -93,9 +93,7 @@ const navSections: NavSection[] = [
 
 export function Sidenav() {
   const pathname = usePathname();
-  const [expandedSections, setExpandedSections] = useState<string[]>(
-    navSections.map((section) => section.title) // All expanded by default
-  );
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) =>
@@ -104,7 +102,7 @@ export function Sidenav() {
   };
 
   return (
-    <nav className="w-full h-full bg-base-2-bg border-r border-base-2-brdr">
+    <nav className="w-full h-full">
       <div className="p-6">
         <h2 className="text-lg font-semibold text-base-content mb-6">Data Explorer</h2>
 

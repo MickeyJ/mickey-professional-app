@@ -134,6 +134,7 @@ export default function MultiLineChart({
       .style('text-anchor', 'middle')
       .text('Year');
 
+    // add vertical axis labels - price change
     chartGroup
       .append('text')
       .attr('class', 'y-label')
@@ -141,7 +142,7 @@ export default function MultiLineChart({
       .attr('x', -chartHeight / 2)
       .attr('y', -50)
       .style('text-anchor', 'middle')
-      .style('fill', 'white')
+      .style('fill', 'var(--color-base-content)')
       .text('Price Change (%)'); // Change in price from first year
 
     // Add after creating the axes, before drawing lines
@@ -234,7 +235,7 @@ export default function MultiLineChart({
         .attr('x', 25)
         .attr('y', 9)
         .attr('dy', '0.35em') // Center vertically
-        .style('fill', 'white')
+        .style('fill', 'var(--color-base-content)')
         .style('font-size', '12px')
         .attr('class', 'max-w-10 truncate')
         .text((d) => d.area_name)
