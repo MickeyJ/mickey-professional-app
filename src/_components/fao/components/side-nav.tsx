@@ -30,65 +30,69 @@ const navSections: NavSection[] = [
     ],
   },
   {
-    title: 'Production & Trade',
-    items: [
-      {
-        label: 'Production Trends',
-        href: '/explore-fao/dashboard/production-trends',
-        description: 'Long-term crop production patterns',
-      },
-      {
-        label: 'Trade Flow Network',
-        href: '/explore-fao/dashboard/trade-flows',
-        description: 'Global agricultural trade visualization',
-      },
-    ],
+    title: 'More Coming Soon!',
+    items: [],
   },
-  {
-    title: 'Environmental Impact',
-    items: [
-      {
-        label: 'Emissions by Sector',
-        href: '/explore-fao/dashboard/emissions',
-        description: 'Agricultural greenhouse gas emissions',
-      },
-      {
-        label: 'Land Use Changes',
-        href: '/explore-fao/dashboard/land-use',
-        description: 'Historical land use transformations',
-      },
-    ],
-  },
-  {
-    title: 'Food Security',
-    items: [
-      {
-        label: 'Nutrition Indicators',
-        href: '/explore-fao/dashboard/nutrition',
-        description: 'Global nutrition and food security metrics',
-      },
-      {
-        label: 'Food Balance Overview',
-        href: '/explore-fao/dashboard/food-balance',
-        description: 'Supply and utilization accounts',
-      },
-    ],
-  },
-  {
-    title: 'Cross-Dataset Analysis',
-    items: [
-      {
-        label: 'Climate vs Production',
-        href: '/explore-fao/dashboard/climate-production',
-        description: 'Temperature impact on agricultural yields',
-      },
-      {
-        label: 'Development vs Food Security',
-        href: '/explore-fao/dashboard/development-food',
-        description: 'Economic indicators and nutrition outcomes',
-      },
-    ],
-  },
+  // {
+  //   title: 'Production & Trade',
+  //   items: [
+  //     {
+  //       label: 'Production Trends',
+  //       href: '/explore-fao/dashboard/production-trends',
+  //       description: 'Long-term crop production patterns',
+  //     },
+  //     {
+  //       label: 'Trade Flow Network',
+  //       href: '/explore-fao/dashboard/trade-flows',
+  //       description: 'Global agricultural trade visualization',
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Environmental Impact',
+  //   items: [
+  //     {
+  //       label: 'Emissions by Sector',
+  //       href: '/explore-fao/dashboard/emissions',
+  //       description: 'Agricultural greenhouse gas emissions',
+  //     },
+  //     {
+  //       label: 'Land Use Changes',
+  //       href: '/explore-fao/dashboard/land-use',
+  //       description: 'Historical land use transformations',
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Food Security',
+  //   items: [
+  //     {
+  //       label: 'Nutrition Indicators',
+  //       href: '/explore-fao/dashboard/nutrition',
+  //       description: 'Global nutrition and food security metrics',
+  //     },
+  //     {
+  //       label: 'Food Balance Overview',
+  //       href: '/explore-fao/dashboard/food-balance',
+  //       description: 'Supply and utilization accounts',
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Cross-Dataset Analysis',
+  //   items: [
+  //     {
+  //       label: 'Climate vs Production',
+  //       href: '/explore-fao/dashboard/climate-production',
+  //       description: 'Temperature impact on agricultural yields',
+  //     },
+  //     {
+  //       label: 'Development vs Food Security',
+  //       href: '/explore-fao/dashboard/development-food',
+  //       description: 'Economic indicators and nutrition outcomes',
+  //     },
+  //   ],
+  // },
 ];
 
 export function Sidenav() {
@@ -113,7 +117,7 @@ export function Sidenav() {
   return (
     <nav className="w-full h-full">
       <div className="p-6">
-        <h2 className="text-lg font-semibold text-base-content mb-6">Data Explorer</h2>
+        <h2 className="text-lg font-semibold text-base-content mb-6">Charts and Graphs</h2>
 
         <div className="nav-section">
           {navSections.map((section) => {

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import MarketIntegrationChart from '@/_components/fao/charts/market-integration-chart-timeline';
 import { MultiSelectSearch } from '@/_components/fao/ui/multiselect-search';
 import { SelectSearch } from '@/_components/fao/ui/select-search';
 // import { YearRangeSlider } from '@/_components/fao/ui/year-range-slider';
@@ -10,6 +11,7 @@ import {
   getFAOMarketIntegrationData,
   getFAOMarketIntegrationItems,
 } from '@/api';
+import { stringToColorCountry } from '@/lib/utils';
 import type {
   FAOMarketIntegration,
   // FAOMarketIntegrationComparison,
@@ -18,34 +20,37 @@ import type {
 } from '@/types';
 
 export default function MarketIntegrationContainer() {
-  // const [fetchError, setFetchError] = useState<string>('');
-
-  const [faoItems, setFAOItems] = useState<FAOMarketIntegrationItem[]>([]);
-  const [faoCountries, setFAOCountries] = useState<FAOMarketIntegrationCountry[]>([]);
-  const [loadingItems, setLoadingItems] = useState<boolean>(false);
-  const [loadingCountries, setLoadingCountries] = useState<boolean>(false);
   const [loadingIntegrationData, setLoadingIntegrationData] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<FAOMarketIntegrationItem | null>(null);
-  const [selectedCountries, setSelectedCountries] = useState<FAOMarketIntegrationCountry[]>([]);
-  const prevSelectedCountriesRef = useRef(selectedCountries);
+  const [fetchError, setFetchError] = useState<string>('');
   const [marketIntegrationData, setMarketIntegrationData] = useState<FAOMarketIntegration | null>(
     null
   );
+
+  const [loadingItems, setLoadingItems] = useState<boolean>(false);
+  const [itemsError, setItemsError] = useState<string>('');
+  const [faoItems, setFAOItems] = useState<FAOMarketIntegrationItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<FAOMarketIntegrationItem | null>(null);
+
+  const [loadingCountries, setLoadingCountries] = useState<boolean>(false);
+  const [countriesError, setCountriesError] = useState<string>('');
+  const [faoCountries, setFAOCountries] = useState<FAOMarketIntegrationCountry[]>([]);
+  const [selectedCountries, setSelectedCountries] = useState<FAOMarketIntegrationCountry[]>([]);
+  const prevSelectedCountriesRef = useRef(selectedCountries);
 
   useEffect(() => {
     // Fetch data from the API
     const fetchItems = async () => {
       try {
         setLoadingItems(true);
-        // setFetchError('');
+        setItemsError('');
         const data = await getFAOMarketIntegrationItems();
         console.log('Fetched FAO Items:', data);
         console.log(data);
 
         setFAOItems(data.items);
       } catch (err: any) {
-        console.error('Error fetching data for item:', err.message);
-        // setFetchError(err.message);
+        console.error('Error fetching data for item:', err);
+        setItemsError(err.response?.data.error.message || 'Error loading items');
       } finally {
         setLoadingItems(false);
       }
@@ -63,7 +68,7 @@ export default function MarketIntegrationContainer() {
     const fetchCountries = async () => {
       try {
         setLoadingCountries(true);
-        // setFetchError('');
+        setCountriesError('');
         const data = await getFAOMarketIntegrationCountries(selectedItem.item_code);
         console.log('Fetched FAO Items:', data);
         console.log(data);
@@ -71,7 +76,7 @@ export default function MarketIntegrationContainer() {
         setFAOCountries(data.countries);
       } catch (err: any) {
         console.error('Error fetching data for item:', err.message);
-        // setFetchError(err.message);
+        setCountriesError(err.response?.data.error.message || 'Error loading countries');
       } finally {
         setLoadingCountries(false);
       }
@@ -94,11 +99,11 @@ export default function MarketIntegrationContainer() {
             selectedItem.item_code,
             selectedCountries.map((area) => area.area_code)
           );
-          console.log('Fetched Chart Data:', data);
           setMarketIntegrationData(data);
         } catch (err: any) {
-          console.error('Error fetching chart data:', err.detail.message);
-          // setFetchError(err.detail.message);
+          console.error('Error fetching chart data:', err);
+          setFetchError(err.response.data.error.message);
+          setMarketIntegrationData(null);
         } finally {
           setLoadingIntegrationData(false);
         }
@@ -113,18 +118,17 @@ export default function MarketIntegrationContainer() {
 
   return (
     <div className="mx-auto p-4">
-      <div className="flex flex-row justify-between items-center gap-4">
-        <div className="form-field max-w-[200]">
+      <div className="flex flex-row justify-start items-center gap-4">
+        <div className="form-field max-w-[250]">
           <SelectSearch
             loading={loadingItems}
+            error={itemsError}
             options={faoItems.map((item) => ({
               label: item.name,
-              value: item.item_code.toString(),
+              value: item.item_code,
             }))}
             selected={
-              selectedItem
-                ? { label: selectedItem.name, value: selectedItem.item_code.toString() }
-                : null
+              selectedItem ? { label: selectedItem.name, value: selectedItem.item_code } : null
             }
             onSelect={(value) => {
               console.log(`Selected item value: ${value}`);
@@ -133,18 +137,20 @@ export default function MarketIntegrationContainer() {
             }}
           />
         </div>
-        <div className="form-field flex-1">
+        <div className="form-field">
           <MultiSelectSearch
-            maxSelected={5}
-            showSelectedCount={true}
+            maxSelected={4}
+            placeholder="Select up to 4 countries"
+            showSelectedMessage={`${selectedCountries.length} ${selectedCountries.length === 1 ? 'country' : 'countries'} selected`}
             loading={loadingCountries}
+            error={countriesError}
             options={faoCountries.map((area) => ({
-              label: area.country_name,
-              value: area.area_code.toString(),
+              label: `${area.area_name} ($${area.avg_price})`,
+              value: area.area_code,
             }))}
             selected={selectedCountries.map((selectedArea) => ({
-              label: selectedArea.country_name,
-              value: selectedArea.area_code.toString(),
+              label: `${selectedArea.area_name} ($${selectedArea.avg_price})`,
+              value: selectedArea.area_code,
             }))}
             onSelect={(selectedOptions) =>
               setSelectedCountries(
@@ -153,15 +159,38 @@ export default function MarketIntegrationContainer() {
                 )
               )
             }
+            getItemColor={(item, i) => {
+              const area = faoCountries.find(
+                (area) => area.area_code.toString() === item.value
+              ) as FAOMarketIntegrationCountry;
+              return stringToColorCountry(area, i);
+            }}
           />
         </div>
       </div>
-      {loadingIntegrationData && !marketIntegrationData ? (
+      {loadingIntegrationData && !marketIntegrationData && (
         <div className="mt-4">
           <p className="text-sm text-gray-500">Loading market integration data...</p>
         </div>
+      )}
+      {marketIntegrationData ? (
+        <MarketIntegrationChart
+          data={marketIntegrationData}
+          loading={loadingIntegrationData}
+          width={800}
+          height={500}
+        />
       ) : (
-        <p>Countries Analyzed: {marketIntegrationData?.countries_analyzed}</p>
+        <div className="h-[300] m-auto flex items-center justify-center">
+          <p className="text-sm text-gray-500">
+            Select an item and at least two countries to view market integration data.
+          </p>
+        </div>
+      )}
+      {fetchError && (
+        <div className="mt-4">
+          <p className="text-sm text-error">Error: {fetchError}</p>
+        </div>
       )}
     </div>
   );

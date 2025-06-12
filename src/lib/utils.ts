@@ -90,6 +90,15 @@ export function stringToColor(str: string): string {
   return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
+export const stringToColorCountry = (
+  area: { area_id: number; area_name: string; area_code: string },
+  index: number
+) => {
+  // Use a combination of area name and code to ensure distinct colors
+  const baseString = area.area_name + area.area_code + area.area_id + index;
+  return stringToColor(baseString);
+};
+
 export function calculateStats(values: number[]) {
   const sorted = [...values].sort((a, b) => a - b);
   const q1 = d3.quantile(sorted, 0.25) || 0;

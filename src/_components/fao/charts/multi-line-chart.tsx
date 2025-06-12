@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
+import { stringToColorCountry } from '@/lib/utils';
 import type { FoodOasisMultiLineChartData } from '@/types';
 
 interface MultiLineChartProps {
@@ -9,15 +10,6 @@ interface MultiLineChartProps {
   height?: number;
   loading?: boolean;
 }
-
-// Distinct colors optimized for white background
-const DISTINCT_COLORS = [
-  '#2563eb', // Bright blue
-  '#dc2626', // Vibrant red
-  '#16a34a', // Green
-  '#ea580c', // Orange
-  '#9333ea', // Purple
-];
 
 export default function MultiLineChart({
   data,
@@ -226,7 +218,7 @@ export default function MultiLineChart({
         .attr('class', 'price-line')
         .attr('d', (d) => line(d.data_points))
         .style('fill', 'none')
-        .style('stroke', (d, i) => DISTINCT_COLORS[i % DISTINCT_COLORS.length])
+        .style('stroke', (d, i) => stringToColorCountry(d, i))
         .style('stroke-width', 3)
         .style('opacity', 0.9)
         .style('transition', 'opacity 0.2s');
@@ -285,7 +277,7 @@ export default function MultiLineChart({
         .attr('cx', 8)
         .attr('cy', 8)
         .attr('r', 6)
-        .style('fill', (d, i) => DISTINCT_COLORS[i % DISTINCT_COLORS.length]);
+        .style('fill', (d, i) => stringToColorCountry(d, i));
 
       // Legend text
       legendItems

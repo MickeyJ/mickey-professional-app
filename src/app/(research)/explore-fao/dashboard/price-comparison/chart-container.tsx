@@ -2,11 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import MultiLineChart from '@/_components/fao/charts/multi-line-chart';
 import { getFoodOasisChartData } from '@/api';
-import type { FoodOasisDataArea, FoodOasisDataItem, FoodOasisMultiLineChartData } from '@/types';
+import type { FAOArea, FoodOasisDataItem, FoodOasisMultiLineChartData } from '@/types';
 
 interface FoodDataChartContainerProps {
   selectedItem: FoodOasisDataItem | null;
-  selectedAreas: FoodOasisDataArea[];
+  selectedAreas: FAOArea[];
   startYear: number;
   endYear: number;
 }

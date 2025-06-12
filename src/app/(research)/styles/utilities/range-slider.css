@@ -22,8 +22,8 @@
 @utility slider-range {
   @apply absolute h-full rounded-full;
   background: linear-gradient(to right,
-      var(--color-accent-500),
-      var(--color-accent-700));
+      var(--color-tertiary-400),
+      var(--color-tertiary-600));
 }
 
 @utility slider-thumb {

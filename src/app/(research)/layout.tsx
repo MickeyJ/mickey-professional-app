@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   keywords: ['FAO', 'data', 'data analysis', 'rest api', 'sql', 'food', 'agriculture'],
   authors: [{ name: 'Mickey Malotte' }],
   creator: 'Mickey Malotte',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

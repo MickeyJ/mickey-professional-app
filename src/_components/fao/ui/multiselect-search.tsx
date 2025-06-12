@@ -11,24 +11,28 @@ interface SelectSearchProps {
   label?: string;
   placeholder?: string;
   loading?: boolean;
+  error?: string;
   maxSelected?: number;
   className?: string;
-  showSelectedCount?: boolean;
+  showSelectedMessage?: string;
   options: SelectOption[];
   selected: SelectOption[];
   onSelect: (selectedOptions: SelectOption[]) => void;
+  getItemColor?: (item: SelectOption, index: number) => string; // Optional function to get color for each item
 }
 
 export function MultiSelectSearch({
   label,
   placeholder = 'Select Locations',
   loading,
+  error,
   maxSelected = 5,
   className = '',
-  showSelectedCount = false,
+  showSelectedMessage,
   options,
   selected,
   onSelect,
+  getItemColor, // Function to get color for each item
 }: SelectSearchProps) {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -102,7 +106,7 @@ export function MultiSelectSearch({
         onClick={() => setDropdownVisible(!dropdownVisible)}
       >
         <div className="tag-container">
-          {!showSelectedCount &&
+          {!showSelectedMessage &&
             selected.length > 0 &&
             selected.map((item) => (
               <div
@@ -118,10 +122,8 @@ export function MultiSelectSearch({
                 </span>
               </div>
             ))}
-          {showSelectedCount && selected.length > 0 && (
-            <span className="selected-count">
-              {selected.length} {selected.length === 1 ? 'country' : 'countries'} selected
-            </span>
+          {showSelectedMessage && selected.length > 0 && (
+            <span className="selected-count">{showSelectedMessage}</span>
           )}
           {selected.length === 0 && <span className="placeholder-text">{placeholder}</span>}
         </div>
@@ -173,13 +175,22 @@ export function MultiSelectSearch({
                 <LoadingSpinner />
               </div>
             ) : filteredOptions.length > 0 ? (
-              filteredOptions.map((item) => {
+              filteredOptions.map((item, i) => {
                 const isSelected = selected.some((option) => option.value === item.value);
                 return (
                   <div
                     key={item.value}
                     className={`dropdown-item ${isSelected ? 'selected' : ''}`}
                     onClick={() => toggleOption(item)}
+                    style={
+                      getItemColor
+                        ? {
+                            color: getItemColor(item, i),
+                            // fontStyle: 'bold',
+                            fontWeight: 700,
+                          }
+                        : {}
+                    }
                   >
                     <input
                       type="checkbox"
@@ -192,6 +203,8 @@ export function MultiSelectSearch({
                   </div>
                 );
               })
+            ) : error ? (
+              <div className="dropdown-empty text-error">{error}</div>
             ) : (
               <div className="dropdown-empty">No options found</div>
             )}

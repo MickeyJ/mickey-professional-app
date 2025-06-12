@@ -150,14 +150,14 @@
   &:hover {
     background-color: var(--color-base-3-bg);
     color: var(--color-accent-2-primary);
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
   }
 }
 
 @utility nav-item-active {
   background-color: var(--color-accent-bg);
   color: var(--color-accent-1-primary);
-  transform: translateX(4px);
+  transform: translateX(8px);
   @apply font-medium;
 }
 

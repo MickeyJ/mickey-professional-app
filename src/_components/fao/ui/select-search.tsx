@@ -11,6 +11,7 @@ interface SelectSearchProps {
   label?: string;
   placeholder?: string;
   loading?: boolean;
+  error?: string;
   className?: string;
   persistInput?: boolean;
   options: SelectOption[];
@@ -24,6 +25,7 @@ export function SelectSearch({
   label,
   placeholder = 'Select Commodity',
   loading,
+  error,
   className = '',
   persistInput,
   options,
@@ -135,6 +137,8 @@ export function SelectSearch({
                   </div>
                 );
               })
+            ) : error ? (
+              <div className="dropdown-empty text-error">{error}</div>
             ) : (
               <div className="dropdown-empty">No options found</div>
             )}
