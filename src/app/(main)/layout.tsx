@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   keywords: ['developer', 'nextjs', 'typescript', 'tailwind'],
   authors: [{ name: 'Mickey Malotte' }],
   creator: 'Mickey Malotte',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

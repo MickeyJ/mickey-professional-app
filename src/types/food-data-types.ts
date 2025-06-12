@@ -117,8 +117,9 @@ export interface FoodOasisMultiLineChartDataPoint {
 }
 
 export interface FoodOasisMultiLineChartDataLine {
+  area_id: number;
   area_name: string;
-  area_code: number;
+  area_code: string;
   currency: string;
   data_points: FoodOasisMultiLineChartDataPoint[];
 }

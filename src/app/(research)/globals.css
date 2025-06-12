@@ -1,0 +1,6 @@
+/* app/explore-fao/globals.css */
+@import "tailwindcss";
+@import "./styles/theme.css";
+@import "./styles/base.css";
+@import "./styles/utilities/index.css";
+/* @import "./styles/components/index.css"; */

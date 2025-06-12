@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import MultiLineChart from '@/_components/charts/multi-line-chart';
+import MultiLineChart from '@/_components/fao/charts/multi-line-chart';
 import { getFoodOasisChartData } from '@/api';
-import type { FoodOasisDataArea, FoodOasisDataItem, FoodOasisMultiLineChartData } from '@/types';
+import type { FAOArea, FoodOasisDataItem, FoodOasisMultiLineChartData } from '@/types';
 
 interface FoodDataChartContainerProps {
   selectedItem: FoodOasisDataItem | null;
-  selectedAreas: FoodOasisDataArea[];
+  selectedAreas: FAOArea[];
   startYear: number;
   endYear: number;
 }
 
-export default function FoodDataChartContainer({
+export default function PriceComparisonChartContainer({
   selectedItem,
   selectedAreas,
   startYear,
@@ -26,26 +26,29 @@ export default function FoodDataChartContainer({
   const filteredChartData = useMemo(() => {
     if (!chartData) return null;
 
-    return {
-      ...chartData,
-      lines: chartData.lines.map((line) => ({
+    // Filter lines and remove any that have no data points after filtering
+    const filteredLines = chartData.lines
+      .map((line) => ({
         ...line,
         data_points: line.data_points.filter(
           (point) => point.year >= startYear && point.year <= endYear
         ),
-      })),
-      // Update summary to reflect filtered data
+      }))
+      .filter((line) => line.data_points.length > 0); // Remove empty lines
+
+    // If no data remains after filtering, return null
+    if (filteredLines.length === 0) {
+      return null;
+    }
+
+    return {
+      ...chartData,
+      lines: filteredLines,
       summary: {
         ...chartData.summary,
         min_year: startYear,
         max_year: endYear,
-        total_data_points: chartData.lines.reduce(
-          (sum, line) =>
-            sum +
-            line.data_points.filter((point) => point.year >= startYear && point.year <= endYear)
-              .length,
-          0
-        ),
+        total_data_points: filteredLines.reduce((sum, line) => sum + line.data_points.length, 0),
       },
     };
   }, [chartData, startYear, endYear]);

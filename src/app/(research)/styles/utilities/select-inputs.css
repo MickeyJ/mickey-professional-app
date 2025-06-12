@@ -1,0 +1,124 @@
+/* Form utilities for reusable form components */
+
+@utility form-field {
+  @apply relative w-full max-w-md;
+}
+
+@utility form-label {
+  @apply block text-sm font-medium mb-2;
+  color: var(--color-base-content);
+}
+
+@utility form-select-trigger {
+  @apply w-full text-left flex justify-between items-center rounded-lg shadow-sm;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--color-base-1-bg);
+  border: 1px solid var(--color-base-1-brdr);
+  color: var(--color-base-content);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-base-2-brdr);
+    background-color: var(--color-base-1-bg);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px rgba(var(--color-accent-500), 0.1);
+  }
+}
+
+@utility form-input {
+  @apply w-full px-3 py-2 rounded-md text-sm;
+  background-color: var(--color-base-1-bg);
+  border: 1px solid var(--color-base-1-brdr);
+  color: var(--color-base-content);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    background-color: var(--color-base-1-bg);
+  }
+
+  &::placeholder {
+    color: var(--color-base-3-txt);
+  }
+}
+
+@utility dropdown-container {
+  @apply absolute z-50 w-full mt-1 rounded-lg shadow-lg overflow-hidden;
+  background-color: var(--color-base-1-bg);
+  border: 1px solid var(--color-base-2-brdr);
+  max-height: 15rem;
+}
+
+@utility dropdown-search {
+  @apply sticky top-0 p-2;
+  background-color: var(--color-base-1-bg);
+  border-bottom: 1px solid var(--color-base-2-brdr);
+}
+
+@utility dropdown-list {
+  @apply overflow-y-auto;
+  max-height: 12rem;
+}
+
+@utility dropdown-item {
+  @apply p-2 flex items-center cursor-pointer transition-colors;
+
+  &:hover {
+    background-color: var(--color-base-2-bg);
+  }
+
+  &.selected {
+    background-color: var(--color-accent-50);
+    color: var(--color-accent-700);
+  }
+}
+
+@utility tag-pill {
+  @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs;
+  background-color: var(--color-accent-100);
+  border: 1px solid var(--color-accent-300);
+  color: var(--color-accent-800);
+  max-width: 150px;
+
+  .tag-label {
+    @apply truncate;
+  }
+
+  .tag-remove {
+    @apply cursor-pointer transition-colors;
+    color: var(--color-accent-600);
+
+    &:hover {
+      color: var(--color-accent-900);
+    }
+  }
+}
+
+@utility placeholder-text {
+  color: var(--color-base-3-txt);
+}
+
+@utility clear-button {
+  @apply text-xs cursor-pointer transition-colors;
+  color: var(--color-base-3-txt);
+
+  &:hover {
+    color: var(--color-base-content);
+  }
+}
+
+@utility dropdown-empty {
+  @apply p-4 text-center;
+  color: var(--color-base-3-txt);
+}
+
+@utility checkbox-custom {
+  @apply mr-2;
+  accent-color: var(--color-accent-600);
+}
