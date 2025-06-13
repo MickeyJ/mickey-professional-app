@@ -1,6 +1,6 @@
 import FeaturesSection from '@/_components/sections/features';
 import Hero from '@/_components/sections/hero';
-import { ChartIcon, GameIcon, SlidersIcon } from '@/_components/ui/icons';
+import { ChartIcon, GameIcon } from '@/_components/ui/icons';
 
 export default function HomePage() {
   return (
