@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { active } from 'd3';
 
 interface NavSection {
   title: string;
@@ -102,16 +103,17 @@ const navSections: NavSection[] = [
 
 export function Sidenav() {
   const pathname = usePathname();
-  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const [expandedSections, setExpandedSections] = useState<string[]>([navSections[0].title]); // Start with the first section expanded
 
-  // Set expanded sections after mount (client-side only)
   useEffect(() => {
     const activeSections = navSections
       .filter((section) => section.items.some((item) => item.href === pathname))
       .map((section) => section.title);
 
-    setExpandedSections(activeSections);
-  }, []); // Re-run when pathname changes
+    if (activeSections.length) {
+      setExpandedSections(activeSections);
+    }
+  }, [pathname]); // Re-run when pathname changes
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) =>

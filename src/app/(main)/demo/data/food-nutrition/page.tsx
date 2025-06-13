@@ -61,12 +61,15 @@ export default function FoodNutritionPage() {
       : [];
 
   return (
-    <div className="mx-auto p-4 h-full flex flex-col">
-      <h1 className="text-heading-lg font-bold text-center">Nutrition Data</h1>
-      <div className="flex flex-row justify-between items-center gap-4">
+    <div className="mx-auto p-4 px-8 h-full flex flex-col">
+      <h1 className="text-heading-sm font-bold text-center">
+        Nutrition Data Search <span className="text-warning">(Work In Progress)</span>
+      </h1>
+      <div className="flex flex-row justify-between items-center gap-4 mt-4">
         <div className="form-field flex-1">
           <SelectSearch
             placeholder="Search Foods..."
+            noOptionsText="Start typing to search for foods"
             persistInput={true}
             loading={loadingItems}
             options={foodDataItems.map((item) => ({
