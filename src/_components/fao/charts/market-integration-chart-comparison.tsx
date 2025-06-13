@@ -2,21 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 import { stringToColorCountry } from '@/lib/utils';
-import type { FoodOasisMultiLineChartData } from '@/types';
+import type { FAOMarketIntegrationComparisonData } from '@/types';
 
-interface MultiLineChartProps {
-  data: FoodOasisMultiLineChartData | null;
+interface MarketIntegrationComparisonChartProps {
+  data: FAOMarketIntegrationComparisonData | null;
   width?: number;
   height?: number;
   loading?: boolean;
 }
 
-export default function MultiLineChart({
+export default function MarketIntegrationComparisonChart({
   data,
   loading,
   width = 800,
   height = 500,
-}: MultiLineChartProps) {
+}: MarketIntegrationComparisonChartProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState({ width, height });
 
@@ -218,7 +218,7 @@ export default function MultiLineChart({
         .attr('class', 'price-line')
         .attr('d', (d) => line(d.data_points))
         .style('fill', 'none')
-        .style('stroke', (d, i) => stringToColorCountry(d, i))
+        .style('stroke', (d) => stringToColorCountry(d))
         .style('stroke-width', 3)
         .style('opacity', 0.9)
         .style('transition', 'opacity 0.2s');
@@ -277,7 +277,7 @@ export default function MultiLineChart({
         .attr('cx', 8)
         .attr('cy', 8)
         .attr('r', 6)
-        .style('fill', (d, i) => stringToColorCountry(d, i));
+        .style('fill', (d) => stringToColorCountry(d));
 
       // Legend text
       legendItems

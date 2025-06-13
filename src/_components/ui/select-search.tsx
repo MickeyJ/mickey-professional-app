@@ -10,6 +10,7 @@ export interface SelectOption {
 interface SelectSearchProps {
   label?: string;
   placeholder?: string;
+  noOptionsText?: string;
   loading?: boolean;
   className?: string;
   persistInput?: boolean; // If true, keeps the search input
@@ -23,6 +24,7 @@ interface SelectSearchProps {
 export function SelectSearch({
   label,
   placeholder = 'Select Commodity',
+  noOptionsText = 'No options found',
   loading,
   className = '',
   persistInput,
@@ -135,7 +137,7 @@ export function SelectSearch({
                 </div>
               ))
             ) : (
-              <div className="p-2 text-center text-gray-500">No options found</div>
+              <div className="p-2 text-center text-gray-500">{noOptionsText}</div>
             )}
           </div>
         </div>

@@ -90,12 +90,16 @@ export function stringToColor(str: string): string {
   return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
-export const stringToColorCountry = (
-  area: { area_id: number; area_name: string; area_code: string },
-  index: number
-) => {
-  // Use a combination of area name and code to ensure distinct colors
-  const baseString = area.area_name + area.area_code + area.area_id + index;
+export const stringToColorCountry = (area: {
+  area_id: number;
+  area_name: string;
+  area_code: string;
+}) => {
+  // console.log(
+  //   `Generating color for area: ${area.area_name}, code: ${area.area_code}, id: ${area.area_id}, index: ${index} in file ${from}`
+  // );
+
+  const baseString = area.area_name + area.area_code + area.area_id + 1;
   return stringToColor(baseString);
 };
 

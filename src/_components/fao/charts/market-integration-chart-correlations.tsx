@@ -3,23 +3,23 @@ import * as d3 from 'd3';
 
 import { stringToColorCountry } from '@/lib/utils';
 import type {
-  FAOMarketIntegration,
+  FAOMarketIntegrationCorrelationData,
   // FAOMarketIntegrationComparison
 } from '@/types';
 
-interface MarketIntegrationChartProps {
-  data: FAOMarketIntegration | null;
+interface MarketIntegrationCorrelationsChartProps {
+  data: FAOMarketIntegrationCorrelationData | null;
   width?: number;
   height?: number;
   loading?: boolean;
 }
 
-export default function MarketIntegrationChart({
+export default function MarketIntegrationCorrelationsChart({
   data,
   loading,
   width = 800,
-  height = 500,
-}: MarketIntegrationChartProps) {
+  height = 1000,
+}: MarketIntegrationCorrelationsChartProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState({ width, height });
 
@@ -43,6 +43,8 @@ export default function MarketIntegrationChart({
   useEffect(() => {
     if (!svgRef.current) return;
 
+    // console.log('Rendering Market Integration Chart with data:', data);
+
     d3.select(svgRef.current).selectAll('*').remove();
 
     // Adjusted margins for better spacing
@@ -53,8 +55,7 @@ export default function MarketIntegrationChart({
     const svg = d3
       .select(svgRef.current)
       .attr('width', dimensions.width)
-      .attr('height', dimensions.height)
-      .attr('overflow-y', 'scroll');
+      .attr('height', dimensions.height);
 
     const chartGroup = svg
       .append('g')
@@ -115,7 +116,7 @@ export default function MarketIntegrationChart({
         .style('font-size', '11px')
         .style('fill', 'var(--color-base-content)')
         .style('stroke-width', 0.75)
-        .style('stroke', (d) => stringToColorCountry(d.country_pair.country1, 0))
+        .style('stroke', (d) => stringToColorCountry(d.country_pair.country1))
         .text((d) => `${d.country_pair.country1.area_name}`);
 
       tracks
@@ -127,7 +128,7 @@ export default function MarketIntegrationChart({
         .style('font-size', '11px')
         .style('fill', 'var(--color-base-content)')
         .style('stroke-width', 0.75)
-        .style('stroke', (d) => stringToColorCountry(d.country_pair.country2, 0))
+        .style('stroke', (d) => stringToColorCountry(d.country_pair.country2))
         .text((d) => `${d.country_pair.country2.area_name}`);
 
       // Add integration level indicator
@@ -163,7 +164,6 @@ export default function MarketIntegrationChart({
 
         const { country1, country2 } = trackData.country_pair;
 
-        console.log('trackData', trackData);
         const timeWithCountries = trackData.time_series.map((d) => ({
           year: d.year,
           price1: d.price1,
@@ -173,13 +173,15 @@ export default function MarketIntegrationChart({
           country2,
         }));
 
+        // console.log('timeWithCountries', timeWithCountries);
+
         // Draw line for country 1
         track
           .append('path')
           .datum(timeWithCountries)
           .attr('fill', 'none')
           .attr('stroke', (d) => {
-            return stringToColorCountry(d[0].country1, 0);
+            return stringToColorCountry(d[0].country1);
           })
           .attr('stroke-width', 2)
           .attr('opacity', 0.8)
@@ -191,7 +193,7 @@ export default function MarketIntegrationChart({
           .datum(timeWithCountries)
           .attr('fill', 'none')
           .attr('stroke', (d) => {
-            return stringToColorCountry(d[0].country2, 0);
+            return stringToColorCountry(d[0].country2);
           })
           .attr('stroke-width', 2)
           .attr('opacity', 0.8)
@@ -295,6 +297,7 @@ export default function MarketIntegrationChart({
         className="w-full"
         preserveAspectRatio="xMidYMid meet"
       />
+
       {!(data && data.comparisons_count) && !loading && (
         <div className=" flex items-center justify-center">
           <p className="text-gray-500 text-sm">Choose a commodity and some countries!</p>

@@ -1,54 +1,53 @@
 import { faoApi } from '@/config';
 import type {
-  FAOAreasResponse,
-  FAOMarketIntegration,
+  FAOMarketIntegrationComparisonData,
+  FAOMarketIntegrationCorrelationData,
   FAOMarketIntegrationCountries,
   FAOMarketIntegrationItems,
-  FAOMultiLineChartData,
+  // FAOMultiLineChartData,
 } from '@/types';
 
-export const getFAOAreasForItem = async (itemCode: string): Promise<FAOAreasResponse> => {
-  const response = await faoApi.get<FAOAreasResponse>(
-    `/v1/prices/multi-line/available-areas?item_code=${itemCode}`
-  );
-  return response.data;
-};
-
-export const getFAOMultiLineChartData = async (
-  itemCode: string,
-  areaCodes: string[]
-): Promise<FAOMultiLineChartData> => {
-  // areaCodes looks like: 'area_codes=123&area_codes=456'
-  const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
-  const response = await faoApi.get<FAOMultiLineChartData>(
-    `/v1/prices/multi-line/price-data?item_code=${itemCode}&year_start=1990&year_end=2024&${areaCodeQueries}`
-  );
-  return response.data;
-};
-
-export const getFAOMarketIntegrationItems = async (): Promise<FAOMarketIntegrationItems> => {
-  const response = await faoApi.get<FAOMarketIntegrationItems>(
-    `/v1/prices/market-integration/items`
-  );
+export const getFAOMarketIntegrationItems = async (
+  elementCode: string
+): Promise<FAOMarketIntegrationItems> => {
+  const url = `/v1/market-integration/items?element_code=${elementCode}`;
+  console.log(`\n📨 ITEMS - ${url}`);
+  const response = await faoApi.get<FAOMarketIntegrationItems>(url);
   return response.data;
 };
 
 export const getFAOMarketIntegrationCountries = async (
-  itemCode: string
+  itemCode: string,
+  elementCode: string
 ): Promise<FAOMarketIntegrationCountries> => {
-  const response = await faoApi.get<FAOMarketIntegrationCountries>(
-    `/v1/prices/market-integration/available-countries?item_code=${itemCode}`
-  );
+  const url = `/v1/market-integration/available-countries?item_code=${itemCode}&element_code=${elementCode}`;
+  console.log(`\n📨 COUNTRIES - ${url}`);
+  const response = await faoApi.get<FAOMarketIntegrationCountries>(url);
   return response.data;
 };
 
-export const getFAOMarketIntegrationData = async (
+export const getFAOMarketIntegrationComparisonData = async (
   itemCode: string,
+  elementCode: string,
   areaCodes: string[]
-): Promise<FAOMarketIntegration> => {
+): Promise<FAOMarketIntegrationComparisonData> => {
+  // areaCodes looks like: 'area_codes=123&area_codes=456'
+
   const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
-  const response = await faoApi.get<FAOMarketIntegration>(
-    `/v1/prices/market-integration/data?item_code=${itemCode}&${areaCodeQueries}`
-  );
+  const url = `/v1/market-integration/comparison?item_code=${itemCode}&element_code=${elementCode}&year_start=1990&year_end=2024&${areaCodeQueries}`;
+  console.log(`\n📨 COMPARISON - ${url}`);
+  const response = await faoApi.get<FAOMarketIntegrationComparisonData>(url);
+  return response.data;
+};
+
+export const getFAOMarketIntegrationCorrelationsData = async (
+  itemCode: string,
+  elementCode: string,
+  areaCodes: string[]
+): Promise<FAOMarketIntegrationCorrelationData> => {
+  const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
+  const url = `/v1/market-integration/correlations?item_code=${itemCode}&element_code=${elementCode}&${areaCodeQueries}`;
+  console.log(`\n📨 CORRELATIONS - ${url}`);
+  const response = await faoApi.get<FAOMarketIntegrationCorrelationData>(url);
   return response.data;
 };

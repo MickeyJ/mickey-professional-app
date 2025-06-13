@@ -1,9 +1,25 @@
-import PriceComparisonContainer from './container';
+// app/market-integration/comparison/page.tsx
+'use client';
+
+import { useMarketIntegration } from '../context';
+import Wrapper from '../wrapper';
+import PriceComparisonContainer from './comparison-container';
 
 export default function PriceComparisonPage() {
+  const { selectedItem, selectedElement, selectedCountries, isElementChanging } =
+    useMarketIntegration();
+
   return (
     <div className="mx-auto p-4 pt-1">
-      <PriceComparisonContainer />
+      <Wrapper>
+        <PriceComparisonContainer
+          selectedItem={selectedItem}
+          selectedElement={selectedElement}
+          selectedCountries={selectedCountries}
+          isElementChanging={isElementChanging}
+        />
+      </Wrapper>
+
       <div className="mx-1 rounded-md bg-base-200 p-4 mt-4">
         <h4 className="text-md font-bold">About the Data</h4>
         <p className="text-dim text-sm">

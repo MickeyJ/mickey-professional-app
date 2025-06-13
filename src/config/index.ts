@@ -3,6 +3,7 @@ import axios from 'axios';
 const config = {
   FORM: {
     MAX_MESSAGE_LENGTH: 200,
+    MAX_MARKET_INTEGRATION_COUNTRIES: 5,
   },
   URL: {
     API: {

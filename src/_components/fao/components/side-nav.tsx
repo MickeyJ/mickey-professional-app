@@ -15,16 +15,21 @@ interface NavSection {
 
 const navSections: NavSection[] = [
   {
-    title: 'Price & Market Analysis',
+    title: 'Market Integration',
     items: [
       {
-        label: 'Price Comparison',
-        href: '/explore-fao/dashboard/price-comparison',
+        label: 'Comparison',
+        href: '/explore-fao/dashboard/market-integration/comparison',
         description: 'Compare market volatility across time periods',
       },
       {
-        label: 'Market Integration',
-        href: '/explore-fao/dashboard/market-integration',
+        label: 'Correlation',
+        href: '/explore-fao/dashboard/market-integration/correlation',
+        description: 'Analyze price correlations between regions',
+      },
+      {
+        label: 'Network',
+        href: '/explore-fao/dashboard/market-integration/network',
         description: 'Analyze price correlations between regions',
       },
     ],
@@ -97,16 +102,17 @@ const navSections: NavSection[] = [
 
 export function Sidenav() {
   const pathname = usePathname();
-  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const [expandedSections, setExpandedSections] = useState<string[]>([navSections[0].title]); // Start with the first section expanded
 
-  // Set expanded sections after mount (client-side only)
   useEffect(() => {
     const activeSections = navSections
       .filter((section) => section.items.some((item) => item.href === pathname))
       .map((section) => section.title);
 
-    setExpandedSections(activeSections);
-  }, []); // Re-run when pathname changes
+    if (activeSections.length) {
+      setExpandedSections(activeSections);
+    }
+  }, [pathname]); // Re-run when pathname changes
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) =>
