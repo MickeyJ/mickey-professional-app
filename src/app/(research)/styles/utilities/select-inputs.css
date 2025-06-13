@@ -52,7 +52,7 @@
   @apply absolute z-50 w-full mt-1 rounded-lg shadow-lg overflow-hidden;
   background-color: var(--color-base-1-bg);
   border: 1px solid var(--color-base-2-brdr);
-  max-height: 15rem;
+  max-height: 30rem;
 }
 
 @utility dropdown-search {
@@ -63,11 +63,13 @@
 
 @utility dropdown-list {
   @apply overflow-y-auto;
-  max-height: 12rem;
+  max-height: 30rem;
 }
 
 @utility dropdown-item {
   @apply p-2 flex items-center cursor-pointer transition-colors;
+
+  border-bottom: 1px solid var(--color-base-1-brdr);
 
   &:hover {
     background-color: var(--color-base-2-bg);

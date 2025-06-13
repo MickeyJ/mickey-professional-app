@@ -1,54 +1,52 @@
 import { faoApi } from '@/config';
 import type {
-  FAOAreasResponse,
-  FAOMarketIntegration,
+  FAOMarketIntegrationComparisonData,
+  FAOMarketIntegrationCorrelationData,
   FAOMarketIntegrationCountries,
   FAOMarketIntegrationItems,
-  FAOMultiLineChartData,
+  // FAOMultiLineChartData,
 } from '@/types';
 
-export const getFAOAreasForItem = async (itemCode: string): Promise<FAOAreasResponse> => {
-  const response = await faoApi.get<FAOAreasResponse>(
-    `/v1/prices/multi-line/available-areas?item_code=${itemCode}`
-  );
-  return response.data;
-};
-
-export const getFAOMultiLineChartData = async (
+export const getFAOMarketIntegrationComparisonData = async (
   itemCode: string,
+  elementCode: string,
   areaCodes: string[]
-): Promise<FAOMultiLineChartData> => {
+): Promise<FAOMarketIntegrationComparisonData> => {
   // areaCodes looks like: 'area_codes=123&area_codes=456'
   const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
-  const response = await faoApi.get<FAOMultiLineChartData>(
-    `/v1/prices/multi-line/price-data?item_code=${itemCode}&year_start=1990&year_end=2024&${areaCodeQueries}`
+  const response = await faoApi.get<FAOMarketIntegrationComparisonData>(
+    `/v1/market-integration/comparison?item_code=${itemCode}&element_code=${elementCode}&year_start=1990&year_end=2024&${areaCodeQueries}`
   );
   return response.data;
 };
 
-export const getFAOMarketIntegrationItems = async (): Promise<FAOMarketIntegrationItems> => {
+export const getFAOMarketIntegrationItems = async (
+  elementCode: string
+): Promise<FAOMarketIntegrationItems> => {
   const response = await faoApi.get<FAOMarketIntegrationItems>(
-    `/v1/prices/market-integration/items`
+    `/v1/market-integration/items?element_code=${elementCode}`
   );
   return response.data;
 };
 
 export const getFAOMarketIntegrationCountries = async (
-  itemCode: string
+  itemCode: string,
+  elementCode: string
 ): Promise<FAOMarketIntegrationCountries> => {
   const response = await faoApi.get<FAOMarketIntegrationCountries>(
-    `/v1/prices/market-integration/available-countries?item_code=${itemCode}`
+    `/v1/market-integration/available-countries?item_code=${itemCode}&element_code=${elementCode}`
   );
   return response.data;
 };
 
-export const getFAOMarketIntegrationData = async (
+export const getFAOMarketIntegrationCorrelationsData = async (
   itemCode: string,
+  elementCode: string,
   areaCodes: string[]
-): Promise<FAOMarketIntegration> => {
+): Promise<FAOMarketIntegrationCorrelationData> => {
   const areaCodeQueries = areaCodes.map((code) => `area_codes=${code}`).join('&');
-  const response = await faoApi.get<FAOMarketIntegration>(
-    `/v1/prices/market-integration/data?item_code=${itemCode}&${areaCodeQueries}`
+  const response = await faoApi.get<FAOMarketIntegrationCorrelationData>(
+    `/v1/market-integration/correlations?item_code=${itemCode}&element_code=${elementCode}&${areaCodeQueries}`
   );
   return response.data;
 };

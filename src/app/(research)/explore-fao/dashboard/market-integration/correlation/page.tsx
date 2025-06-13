@@ -1,9 +1,22 @@
-import MarketIntegrationContainer from './container';
+// app/market-integration/correlation/page.tsx
+'use client';
 
-export default function MarketIntegrationPage() {
+import { useMarketIntegration } from '../context';
+import Wrapper from '../wrapper';
+import PriceCorrelationContainer from './correlation-container';
+
+export default function PriceCorrelationPage() {
+  const { selectedItem, selectedElement, selectedCountries } = useMarketIntegration();
+
   return (
     <div className="mx-auto p-4 pt-1">
-      <MarketIntegrationContainer />
+      <Wrapper>
+        <PriceCorrelationContainer
+          selectedItem={selectedItem}
+          selectedElement={selectedElement}
+          selectedCountries={selectedCountries}
+        />
+      </Wrapper>
       <div className="mx-1 rounded-md bg-base-200 p-4 mt-4">
         <h4 className="text-md font-bold">About the Data</h4>
         <p className="text-dim text-sm">
@@ -12,6 +25,7 @@ export default function MarketIntegrationPage() {
           reflected in others through trade and arbitrage—like ripples spreading across connected
           pools.
         </p>
+        <br />
         <p className="text-dim text-sm">
           These charts show price movements over time, with each track comparing two countries.
           Parallel lines indicate integrated markets (prices rising and falling together), while

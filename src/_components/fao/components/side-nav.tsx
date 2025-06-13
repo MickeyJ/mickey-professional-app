@@ -15,16 +15,21 @@ interface NavSection {
 
 const navSections: NavSection[] = [
   {
-    title: 'Price & Market Analysis',
+    title: 'Market Integration',
     items: [
       {
-        label: 'Price Comparison',
-        href: '/explore-fao/dashboard/price-comparison',
+        label: 'Comparison',
+        href: '/explore-fao/dashboard/market-integration/comparison',
         description: 'Compare market volatility across time periods',
       },
       {
-        label: 'Market Integration',
-        href: '/explore-fao/dashboard/market-integration',
+        label: 'Correlation',
+        href: '/explore-fao/dashboard/market-integration/correlation',
+        description: 'Analyze price correlations between regions',
+      },
+      {
+        label: 'Network',
+        href: '/explore-fao/dashboard/market-integration/network',
         description: 'Analyze price correlations between regions',
       },
     ],
