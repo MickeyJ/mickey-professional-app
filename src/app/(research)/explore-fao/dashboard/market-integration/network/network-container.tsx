@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import MarketIntegrationCorrelationsChart from '@/_components/fao/charts/market-integration-chart-correlations';
+import MarketIntegrationNetworkChart from '@/_components/fao/charts/market-integration-chart-network';
 // import { YearRangeSlider } from '@/_components/fao/ui/year-range-slider';
 import { getFAOMarketIntegrationCorrelationsData } from '@/api';
 import type {
@@ -10,7 +10,7 @@ import type {
   FAOMarketIntegrationCorrelationData,
 } from '@/types';
 
-export default function PriceCorrelationContainer({
+export default function PriceNetworkContainer({
   selectedItem,
   selectedElement,
   selectedCountries,
@@ -68,7 +68,7 @@ export default function PriceCorrelationContainer({
         </div>
       )}
       {correlationData ? (
-        <MarketIntegrationCorrelationsChart
+        <MarketIntegrationNetworkChart
           data={correlationData}
           loading={loadingIntegrationData}
           width={800}

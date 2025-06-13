@@ -14,6 +14,7 @@ export default function PriceComparisonContainer({
   selectedItem,
   selectedElement,
   selectedCountries,
+  isElementChanging,
 }: FAOMarketIntegrationContainerProps) {
   const [startYear, setStartYear] = useState<number>(1990);
   const [endYear, setEndYear] = useState<number>(2024);
@@ -56,6 +57,10 @@ export default function PriceComparisonContainer({
 
   useEffect(() => {
     const prevSelectedAreas = prevSelectedAreasRef.current;
+    // Don't fetch if element is changing - wait for countries to update
+    if (isElementChanging) {
+      return;
+    }
 
     if (selectedItem && selectedCountries.length) {
       const fetchComparisonData = async () => {
@@ -70,11 +75,10 @@ export default function PriceComparisonContainer({
             selectedElement.value,
             selectedCountries.map((area) => area.area_code)
           );
-          // console.log('Fetched Comparison Data:', data);
           setComparisonData(data);
         } catch (err: any) {
           console.error('Error fetching chart data:', err);
-          setFetchError(err.response?.data.error.message);
+          setFetchError(err.response?.data.error.message || 'Unknown Server Error');
         } finally {
           setLoadingData(false);
         }
@@ -85,7 +89,7 @@ export default function PriceComparisonContainer({
       setComparisonData(null); // Reset chart data if no item or areas are selected
     }
     prevSelectedAreasRef.current = selectedCountries;
-  }, [selectedItem, selectedElement, selectedCountries]);
+  }, [selectedItem, selectedElement, selectedCountries, isElementChanging]);
 
   return (
     <div className="mx-auto">

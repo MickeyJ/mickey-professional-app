@@ -24,6 +24,8 @@ interface MarketIntegrationContextType {
   faoElementOptions: { label: string; value: string }[];
   selectedElement: { label: string; value: string };
   setSelectedElement: (element: { label: string; value: string }) => void;
+  isElementChanging: boolean;
+  setIsElementChanging: (isChanging: boolean) => void;
 }
 
 const MarketIntegrationContext = createContext<MarketIntegrationContextType | undefined>(undefined);
@@ -50,18 +52,18 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
   const [faoCountries, setFAOCountries] = useState<FAOMarketIntegrationCountry[]>([]);
   const [selectedCountries, setSelectedCountries] = useState<FAOMarketIntegrationCountry[]>([]);
 
+  const [isElementChanging, setIsElementChanging] = useState<boolean>(false);
   const [selectedElement, setSelectedElement] = useState<{ label: string; value: string }>(
     faoElementOptions[0]
   );
 
-  // Fetch items on mount
+  // Fetch items on mount or when element changes
   useEffect(() => {
     const fetchItems = async () => {
       try {
         setLoadingItems(true);
         setItemsError('');
         const data = await getFAOMarketIntegrationItems(selectedElement.value);
-        console.log('Fetched FAO Items:', data);
         setFAOItems(data.items);
       } catch (err: any) {
         console.error('Error fetching data for item:', err);
@@ -77,6 +79,7 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
   // Fetch countries when item changes
   useEffect(() => {
     if (!selectedItem) {
+      setIsElementChanging(false);
       return;
     }
 
@@ -88,10 +91,7 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
           selectedItem.item_code,
           selectedElement.value
         );
-        console.log('Fetched FAO Countries:', data);
-
         setFAOCountries(data.countries);
-
         // Filter selected countries to only keep those available for the new item
         setSelectedCountries((prevSelected) => {
           const validCountries = prevSelected.filter((selected) =>
@@ -105,7 +105,7 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
 
           if (removedCountries.length > 0) {
             console.log(
-              'Removed countries not available for new item:',
+              '✂ MarketIntegrationProvider - Removed countries not available for new item:',
               removedCountries.map((c) => c.area_name).join(', ')
             );
           }
@@ -118,6 +118,7 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
         setSelectedCountries([]);
       } finally {
         setLoadingCountries(false);
+        setIsElementChanging(false);
       }
     };
 
@@ -140,6 +141,8 @@ export function MarketIntegrationProvider({ children }: { children: ReactNode })
         faoElementOptions,
         selectedElement,
         setSelectedElement,
+        isElementChanging,
+        setIsElementChanging,
       }}
     >
       {children}

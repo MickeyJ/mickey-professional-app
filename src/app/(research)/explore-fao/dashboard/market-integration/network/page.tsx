@@ -3,16 +3,16 @@
 
 import { useMarketIntegration } from '../context';
 import Wrapper from '../wrapper';
-import PriceCorrelationContainer from './correlation-container';
+import PriceNetworkContainer from './network-container';
 
-export default function PriceCorrelationPage() {
+export default function PriceNetworkPage() {
   const { selectedItem, selectedElement, selectedCountries, isElementChanging } =
     useMarketIntegration();
 
   return (
     <div className="mx-auto p-4 pt-1">
       <Wrapper>
-        <PriceCorrelationContainer
+        <PriceNetworkContainer
           selectedItem={selectedItem}
           selectedElement={selectedElement}
           selectedCountries={selectedCountries}

@@ -4,6 +4,7 @@
 import { MultiSelectSearch } from '@/_components/fao/ui/multiselect-search';
 import { Select } from '@/_components/fao/ui/select';
 import { SelectSearch } from '@/_components/fao/ui/select-search';
+import config from '@/config';
 import { stringToColorCountry } from '@/lib/utils';
 import type { FAOMarketIntegrationCountry } from '@/types';
 import { useMarketIntegration } from './context';
@@ -23,6 +24,8 @@ export default function MarketIntegrationWrapper({ children }: { children: React
     faoElementOptions,
     selectedElement,
     setSelectedElement,
+    // isElementChanging,
+    setIsElementChanging,
   } = useMarketIntegration();
 
   return (
@@ -47,8 +50,8 @@ export default function MarketIntegrationWrapper({ children }: { children: React
         </div>
         <div className="form-field">
           <MultiSelectSearch
-            maxSelected={4}
-            placeholder="Select up to 4 countries"
+            maxSelected={config.FORM.MAX_MARKET_INTEGRATION_COUNTRIES}
+            placeholder={`Select up to ${config.FORM.MAX_MARKET_INTEGRATION_COUNTRIES} countries`}
             showSelectedMessage={`${selectedCountries.length} ${selectedCountries.length === 1 ? 'country' : 'countries'} selected`}
             loading={loadingCountries}
             error={countriesError}
@@ -82,6 +85,7 @@ export default function MarketIntegrationWrapper({ children }: { children: React
             options={faoElementOptions}
             selected={selectedElement}
             onSelect={(option) => {
+              setIsElementChanging(true);
               setSelectedElement(option);
             }}
           />

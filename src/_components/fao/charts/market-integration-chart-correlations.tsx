@@ -43,7 +43,7 @@ export default function MarketIntegrationCorrelationsChart({
   useEffect(() => {
     if (!svgRef.current) return;
 
-    console.log('Rendering Market Integration Chart with data:', data);
+    // console.log('Rendering Market Integration Chart with data:', data);
 
     d3.select(svgRef.current).selectAll('*').remove();
 
@@ -164,7 +164,6 @@ export default function MarketIntegrationCorrelationsChart({
 
         const { country1, country2 } = trackData.country_pair;
 
-        console.log('trackData', trackData);
         const timeWithCountries = trackData.time_series.map((d) => ({
           year: d.year,
           price1: d.price1,
@@ -174,7 +173,7 @@ export default function MarketIntegrationCorrelationsChart({
           country2,
         }));
 
-        console.log('timeWithCountries', timeWithCountries);
+        // console.log('timeWithCountries', timeWithCountries);
 
         // Draw line for country 1
         track

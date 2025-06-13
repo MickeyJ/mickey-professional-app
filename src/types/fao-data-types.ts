@@ -45,6 +45,7 @@ export interface FAOMarketIntegrationContainerProps {
   selectedItem: FAOMarketIntegrationItem | null;
   selectedElement: { label: string; value: string };
   selectedCountries: FAOMarketIntegrationCountry[];
+  isElementChanging: boolean;
 }
 
 /*

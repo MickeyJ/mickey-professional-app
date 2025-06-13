@@ -6,7 +6,8 @@ import Wrapper from '../wrapper';
 import PriceComparisonContainer from './comparison-container';
 
 export default function PriceComparisonPage() {
-  const { selectedItem, selectedElement, selectedCountries } = useMarketIntegration();
+  const { selectedItem, selectedElement, selectedCountries, isElementChanging } =
+    useMarketIntegration();
 
   return (
     <div className="mx-auto p-4 pt-1">
@@ -15,6 +16,7 @@ export default function PriceComparisonPage() {
           selectedItem={selectedItem}
           selectedElement={selectedElement}
           selectedCountries={selectedCountries}
+          isElementChanging={isElementChanging}
         />
       </Wrapper>
 

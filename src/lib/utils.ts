@@ -99,7 +99,7 @@ export const stringToColorCountry = (area: {
   //   `Generating color for area: ${area.area_name}, code: ${area.area_code}, id: ${area.area_id}, index: ${index} in file ${from}`
   // );
 
-  const baseString = area.area_name + area.area_code + area.area_id;
+  const baseString = area.area_name + area.area_code + area.area_id + 1;
   return stringToColor(baseString);
 };
 
