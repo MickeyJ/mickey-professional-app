@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       new URL('https://restcountries.com/v3.1/**'),
       new URL('https://formspree.io/f/xdkgvdaq'),
       new URL('https://api.nal.usda.gov/fdc/v1/foods/**'),
-      new URL('https://zs39isn4zj.us-west-2.awsapprunner.com/**'),
+      new URL('https://kw2aqt7p3p.us-west-2.awsapprunner.com/**'),
       new URL('http://localhost:8000/**'),
     ],
   },
