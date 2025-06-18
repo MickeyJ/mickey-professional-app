@@ -43,7 +43,6 @@ export default function MarketIntegrationWrapper({ children }: { children: React
               selectedItem ? { label: selectedItem.name, value: selectedItem.item_code } : null
             }
             onSelect={(value) => {
-              console.log(`Selected item value: ${value}`);
               setSelectedItem(faoItems.find((item) => item.item_code == value) || null);
             }}
           />
@@ -56,11 +55,11 @@ export default function MarketIntegrationWrapper({ children }: { children: React
             loading={loadingCountries}
             error={countriesError}
             options={faoCountries.map((area) => ({
-              label: `${area.area_name} ($${area.avg_price})`,
+              label: `[${area.area_code}] ${area.area_name}`,
               value: area.area_code,
             }))}
             selected={selectedCountries.map((selectedArea) => ({
-              label: `${selectedArea.area_name} ($${selectedArea.avg_price})`,
+              label: `[${selectedArea.area_code}] ${selectedArea.area_name}`,
               value: selectedArea.area_code,
             }))}
             onSelect={(selectedOptions) =>

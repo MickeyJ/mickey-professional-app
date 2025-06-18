@@ -14,7 +14,7 @@ const config = {
       SPOONACULAR: 'https://api.spoonacular.com',
       FOOD_OASIS:
         process.env.NODE_ENV === 'production'
-          ? 'https://zs39isn4zj.us-west-2.awsapprunner.com'
+          ? 'https://kw2aqt7p3p.us-west-2.awsapprunner.com'
           : 'http://localhost:8000',
     },
   },
