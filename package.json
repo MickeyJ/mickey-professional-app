@@ -11,7 +11,8 @@
     "lint:fix": "eslint \"src/**/*.+(ts|tsx)\" --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "terraformat": "terraform fmt --recursive"
+    "terraformat": "terraform fmt --recursive",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -43,6 +44,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.4.2",
     "prettier-plugin-sort-json": "^4.1.1",
+    "sharp": "^0.34.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

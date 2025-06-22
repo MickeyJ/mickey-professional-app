@@ -18,28 +18,41 @@ const muli = Mulish({
   display: 'swap',
 });
 
+// src/app/(research)/layout.tsx
 export const metadata: Metadata = {
   title: 'FAO Data Explorer',
-  description: 'demonstration of SQL REST API version of the full FAO database',
+  description: 'Demonstration of SQL REST API version of the full FAO database',
   keywords: ['FAO', 'data', 'data analysis', 'rest api', 'sql', 'food', 'agriculture'],
   authors: [{ name: 'Mickey Malotte' }],
   creator: 'Mickey Malotte',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/icons/fao/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/fao/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/fao/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    shortcut: '/icons/fao/favicon.ico',
+    apple: '/icons/fao/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '192x192',
+        url: '/icons/fao/android-chrome-192x192.png',
+      },
+    ],
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://app.mickeymalotte.com/expore-fao',
+    url: 'https://app.mickeymalotte.com/explore-fao', // Fixed typo: expore → explore
     title: 'FAO Data Explorer',
-    description: 'demonstration of SQL REST API version of the full FAO database',
+    description: 'Demonstration of SQL REST API version of the full FAO database',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'FAO Data Explorer',
-    description: 'demonstration of SQL REST API version of the full FAO database',
+    description: 'Demonstration of SQL REST API version of the full FAO database',
   },
 };
 export default function RootLayout({
