@@ -4,3 +4,9 @@
 @import "./styles/base.css";
 @import "./styles/utilities.css";
 @import "./styles/components/index.css";
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+}

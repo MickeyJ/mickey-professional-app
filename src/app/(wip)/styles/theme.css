@@ -1,0 +1,16 @@
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-primary: #DAA520;
+  /* Yellow/Gold */
+  --color-secondary: #6B8E23;
+  /* Olive Green */
+  --color-accent: #A52A2A;
+  /* Brown Red */
+  --color-dark: #141414;
+  /* Dark Gray */
+  --color-light: #FAFAF8;
+  /* Off-white */
+}

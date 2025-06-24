@@ -28,6 +28,7 @@ const doto = Doto({
   display: 'swap',
 });
 
+// src/app/(main)/layout.tsx
 export const metadata: Metadata = {
   title: 'Mickey Malotte',
   description: 'Full-stack developer crafting clean, functional web applications',
@@ -35,9 +36,21 @@ export const metadata: Metadata = {
   authors: [{ name: 'Mickey Malotte' }],
   creator: 'Mickey Malotte',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: '/icons/portfolio/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/portfolio/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/portfolio/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    shortcut: '/icons/portfolio/favicon.ico',
+    apple: '/icons/portfolio/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '192x192',
+        url: '/icons/portfolio/android-chrome-192x192.png',
+      },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -48,10 +61,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Your Name | Developer',
+    title: 'Mickey Malotte',
     description: 'Full-stack developer crafting clean, functional web applications',
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
